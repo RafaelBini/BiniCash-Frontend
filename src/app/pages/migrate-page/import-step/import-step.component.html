@@ -1,0 +1,18 @@
+<div class="sources-container">
+    <div *ngFor="let source of sources" class="source">
+        <div style="min-width: 20%;">
+            {{source.name}}
+        </div>
+        <div class="saldo">
+            {{source.symbol}} {{source.balance}}
+        </div>
+        <div class="options">
+            <button mat-button class="options">
+                <mat-icon>upload</mat-icon> {{source.type}}
+            </button>
+            <button mat-button class="options">
+                <mat-icon>list</mat-icon> Manually
+            </button>
+        </div>
+    </div>
+</div>

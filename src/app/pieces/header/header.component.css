@@ -1,0 +1,29 @@
+.container{
+    background-color: black;
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.avatar{
+    background-color: whitesmoke;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bini-text{
+    color: white;
+}
+
+.cash-text{
+    color: rgb(0, 174, 255);
+}

@@ -1,0 +1,26 @@
+button{
+    background-color: black;
+    color: white;
+}
+.login-field{
+    padding: 5px;
+    border-radius: 3px;
+    width: 85%;
+    border: 0px;
+    outline: none;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background-color: whitesmoke;
+    width: 60%;
+    height: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 30px;
+}
