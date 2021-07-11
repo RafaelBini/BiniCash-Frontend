@@ -28,4 +28,8 @@ export class UserService {
     return this.http.get<any>(`${environment.apiHost}/user`, this.sharedService.getDefaultApiOptions())
   }
 
+  goToStep(step: number) {
+    return this.http.put(`${environment.apiHost}/user/routine-step`, { step: step }, this.sharedService.getDefaultApiOptions())
+  }
+
 }

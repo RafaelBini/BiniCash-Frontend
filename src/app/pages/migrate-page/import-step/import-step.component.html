@@ -1,18 +1,31 @@
 <div class="sources-container">
-    <div *ngFor="let source of sources" class="source">
+
+    <div *ngFor="let source of sources" class="source" [class.was_imported]="source.stagedBalance != 0">
         <div style="min-width: 20%;">
             {{source.name}}
         </div>
         <div class="saldo">
-            {{source.symbol}} {{source.balance}}
+            {{source.symbol}} {{(source.balance + source.stagedBalance) | number: '1.2-2'}}
         </div>
         <div class="options">
-            <button mat-button class="options">
+            <button *ngIf="source.stagedBalance != 0" mat-button class="options" (click)="undo(source)">
+                <mat-icon>undo</mat-icon>Undo
+            </button>
+            <button *ngIf="source.stagedBalance == 0" mat-button class="options" (click)="fileInput.click()">
                 <mat-icon>upload</mat-icon> {{source.type}}
+                <input type="file" #fileInput (input)="uploadFile($event, source, fileInput)" style="display: none;" />
             </button>
             <button mat-button class="options">
                 <mat-icon>list</mat-icon> Manually
             </button>
         </div>
+    </div>
+    <div class="block">
+        <mat-checkbox [(ngModel)]="canGoCheckbox">All sources have a real balance
+            value</mat-checkbox>
+    </div>
+    <div class="block">
+        <button matStepperNext [disabled]="!canGoCheckbox" mat-button (click)="goNextStep()"
+            class="default-button">Next</button>
     </div>
 </div>

@@ -33,7 +33,7 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['main'])
     },
       error => {
-        this.snack.open(error.error.msg)
+        this.snack.open(error.error.msg, undefined, { duration: 3500 })
       })
 
 

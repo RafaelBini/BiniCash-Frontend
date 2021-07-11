@@ -2,3 +2,27 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.default-button {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+.default-button:disabled {
+    background-color: transparent;
+    color: gray;
+    border: 1px dashed gray;
+}
+
+/* MAT STEPPER */
+.migrate-stepper .mat-step-header  {
+    pointer-events: none !important;
+}
+
+/* MAT TABLE */
+.mat-row {
+height: auto;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+    padding: 12px !important;
+}

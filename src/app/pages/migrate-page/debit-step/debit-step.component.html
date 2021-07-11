@@ -1,0 +1,43 @@
+<div class="btns-container">
+    <button mat-button matStepperPrevious (click)="goPrevious()">
+        <- Previous </button>
+</div>
+<div class="container">
+    <div class="left-container">
+
+    </div>
+    <div class="right-container">
+        <table mat-table [dataSource]="debits" matSort>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let element"> <input [(ngModel)]="element.description"
+                        (ngModelChange)="updateDescription(element)" type="text" /> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+                <td mat-cell *matCellDef="let element"> {{element.Source.Currency.symbol}} {{element.value}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="transactionDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.transactionDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sourceDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.sourceDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sourceName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
+                <td mat-cell *matCellDef="let element"> {{element.Source.name}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </div>
+</div>

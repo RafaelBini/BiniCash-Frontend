@@ -1,15 +1,18 @@
-<mat-horizontal-stepper>
-    <mat-step>
+<app-header></app-header>
+<mat-horizontal-stepper #stepper migrate-stepper [selectedIndex]="selectedIndex" (selectionChange)="loadData()"
+    class="migrate-stepper">
+    <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Import</ng-template>
         <app-import-step></app-import-step>
     </mat-step>
-    <mat-step>
+    <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Debits</ng-template>
+        <app-debit-step #debitStep></app-debit-step>
     </mat-step>
-    <mat-step>
+    <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Credits</ng-template>
     </mat-step>
-    <mat-step>
+    <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Finish</ng-template>
     </mat-step>
 </mat-horizontal-stepper>

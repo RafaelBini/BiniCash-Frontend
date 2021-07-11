@@ -9,6 +9,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,11 +22,13 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { HeaderComponent } from './pieces/header/header.component';
 import { InitialsPipe } from './pipes/initials.pipe';
 import { MigratePageComponent } from './pages/migrate-page/migrate-page.component';
-import { ImportStepComponent } from './pages/migrate-page/import-step/import-step.component'
+import { ImportStepComponent } from './pages/migrate-page/import-step/import-step.component';
+import { DebitStepComponent } from './pages/migrate-page/debit-step/debit-step.component'
 
 
 const MATERIAL_MODULES = [
-  MatSnackBarModule, MatButtonModule, MatStepperModule, MatIconModule
+  MatSnackBarModule, MatButtonModule, MatStepperModule, MatIconModule, MatCheckboxModule,
+  MatTableModule, MatSortModule
 ]
 
 @NgModule({
@@ -34,7 +39,8 @@ const MATERIAL_MODULES = [
     HeaderComponent,
     InitialsPipe,
     MigratePageComponent,
-    ImportStepComponent
+    ImportStepComponent,
+    DebitStepComponent
   ],
   imports: [
     BrowserModule,
