@@ -18,6 +18,10 @@ export class StagedTransactionService {
     return this.http.get<any>(`${environment.apiHost}/staged-transaction/balances-by-source`, this.sharedService.getDefaultApiOptions())
   }
 
+  getStagedBlancesByCategory() {
+    return this.http.get<any[]>(`${environment.apiHost}/staged-transaction/balances-by-category`, this.sharedService.getDefaultApiOptions())
+  }
+
   insertOfx(rawContent: any, source: any) {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/insert-ofx`, { rawContent, source }, this.sharedService.getDefaultApiOptions())
   }

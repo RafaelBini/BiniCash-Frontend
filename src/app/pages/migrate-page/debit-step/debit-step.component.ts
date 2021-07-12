@@ -20,8 +20,9 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   }
   @ViewChild(MatSort) sort: any;
   debits: any;
-
-  displayedColumns = ['description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
+  categories: any[] = [];
+  selectedCategory: any = undefined;
+  displayedColumns = ['category', 'description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
 
   ngOnInit(): void {
 
@@ -29,6 +30,10 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.debits.sort = this.sort;
+  }
+
+  selectCategory(category: any) {
+    this.selectedCategory = category;
   }
 
   goPrevious() {

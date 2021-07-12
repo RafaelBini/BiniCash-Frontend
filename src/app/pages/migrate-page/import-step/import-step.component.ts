@@ -19,16 +19,17 @@ export class ImportStepComponent implements OnInit {
 
   sources: any[] = [];
   canGoCheckbox: boolean = false;
+  @Output() updateData = new EventEmitter();
 
   async ngOnInit() {
-    this.updateSources()
+
   }
   goNextStep() {
     this.userService.goToStep(1).subscribe();
   }
 
   async updateSources() {
-    this.sources = await this.stagedTransactionService.getStagedBlancesBySource().toPromise();
+    this.updateData.emit()
     this.canGoCheckbox = false;
   }
 

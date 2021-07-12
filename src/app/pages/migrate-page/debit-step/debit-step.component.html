@@ -1,13 +1,35 @@
 <div class="btns-container">
     <button mat-button matStepperPrevious (click)="goPrevious()">
-        <- Previous </button>
+        Previous </button>
+
+    <div *ngIf="selectedCategory">Select transactions for {{selectedCategory.name}}</div>
+
+    <button mat-button matStepperPrevious (click)="goPrevious()">
+        Next</button>
 </div>
 <div class="container">
     <div class="left-container">
-
+        <table class="categories">
+            <tr class="category-header">
+                <td>Category</td>
+                <td>Debit</td>
+                <td>Balance</td>
+            </tr>
+            <tr *ngFor="let category of categories" [class.selected_category]="selectedCategory?.id == category.id"
+                (click)="selectCategory(category)">
+                <td>{{category.name}}</td>
+                <td>{{category.Currency.symbol}} {{category.debit}}</td>
+                <td>{{category.Currency.symbol}} {{category.balance}}</td>
+            </tr>
+        </table>
     </div>
     <div class="right-container">
         <table mat-table [dataSource]="debits" matSort>
+
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.Category ? element.Category.name : '---'}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>

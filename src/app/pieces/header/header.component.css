@@ -25,5 +25,5 @@
 }
 
 .cash-text{
-    color: rgb(0, 174, 255);
+    color: var(--primary);
 }
