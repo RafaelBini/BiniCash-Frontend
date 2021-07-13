@@ -4,7 +4,7 @@
 
     <div *ngIf="selectedCategory">Select transactions for {{selectedCategory.name}}</div>
 
-    <button mat-button matStepperPrevious (click)="goPrevious()">
+    <button [disabled]="!isReadyToGo()" mat-button matStepperNext (click)="goNext()">
         Next</button>
 </div>
 <div class="container">
@@ -18,13 +18,14 @@
             <tr *ngFor="let category of categories" [class.selected_category]="selectedCategory?.id == category.id"
                 (click)="selectCategory(category)">
                 <td>{{category.name}}</td>
-                <td>{{category.Currency.symbol}} {{category.debit}}</td>
-                <td>{{category.Currency.symbol}} {{category.balance}}</td>
+                <td style="color: darkred">{{category.Currency.symbol}} {{category.debit | number: '1.2-2'}}</td>
+                <td>{{category.Currency.symbol}} {{ (category.balance +
+                    category.debit + category.credit) | number: '1.2-2'}}</td>
             </tr>
         </table>
     </div>
     <div class="right-container">
-        <table mat-table [dataSource]="debits" matSort>
+        <table mat-table [dataSource]="debits" matSort [class.with_category_selected]="selectedCategory">
 
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
@@ -39,7 +40,8 @@
 
             <ng-container matColumnDef="value">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
-                <td mat-cell *matCellDef="let element"> {{element.Source.Currency.symbol}} {{element.value}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.Source.Currency.symbol}} {{element.value | number:
+                    '1.2-2'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="transactionDate">
@@ -58,7 +60,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row (click)="onDebitClick(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 
         </table>
     </div>

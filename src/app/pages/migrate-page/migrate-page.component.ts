@@ -56,19 +56,23 @@ export class MigratePageComponent implements OnInit {
       var transactions = await this.stagedTransactionService.get().toPromise();
       this.debitStep.debits.data = transactions.filter(t => t.value < 0);
 
-      var transactionsByCategory = await this.stagedTransactionService.getStagedBlancesByCategory().toPromise()
-
-      var categories = await this.categoryService.getMyCategories().toPromise();
-      categories = categories.map(c => {
-        return {
-          ...c,
-          balance: transactionsByCategory.find(t => t.id == c.id)?.balance || 0,
-          debit: transactionsByCategory.find(t => t.id == c.id)?.debit || 0,
-        }
-      })
-      this.debitStep.categories = categories;
+      this.updateCategories()
     }
 
+  }
+
+  async updateCategories() {
+    var transactionsByCategory = await this.stagedTransactionService.getStagedBlancesByCategory().toPromise()
+    var categories = await this.categoryService.getMyCategories().toPromise();
+    categories = categories.map(c => {
+      return {
+        ...c,
+        balance: transactionsByCategory.find(t => t.id == c.id)?.balance || 0,
+        debit: transactionsByCategory.find(t => t.id == c.id)?.stagedDebit || 0,
+        credit: transactionsByCategory.find(t => t.id == c.id)?.stagedCredit || 0,
+      }
+    })
+    this.debitStep.categories = categories;
   }
 
 }

@@ -23,7 +23,8 @@ import { HeaderComponent } from './pieces/header/header.component';
 import { InitialsPipe } from './pipes/initials.pipe';
 import { MigratePageComponent } from './pages/migrate-page/migrate-page.component';
 import { ImportStepComponent } from './pages/migrate-page/import-step/import-step.component';
-import { DebitStepComponent } from './pages/migrate-page/debit-step/debit-step.component'
+import { DebitStepComponent } from './pages/migrate-page/debit-step/debit-step.component';
+import { CreditStepComponent } from './pages/migrate-page/credit-step/credit-step.component'
 
 
 const MATERIAL_MODULES = [
@@ -40,7 +41,8 @@ const MATERIAL_MODULES = [
     InitialsPipe,
     MigratePageComponent,
     ImportStepComponent,
-    DebitStepComponent
+    DebitStepComponent,
+    CreditStepComponent
   ],
   imports: [
     BrowserModule,

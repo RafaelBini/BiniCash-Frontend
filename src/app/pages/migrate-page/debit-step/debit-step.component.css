@@ -30,10 +30,17 @@
 }
 
 input[type=text]{
-    padding: 6px;
-    border: none;
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
     outline: none;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.308);
+}
+input[type=text]:hover{
+    border: 1px dashed gray;
+}
+input[type=text]:focus{
+    border: 1px solid gray;
 }
 
 table.categories{
@@ -60,4 +67,14 @@ tr.category-header{
 
 .selected_category{
     background-color: var(--primary);
+}
+
+.with_category_selected {
+    cursor: crosshair;
+}
+.with_category_selected tr:hover{
+    background-color: var(--primary);
+}
+.with_category_selected input[type=text]{
+    pointer-events: none;
 }

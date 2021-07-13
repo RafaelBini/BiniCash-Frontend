@@ -7,10 +7,11 @@
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Debits</ng-template>
-        <app-debit-step #debitStep></app-debit-step>
+        <app-debit-step (updateCategories)="updateCategories()"></app-debit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Credits</ng-template>
+        <app-credit-step></app-credit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Finish</ng-template>

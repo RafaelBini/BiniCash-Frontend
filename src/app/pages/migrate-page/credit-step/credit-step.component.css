@@ -1,0 +1,30 @@
+.container{
+    background-color: whitesmoke;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.left-container{
+    width: 29.5%;
+    height: 70vh !important;
+    overflow: auto;
+}
+
+.right-container{
+    background-color: whitesmoke;
+    width: 70%;
+    height: 70vh !important;
+    overflow: auto;
+}
+
+.btns-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: whitesmoke;
+}
