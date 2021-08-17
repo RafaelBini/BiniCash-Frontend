@@ -1,0 +1,55 @@
+
+
+.panel{
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    width: 100%;
+    margin-left: 4px;
+    border-radius: 7px;
+}
+
+.conditional{
+    width: 100%;
+    padding: 7px;
+    background-color: rgba(0, 0, 0, 0.048);
+    box-sizing: border-box;
+    margin-top: 1px;
+}
+
+.title{
+    font-size: 19px;
+    padding: 10px;
+    font-weight: 650;
+}
+
+.selected_rule{
+    padding: 9px;
+    background-color: rgba(173, 216, 230, 0.123);
+    border: 1px dashed gray;
+    border-radius: 3px;
+}
+
+.btn_container{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.delete_btn{
+    background-color: var(--danger);
+    color: white;
+}
+
+.big_title_container{
+    width: 100%;
+    text-align: center;
+}

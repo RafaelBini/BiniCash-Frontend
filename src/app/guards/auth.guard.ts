@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     try {
-      await this.userService.isTokenValid().toPromise()
+      await this.userService.updateMe()
       return true;
     }
     catch (reason) {

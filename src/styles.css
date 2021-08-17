@@ -3,17 +3,18 @@
 :root {
     --primary: rgb(0, 174, 255);
     --secondary: whitesmoke;
+    --danger: rgb(248, 113, 113);
   }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.default-button {
-    background-color: black;
+.default_button {
+    background-color: var(--primary);
     color: white;
-    border: 1px solid black;
+    border: 1px solid  var(--primary);
 }
-.default-button:disabled {
+.default_button:disabled {
     background-color: transparent;
     color: gray;
     border: 1px dashed gray;
@@ -30,4 +31,31 @@ height: auto;
 }
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
     padding: 12px !important;
+}
+
+.default_input{
+    padding: 5px;
+    border-radius: 3px;
+    width: 85%;
+    border: 1px dashed lightgrey;
+    outline: none;
+}
+.default_input:focus{
+    border: 1px solid grey;
+}
+
+.mat-dialog-container{
+    position: relative;
+}
+
+.btn_dialog_close{
+    position: absolute !important;
+    top: 0px;
+    right: 0px;
+    color: gray;
+    opacity: 0.6;
+}
+.btn_dialog_close:hover{
+    opacity: 1;
+    color: var(--danger);
 }

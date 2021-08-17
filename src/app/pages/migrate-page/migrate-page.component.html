@@ -1,19 +1,51 @@
 <app-header></app-header>
-<mat-horizontal-stepper #stepper migrate-stepper [selectedIndex]="selectedIndex" (selectionChange)="loadData($event)"
-    class="migrate-stepper">
+<div class="header">
+    <a mat-icon-button routerLink="/main">
+        <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button (click)="openManageRulesDialog()" mat-menu-item>
+                <mat-icon>settings</mat-icon>
+                Manage Rules
+            </button>
+            <button (click)="runRules()" mat-menu-item>
+                <mat-icon>rule</mat-icon>
+                Run Rules
+            </button>
+            <button (click)="cancel()" class="delete_btn" mat-menu-item>
+                <mat-icon class="delete_btn">delete</mat-icon>
+                Cancel Migration
+            </button>
+        </mat-menu>
+    </div>
+</div>
+
+<mat-horizontal-stepper #stepper migrate-stepper (selectionChange)="loadData($event)" class="migrate-stepper">
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Import</ng-template>
-        <app-import-step (updateData)="loadData(undefined)"></app-import-step>
+        <app-import-step (updateData)="loadData({selectedIndex: 0})"></app-import-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Debits</ng-template>
-        <app-debit-step (updateCategories)="updateCategories()"></app-debit-step>
+        <app-debit-step (updateCategories)="updateCategories()" (refresh)="loadData({selectedIndex: 1})"
+            (refreshStep)="refreshStep()"></app-debit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Credits</ng-template>
-        <app-credit-step></app-credit-step>
+        <app-credit-step (refresh)="loadData({selectedIndex: 2})" (refreshStep)="refreshStep()">
+        </app-credit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Finish</ng-template>
+        <app-finish-step (refreshStep)="refreshStep()"></app-finish-step>
     </mat-step>
 </mat-horizontal-stepper>
+
+<div class="footer">
+
+</div>

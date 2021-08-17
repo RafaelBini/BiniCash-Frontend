@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<a mat-icon-button routerLink="/main">
+    <mat-icon>arrow_back</mat-icon>
+</a>
+
+<div class="big_container">
+    <div class="migrations_container">
+        <div class="t2">
+            Select a migration date to revert
+        </div>
+        <div *ngFor="let migration of migrations" (click)="select(migration)" (mouseleave)="onLeave()"
+            (mouseover)="onHover(migration)" class="migration" [class.selected]="migrationSelected == migration.date"
+            [class.to_destroy]="migrationOnHover != '' && migrationOnHover < migration.date">
+            {{migration.readbleDate}}
+        </div>
+    </div>
+    <div class='board'>
+        <div style="padding: 15px;">
+            <h2>Migration: {{migrationSelected}}</h2>
+            <button class="revert_btn" [disabled]="migrations[0].date == migrationSelected" mat-button>Revert to this
+                point</button>
+        </div>
+        <table>
+            <tr>
+                <td>Source</td>
+                <td>Balance</td>
+            </tr>
+            <tr *ngFor="let source of sources">
+                <td>{{source.name}}</td>
+                <td>{{source.symbol}} {{source.balance}}</td>
+            </tr>
+        </table>
+        <div style="padding: 17px; text-align: center;">
+
+        </div>
+
+    </div>
+</div>

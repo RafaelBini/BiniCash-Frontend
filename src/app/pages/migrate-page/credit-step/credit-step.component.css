@@ -18,6 +18,11 @@
     width: 70%;
     height: 70vh !important;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
 }
 
 .btns-container{
@@ -27,4 +32,121 @@
     align-items: center;
     justify-content: space-between;
     background-color: whitesmoke;
+}
+
+input[type=text]{
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    background-color: rgba(78, 153, 75, 0.075);
+}
+input[type=text]:hover{
+    border: 1px dashed gray;
+}
+input[type=text]:focus{
+    border: 1px solid gray;
+}
+
+table.categories{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.credits_to_describe{
+    width: 100%;
+    border-collapse: collapse;
+}
+.credits_to_describe td{
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.466);
+}
+
+.categories td{
+    border-bottom: 2px dashed rgb(182, 182, 182);
+    padding: 10px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    user-select: none;
+}
+
+tr.category-header{
+    font-weight: 300;
+}
+
+.categories tr:not(.category-header):hover{
+    background-color: var(--primary);
+    cursor: pointer;
+}
+
+.selected_category{
+    background-color: var(--primary) !important;
+}
+
+.negative_category{
+    background-color: rgba(241, 135, 135, 0.226);
+}
+
+.back_btn{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.with_category_selected {
+    cursor: crosshair;
+}
+.with_category_selected tr:hover{
+    background-color: var(--primary);
+}
+.with_category_selected input[type=text]{
+    pointer-events: none;
+}
+
+.right-item{
+    padding: 12px;
+    width: fit-content;
+    text-align: center;
+}
+
+.options-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.option-item{
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.034);
+    text-align: center;
+    margin: 4px;
+}
+.option-item:hover{
+    background-color: var(--primary);
+    cursor: pointer;
+}
+
+.option-header{
+    font-weight: 500;
+}
+
+.total-to-distribute{
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: lightgray;
+    border-radius: 2px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.total-to-distribute-active{
+    background-color: rgba(144, 238, 144, 0.507);
 }

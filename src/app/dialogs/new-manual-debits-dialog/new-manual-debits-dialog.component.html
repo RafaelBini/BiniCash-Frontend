@@ -1,0 +1,54 @@
+<div class='inputs_container'>
+    <div style="text-align: center;">
+        <h1>Add Transactions</h1>
+    </div>
+    <div>
+        <input class="default_input" type="date" [(ngModel)]="newTransaction.transactionDate" />
+    </div>
+    <div>
+        <input class="default_input" type="text" placeholder="Description"
+            [(ngModel)]="newTransaction.sourceDescription" />
+    </div>
+    <div>
+        <input class="default_input" type="text" [allowNegativeNumbers]="true" [prefix]="source?.symbol + ' '"
+            mask="separator.2" thousandSeparator="," separatorLimit="1000000000" [(ngModel)]="newTransaction.value" />
+    </div>
+    <div style="text-align: center;">
+        <button (click)="add()" class="insert_button" mat-button>
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+
+<div class='transactions_container'>
+    <table>
+        <tr>
+            <td>Date</td>
+            <td>Value</td>
+            <td>Description</td>
+            <td></td>
+        </tr>
+        <tr *ngFor='let transaction of transactions'>
+            <td>{{transaction.transactionDate | shortDate}}</td>
+            <td>{{source?.symbol}} {{transaction.value | number:'1.2-2':'en-US'}}</td>
+            <td>{{transaction.sourceDescription}}</td>
+            <td>
+                <button mat-icon-button>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class='inputs_container'>
+    <div style="text-align: center;">
+
+    </div>
+    <button [disabled]="transactions.length <= 0" (click)='finish()' mat-button class="insert_button">
+        It´s done, finish!
+    </button>
+</div>
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

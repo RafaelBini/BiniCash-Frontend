@@ -1,0 +1,67 @@
+<div class='container'>
+    <div class="btns-container">
+        <button mat-button (click)="goPrevious()">
+            Previous
+        </button>
+    </div>
+    <div class="confirmation_container">
+        <div>
+            <h2>Almost done!</h2>
+            <div class="total_container">
+                <div class="total_card" *ngFor="let currency of currencies">
+                    {{currency.symbol}} {{currency.value.total | number: '1.2-2':'en-US'}}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <mat-checkbox [(ngModel)]="canFinish">I confirm that all values are correct accordently to real ones
+            </mat-checkbox>
+        </div>
+
+        <div>
+            <button (click)="finish()" [disabled]='!canFinish' class="default_button" mat-button>
+                FINISH MIGRATION
+            </button>
+        </div>
+    </div>
+
+
+    <table class="big_table">
+        <tr>
+            <td>Total</td>
+            <td>Sources</td>
+            <td>Categories</td>
+        </tr>
+        <tr *ngFor="let currency of currencies" class="total_rows">
+            <td>{{currency.symbol}} {{currency.value.total | number: '1.2-2':'en-US'}}</td>
+            <td>
+                <div class="little_table_container">
+                    <table>
+                        <tr *ngFor="let source of currency.value.sources">
+                            <td>{{source.name}}</td>
+                            <td>{{currency.symbol}} {{(source.balance + source.stagedBalance) | number:
+                                '1.2-2':'en-US'}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </td>
+            <td>
+                <div class="little_table_container">
+                    <table>
+                        <tr *ngFor="let category of currency.value.categories">
+                            <td>{{category.name}}</td>
+                            <td>{{currency.symbol}} {{(category.stagedBalance) | number: '1.2-2':'en-US'}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>

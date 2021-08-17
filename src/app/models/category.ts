@@ -1,0 +1,16 @@
+import { Currency } from './currency';
+import { User } from "./user";
+
+export interface Category {
+    id: number,
+    name: string,
+    description: string,
+    isDebitRequired: boolean,
+    isTransference: boolean,
+    priority: number,
+    active: boolean,
+    currency: Currency,
+    user: User,
+    createdAt?: string,
+    updatedAt?: string,
+}

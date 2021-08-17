@@ -1,0 +1,25 @@
+.content{
+    padding: 7px;
+    padding-bottom: 12px;
+}
+
+.btns_container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.yes_btn{
+    background-color: var(--primary);
+    color: white;
+    border: 1px solid var(--primary);
+}
+
+.danger{
+    background-color: var(--danger);
+}
+
+.no_btn{
+    border: 1px dashed gray;
+}

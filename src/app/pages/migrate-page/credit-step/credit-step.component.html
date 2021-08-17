@@ -1,7 +1,135 @@
 <div class="btns-container">
     <button mat-button matStepperPrevious (click)="goPrevious()">
         Previous </button>
-
-    <button mat-button matStepperNext (click)="goNext()">
+    <div *ngFor="let creditToDistribute of creditsToDistribute" (click)="setNewValue(creditToDistribute.credit)"
+        class="total-to-distribute"
+        [class.total-to-distribute-active]="!selectedCategory || selectedCategory?.Currency.symbol == creditToDistribute.symbol">
+        {{creditToDistribute.symbol}} {{creditToDistribute.credit | number: '1.2-2':'en-US'}}
+    </div>
+    <button mat-button matStepperNext [disabled]="!canGo()" (click)="goNext()">
         Next</button>
+</div>
+
+<div class="container">
+    <div class="left-container">
+        <table class="categories">
+            <tr class="category-header">
+                <td>Category</td>
+                <td>Credit</td>
+                <td>Balance</td>
+            </tr>
+            <tr *ngFor="let category of categories" [class.negative_category]="category.stagedBalance < 0"
+                [class.selected_category]="selectedCategory?.id == category.id" (click)="selectCategory(category)">
+                <td>{{category.name}}</td>
+                <td style="color: darkgreen">{{category.Currency.symbol}} {{category.stagedCredit | number:
+                    '1.2-2':'en-US'}}
+                </td>
+                <td>{{category.Currency.symbol}} {{ category.stagedBalance | number: '1.2-2':'en-US'}}</td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="selectedCategory" class="right-container">
+        <button (click)='back()' class="back_btn" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="right-item">
+            <h1>{{selectedCategory?.name}}</h1>
+            <span>
+                Balance:
+                {{selectedCategory.Currency.symbol}}
+                {{(selectedCategory.stagedBalance + newValue) | number: '1.2-2':'en-US'}}
+            </span>
+
+        </div>
+
+        <div class="right-item">
+            <input type="text" (keyup)="onNewValueKeyUp($event)" [prefix]="selectedCategory?.Currency.symbol + ' '"
+                [(ngModel)]="newValue" mask="separator.2" thousandSeparator="," separatorLimit="1000000000" />
+            <br />
+
+            <button *ngIf="selectedCategory.stagedCredit" (click)="undoCredit()" mat-button>
+                <mat-icon>undo</mat-icon> {{selectedCategory.Currency.symbol}} {{selectedCategory.stagedCredit | number:
+                '1.2-2'}}
+            </button>
+            <button (click)="addCredit()" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+
+        <div class="options-container">
+
+            <div class="option-item" (click)="setNewValue(getNeededToZero() )">
+                <div class="option-header">
+                    Zero balance
+                </div>
+
+                <div>
+                    {{selectedCategory?.Currency.symbol}} 0
+                </div>
+                (+ {{selectedCategory?.Currency.symbol}}
+                {{getNeededToZero() | number: '1.2-2':'en-US' }})
+            </div>
+
+            <div class="option-item" (click)="setNewValue(getNeededToCreditAVG())">
+                <div class="option-header">
+                    Credit AVG
+                </div>
+                <div>
+                    {{selectedCategory?.Currency.symbol}} {{getAvgsFromCategory(selectedCategory.id).creditAvg}}
+                </div>
+                <div>
+                    (+ {{selectedCategory?.Currency.symbol}}
+                    {{ getNeededToCreditAVG() | number: '1.2-2':'en-US' }}) </div>
+            </div>
+
+            <div class="option-item" (click)="setNewValue(getNeededToDebitAVG())">
+                <div class="option-header">
+                    Debit AVG
+                </div>
+                <div>
+                    {{selectedCategory?.Currency.symbol}}
+                    {{getAvgsFromCategory(selectedCategory.id).debitAvg *
+                    -1}}
+                </div>
+
+                <div>
+                    (+ {{selectedCategory?.Currency.symbol}}
+                    {{ getNeededToDebitAVG() | number: '1.2-2':'en-US' }}) </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="!selectedCategory" class="right-container">
+        <div class="right-item">
+            <h2 *ngIf="!canGo()">Select a category to distribute</h2>
+            <h2 *ngIf="canGo()" (click)="goNext()" style="cursor: pointer;">Alright! No credits to distribute</h2>
+
+            <h3>Describe your credits below (optional)</h3>
+
+
+            <table class="credits_to_describe">
+                <tr>
+                    <td>Source</td>
+                    <td>Description</td>
+                    <td>Value</td>
+                    <td>Date</td>
+                    <td>Source Description</td>
+                </tr>
+                <tr *ngFor="let credit of credits">
+                    <td>{{credit.Source.name}}</td>
+                    <td><input type="text" [(ngModel)]="credit.description" (change)="updateDescription(credit)" /></td>
+                    <td>{{credit.Source.Currency.symbol}} {{credit.value | number: '1.2-2':'en-US'}}</td>
+                    <td>{{credit.transactionDate}}</td>
+                    <td>{{credit.sourceDescription}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+    </div>
+
+
 </div>

@@ -1,3 +1,4 @@
+import { UndoMigrationComponent } from './pages/undo-migration/undo-migration.component';
 import { MigratePageComponent } from './pages/migrate-page/migrate-page.component';
 import { AlreadyLoggedGuard } from './guards/already-logged.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'main', component: UserPageComponent, canActivate: [AuthGuard] },
   { path: 'migrate', component: MigratePageComponent, canActivate: [AuthGuard] },
+  { path: 'migrate/undo', component: UndoMigrationComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

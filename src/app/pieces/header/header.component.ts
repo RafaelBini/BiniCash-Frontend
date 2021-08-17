@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,13 +10,18 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    public userService: UserService
+    public userService: UserService,
+    private router: Router,
   ) { }
 
   me: any;
 
   async ngOnInit() {
-    this.me = await this.userService.getMyUserInfo().toPromise()
+    this.me = this.userService.me;
+  }
+
+  goMain() {
+    this.router.navigate(['main'])
   }
 
 }

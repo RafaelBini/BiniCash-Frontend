@@ -1,0 +1,31 @@
+- Fazer Models no front
+
+- Configuração de idioma front
+
+- Configuração de idioma back
+
+- Configuração de pontuação numérica
+
+- CRUD de Category
+
+- Home do user
+
+- Esquema para ver todas as transacoes
+
+---- OBJETIVANDO EXTERN USERS ---
+
+- Home do não cadastrado
+
+- Cadastro de novo usuário
+
+- CRUD de Source
+
+- CRUD de Currency
+
+- Undo migration funcionando
+
+- Tutorial para first access
+
+
+
+

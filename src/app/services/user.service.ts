@@ -13,6 +13,8 @@ export class UserService {
     private sharedService: SharedService
   ) { }
 
+  me: any;
+
   authenticate(username: string, password: string) {
     return this.http.post<any>(`${environment.apiHost}/user/auth`, {
       username,
@@ -26,6 +28,10 @@ export class UserService {
 
   getMyUserInfo() {
     return this.http.get<any>(`${environment.apiHost}/user`, this.sharedService.getDefaultApiOptions())
+  }
+
+  async updateMe() {
+    this.me = await this.http.get<any>(`${environment.apiHost}/user`, this.sharedService.getDefaultApiOptions()).toPromise()
   }
 
   goToStep(step: number) {

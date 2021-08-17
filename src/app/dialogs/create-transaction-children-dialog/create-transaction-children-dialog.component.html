@@ -1,0 +1,55 @@
+<h2>Split Transaction
+    ({{transaction.Source.Currency.symbol}}
+    {{(transaction.value - getChildrenSum() + newChildTransaction.value) | number: '1.2-2':'en-US'}})</h2>
+<div>
+    {{transaction.sourceDescription}}
+</div>
+
+<div class="inserted_container">
+    <table>
+        <tr>
+            <td class="item">Description</td>
+            <td class="item">Value</td>
+        </tr>
+        <tr *ngFor="let child of children; index as childIndex">
+            <td class="item">
+                {{child.description}}
+            </td>
+            <td class="item">
+                {{transaction.Source.Currency.symbol}} {{child.value | number: '1.2-2':'en-US'}}
+            </td>
+            <td>
+                <button (click)="remove(childIndex)" mat-icon-button>
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="text" (keyup)="onKeyUp($event)" [(ngModel)]="newChildTransaction.description"
+                    placeholder="Description" /></td>
+            <td>
+                <input type="text" (keyup)="onKeyUp($event)" [prefix]="transaction.Source.Currency.symbol + ' '"
+                    [(ngModel)]="newChildTransaction.value" mask="separator.2" thousandSeparator=","
+                    separatorLimit="1000000000" />
+            </td>
+            <td>
+                <button (click)="add()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="inputs_container">
+
+
+</div>
+
+<div class="finish_container">
+    <button mat-button (click)="finish()" class="default_button">Finish</button>
+</div>
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

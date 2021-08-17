@@ -4,7 +4,7 @@
 
     <div *ngIf="selectedCategory">Select transactions for {{selectedCategory.name}}</div>
 
-    <button [disabled]="!isReadyToGo()" mat-button matStepperNext (click)="goNext()">
+    <button [disabled]="!isReadyToGo()" mat-button (click)="goNext()">
         Next</button>
 </div>
 <div class="container">
@@ -18,9 +18,10 @@
             <tr *ngFor="let category of categories" [class.selected_category]="selectedCategory?.id == category.id"
                 (click)="selectCategory(category)">
                 <td>{{category.name}}</td>
-                <td style="color: darkred">{{category.Currency.symbol}} {{category.debit | number: '1.2-2'}}</td>
+                <td style="color: darkred">{{category.Currency.symbol}} {{category.stagedDebit | number:
+                    '1.2-2':'en-US'}}</td>
                 <td>{{category.Currency.symbol}} {{ (category.balance +
-                    category.debit + category.credit) | number: '1.2-2'}}</td>
+                    category.stagedDebit + category.stagedCredit) | number: '1.2-2':'en-US'}}</td>
             </tr>
         </table>
     </div>
@@ -34,19 +35,22 @@
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                <td mat-cell *matCellDef="let element"> <input [(ngModel)]="element.description"
-                        (ngModelChange)="updateDescription(element)" type="text" /> </td>
+                <td mat-cell *matCellDef="let element">
+                    <input [(ngModel)]="element.description" (change)="updateDescription(element)" type="text" />
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="value">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
-                <td mat-cell *matCellDef="let element"> {{element.Source.Currency.symbol}} {{element.value | number:
-                    '1.2-2'}} </td>
+                <td mat-cell *matCellDef="let element" matTooltip="Split transaction" matTooltipShowDelay="500"
+                    class="split_button" (click)="splitValues(element)">
+                    {{element.Source.Currency.symbol}} {{element.value | number: '1.2-2':'en-US'}}
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="transactionDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                <td mat-cell *matCellDef="let element"> {{element.transactionDate}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.transactionDate | shortDate}} </td>
             </ng-container>
 
             <ng-container matColumnDef="sourceDescription">

@@ -1,0 +1,6 @@
+<h1>{{data.title}}</h1>
+<div [innerHtml]="data.content" class="content"></div>
+<div class="btns_container">
+    <button mat-button [mat-dialog-close]="false" class="no_btn">No</button>
+    <button mat-button [mat-dialog-close]="true" class="yes_btn" [class.danger]="data.isDanger">Yes</button>
+</div>

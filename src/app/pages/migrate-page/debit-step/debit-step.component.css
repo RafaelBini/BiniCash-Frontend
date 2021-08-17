@@ -78,3 +78,10 @@ tr.category-header{
 .with_category_selected input[type=text]{
     pointer-events: none;
 }
+
+
+.split_button:hover{
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+}

@@ -1,3 +1,5 @@
+import { NewManualDebitsDialogComponent } from './../../../dialogs/new-manual-debits-dialog/new-manual-debits-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService } from './../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SourceService } from './../../../services/source.service';
@@ -14,7 +16,8 @@ export class ImportStepComponent implements OnInit {
   constructor(
     private stagedTransactionService: StagedTransactionService,
     private userService: UserService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
 
   sources: any[] = [];
@@ -36,19 +39,36 @@ export class ImportStepComponent implements OnInit {
   async uploadFile(event: any, source: any, input: any) {
 
     if (source.type == 'OFX') {
-      console.log(source)
+      var files = event.target.files as File[];
+      for (let file of files) {
+        var reader = new FileReader();
+        reader.onload = async (e: any) => {
+          const rawContent = e.target.result;
+          console.log(rawContent)
+          input.value = "";
+          this.stagedTransactionService.insertOfx(rawContent, source).subscribe(result => {
+            this.updateSources()
+          },
+            error => {
+              this.snack.open(error.error.msg, undefined, { duration: 3500 });
+            })
+        }
+        reader.readAsText(file, 'us-ascii');
+
+      }
+    }
+    else if (source.type == 'CSV') {
       var files = event.target.files as File[];
       for (let file of files) {
         const rawContent = await file.text();
         input.value = "";
-        this.stagedTransactionService.insertOfx(rawContent, source).subscribe(result => {
+        this.stagedTransactionService.insertCsv(rawContent, source).subscribe(result => {
           this.updateSources()
         },
           error => {
             this.snack.open(error.error.msg, undefined, { duration: 3500 });
           })
       }
-
     }
   }
 
@@ -60,6 +80,15 @@ export class ImportStepComponent implements OnInit {
       error => {
         this.snack.open(error.error.msg, undefined, { duration: 3500 });
       })
+  }
+
+  openManualDebitDialog(source: any) {
+    var diagRef = this.dialog.open(NewManualDebitsDialogComponent, {
+      data: source
+    });
+    diagRef.afterClosed().subscribe(() => {
+      this.updateSources();
+    })
   }
 
 }

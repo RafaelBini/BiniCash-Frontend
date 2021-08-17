@@ -1,3 +1,6 @@
+import { CreateTransactionChildrenDialogComponent } from './../../../dialogs/create-transaction-children-dialog/create-transaction-children-dialog.component';
+import { ConfirmDialogComponent } from './../../../dialogs/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { StagedTransactionService } from './../../../services/staged-transaction.service';
@@ -17,11 +20,14 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private stagedTransactionService: StagedTransactionService,
     private snack: MatSnackBar,
+    private dialog: MatDialog,
   ) {
     this.debits = new MatTableDataSource<any>([]);
   }
   @ViewChild(MatSort) sort: any;
   @Output() updateCategories = new EventEmitter();
+  @Output() refreshStep = new EventEmitter();
+  @Output() refresh = new EventEmitter();
   debits: MatTableDataSource<any>;
   categories: any[] = [];
   selectedCategory: any = undefined;
@@ -39,11 +45,12 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key == 'Escape') {
-      this.selectedCategory = undefined;
+      this.selectCategory(this.selectedCategory);
     }
   }
 
   onDebitClick(row: any) {
+    console.log(row)
     if (!this.selectedCategory)
       return;
 
@@ -59,18 +66,53 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   }
 
   selectCategory(category: any) {
-    if (this.selectedCategory?.id == category.id)
+
+    if (this.selectedCategory?.id == category.id) {
       this.selectedCategory = undefined;
-    else
+      this.debits.filter = '';
+    }
+    else {
+      this.debits.filterPredicate = (data, filter) => {
+        return data.Source.currencyId == filter || !filter
+      };
+      this.debits.filter = category.Currency.id
       this.selectedCategory = category;
+    }
+
   }
 
   goPrevious() {
     this.userService.goToStep(0).subscribe();
   }
 
-  goNext() {
-    this.userService.goToStep(2).subscribe();
+  async goNext() {
+    var mandatoryCategoriesPending = this.categories.filter(c => c.isDebitRequired && c.stagedDebit >= 0)
+    if (mandatoryCategoriesPending.length > 0) {
+      var content =
+        `There are some mandatory debits pending:
+      <br />
+      <ul>`
+      for (let mandatoryCategoryPending of mandatoryCategoriesPending) {
+        content += `<li>${mandatoryCategoryPending.name}</li>`;
+      }
+      var diagRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Are you sure your wanna proceed?',
+          content: content
+        }
+      })
+      diagRef.afterClosed().subscribe(async result => {
+        if (result) {
+          await this.userService.goToStep(2).toPromise();
+          this.refreshStep.emit();
+        }
+
+      })
+    }
+    else {
+      await this.userService.goToStep(2).subscribe();
+      this.refreshStep.emit();
+    }
   }
 
   isReadyToGo() {
@@ -79,6 +121,15 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
 
   updateDescription(debit: any) {
     this.stagedTransactionService.update({ id: debit.id, description: debit.description }).subscribe()
+  }
+
+  splitValues(transaction: any) {
+    const diagRef = this.dialog.open(CreateTransactionChildrenDialogComponent, {
+      data: transaction
+    })
+    diagRef.afterClosed().subscribe(() => {
+      this.refresh.emit()
+    })
   }
 
 }

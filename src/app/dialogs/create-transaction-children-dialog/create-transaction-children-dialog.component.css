@@ -1,0 +1,29 @@
+input[type=text]{
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    background-color: rgba(78, 153, 75, 0.075);
+}
+input[type=text]:hover{
+    border: 1px dashed gray;
+}
+input[type=text]:focus{
+    border: 1px solid gray;
+}
+
+
+.finish_container{
+    text-align: center;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+table{
+    width: 100%;
+    padding: 20px;
+}
+
+.item{
+    padding: 10px;
+}
