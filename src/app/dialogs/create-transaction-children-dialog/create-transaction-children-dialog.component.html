@@ -1,6 +1,6 @@
 <h2>Split Transaction
     ({{transaction.Source.Currency.symbol}}
-    {{(transaction.value - getChildrenSum() + newChildTransaction.value) | number: '1.2-2':'en-US'}})</h2>
+    {{(transaction.value - getChildrenSum() + newChildTransaction.value) | customNumber}})</h2>
 <div>
     {{transaction.sourceDescription}}
 </div>
@@ -16,7 +16,7 @@
                 {{child.description}}
             </td>
             <td class="item">
-                {{transaction.Source.Currency.symbol}} {{child.value | number: '1.2-2':'en-US'}}
+                {{transaction.Source.Currency.symbol}} {{child.value | customNumber}}
             </td>
             <td>
                 <button (click)="remove(childIndex)" mat-icon-button>
@@ -29,8 +29,8 @@
                     placeholder="Description" /></td>
             <td>
                 <input type="text" (keyup)="onKeyUp($event)" [prefix]="transaction.Source.Currency.symbol + ' '"
-                    [(ngModel)]="newChildTransaction.value" mask="separator.2" thousandSeparator=","
-                    separatorLimit="1000000000" />
+                    [(ngModel)]="newChildTransaction.value" mask="separator.2"
+                    [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000" />
             </td>
             <td>
                 <button (click)="add()" mat-icon-button>

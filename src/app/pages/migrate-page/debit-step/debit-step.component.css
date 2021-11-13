@@ -85,3 +85,7 @@ tr.category-header{
     color: white;
     cursor: pointer;
 }
+
+.completed_debit{
+    background-color: rgba(139, 230, 139, 0.144);
+}

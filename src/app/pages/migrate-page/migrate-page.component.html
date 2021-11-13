@@ -1,15 +1,14 @@
 <app-header></app-header>
+
 <div class="header">
-    <a mat-icon-button routerLink="/main">
-        <mat-icon>arrow_back</mat-icon>
-    </a>
-    <div>
+    <app-title routerLink="/main" [text]="'USER_PAGE.MIGRATE' | translate"></app-title>
+    <div class="options">
 
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button (click)="openManageRulesDialog()" mat-menu-item>
+            <button routerLink="/rules" mat-menu-item>
                 <mat-icon>settings</mat-icon>
                 Manage Rules
             </button>

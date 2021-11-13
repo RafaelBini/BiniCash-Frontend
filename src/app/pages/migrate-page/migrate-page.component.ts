@@ -1,5 +1,4 @@
 import { RuleService } from './../../services/rule.service';
-import { ManageRulesDialogComponent } from './../../dialogs/manage-rules-dialog/manage-rules-dialog.component';
 import { FinishStepComponent } from './finish-step/finish-step.component';
 import { ConfirmDialogComponent } from './../../dialogs/confirm-dialog/confirm-dialog.component';
 import { TransactionService } from './../../services/transaction.service';
@@ -59,7 +58,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
         this.stepper.selectedIndex = this.userInfo.routineStep;
     }
     catch (error) {
-      this.snack.open(error, undefined, { duration: 3500 })
+      this.snack.open('Failed when refreshing', undefined, { duration: 3500 })
       this.router.navigate(['main'])
     }
 
@@ -166,37 +165,6 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
     this.creditStep.categories = [...stagedBalancesByCategory.sort((a, b) => b.priority - a.priority)];
     if (this.creditStep.selectedCategory)
       this.creditStep.selectedCategory = this.creditStep.categories.find((c: any) => c.id == this.creditStep.selectedCategory.id);
-  }
-
-  openManageRulesDialog() {
-    var diagRef = this.dialog.open(ManageRulesDialogComponent, {
-      width: '90%',
-      height: '90%',
-      disableClose: false
-    });
-    diagRef.backdropClick().subscribe((e) => {
-      if (!diagRef.disableClose)
-        return;
-      var confirmDialog = this.dialog.open(ConfirmDialogComponent, {
-        data: {
-          title: 'Discard changes?',
-          content: 'Do you want to leave and discard changes?',
-          isDanger: true
-        }
-      })
-      confirmDialog.afterClosed().subscribe(result => {
-        if (result) {
-          diagRef.close();
-        }
-
-      })
-
-    })
-    diagRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Run rules again!
-      }
-    })
   }
 
   async cancel() {

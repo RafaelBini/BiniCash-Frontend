@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageRulesDialogComponent } from './manage-rules-dialog.component';
+import { NewCurrencyComponent } from './new-currency.component';
 
-describe('ManageRulesDialogComponent', () => {
-  let component: ManageRulesDialogComponent;
-  let fixture: ComponentFixture<ManageRulesDialogComponent>;
+describe('NewCurrencyComponent', () => {
+  let component: NewCurrencyComponent;
+  let fixture: ComponentFixture<NewCurrencyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageRulesDialogComponent ]
+      declarations: [ NewCurrencyComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageRulesDialogComponent);
+    fixture = TestBed.createComponent(NewCurrencyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

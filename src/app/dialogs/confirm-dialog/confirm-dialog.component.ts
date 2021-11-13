@@ -10,10 +10,16 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmData
   ) { }
 
   ngOnInit(): void {
   }
 
+}
+
+interface ConfirmData {
+  isDanger?: boolean,
+  title: string,
+  content: string
 }

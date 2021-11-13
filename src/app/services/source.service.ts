@@ -1,6 +1,7 @@
+import { Source } from './../models/source';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SharedService } from './shared.service';
+
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,12 +10,11 @@ import { environment } from '../../environments/environment';
 export class SourceService {
 
   constructor(
-    private http: HttpClient,
-    private sharedService: SharedService
+    private http: HttpClient
   ) { }
 
   getMySources() {
-    return this.http.get<any>(`${environment.apiHost}/source`, this.sharedService.getDefaultApiOptions())
+    return this.http.get<Source[]>(`${environment.apiHost}/source`)
   }
 
 }

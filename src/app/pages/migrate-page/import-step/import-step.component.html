@@ -5,7 +5,7 @@
             {{source.name}}
         </div>
         <div class="saldo">
-            {{source.symbol}} {{(source.balance + source.stagedBalance) | number: '1.2-2':'en-US'}}
+            {{source.symbol}} {{(source.balance + source.stagedBalance) | customNumber}}
         </div>
         <div class="options">
             <button *ngIf="source.stagedBalance != 0" mat-button class="options" (click)="undo(source)">

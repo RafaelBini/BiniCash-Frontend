@@ -1,0 +1,81 @@
+{
+    "CATEGORY": {
+        "DESCRIPTION": "Description",
+        "IS_DEBIT_REQUIRED": "Debit Required",
+        "IS_TRANSFERENCE": "Transference",
+        "NAME": "Category",
+        "PRIORITY": "Priority"
+    },
+    "COMMON": {
+        "ADD": "Add",
+        "BALANCE": "Balance",
+        "COUNT": "Count",
+        "CREDIT": "Credit",
+        "CURRENCY": "Currency",
+        "DEBIT": "Debit",
+        "ENTER": "Enter",
+        "NO_DATA": "No data...",
+        "SAVE": "Save",
+        "SUM": "Sum"
+    },
+    "HEADER": {
+        "CHANGE_PROFILE_TOOLTIP": "Edit my profile",
+        "MY_SETTINGS": "My Settings"
+    },
+    "LOGIN": {
+        "PASSWORD": "Password",
+        "TITLE": "Login",
+        "USERNAME": "Username"
+    },
+    "MY_TRANSACTIONS": {
+        "ALL": "All",
+        "ALL_CATEGORIES": "All Categories",
+        "ALL_SOURCES": "All Sources",
+        "ALL_VALUES": "All Values",
+        "INCLUDE_TRANSF": "Include Transferences",
+        "SEARCHING_ON": "Searching on"
+    },
+    "NEW_CATEGORY_DIALOG": {
+        "TITLE": "New Category"
+    },
+    "SETTINGS": {
+        "COMMA": "Comma \",\"",
+        "DECIMAL_SEPARATOR": "Decimal Separator",
+        "DOT": "Dot \".\"",
+        "FULL_NAME": "Full name",
+        "LANGUAGE": {
+            "EN_US": "English (United States)",
+            "PT_BR": "Portguese (Brazil)"
+        },
+        "PERSONAL_INFORMATION": "Personal Information",
+        "SELECT_LANGUAGE": "Language",
+        "TITLE": "My Settings",
+        "USAGE_PREFERENCES": "Usage Preferences",
+        "USERNAME": "Username"
+    },
+    "TRANSACTION": {
+        "CATEGORY": "Category",
+        "DESCRIPTION": "Description",
+        "ID": "Transaction Code",
+        "INPUT_METHOD": "Input Method",
+        "SOURCE": "Source",
+        "SOURCE_DESCRIPTION": "Source Description",
+        "SOURCE_REFERENCE": "Source Reference",
+        "TRANSACTION_DATE": "Transaction Date",
+        "VALUE": "Value"
+    },
+    "UNDO_MIGRATION": {
+        "SELECT": "Select a migration date to revert"
+    },
+    "USER_PAGE": {
+        "CHART_ACCUMULATED": "Budget vs Debits (Accumulated)",
+        "CHART_BUDGET": "Budget vs Debits",
+        "HOW_AM_I": "How am I going?",
+        "MIGRATE": "Migrate Data",
+        "MY_CATEGORIES": "My Categories",
+        "MY_SOURCES": "My Sources",
+        "MY_TRANSACTIONS": "My Transactions",
+        "SURVIVING_TIME": "Can live {{survivingMonths}} months without a job",
+        "UNDO_MIGRATION": "Undo Migration"
+    }
+}

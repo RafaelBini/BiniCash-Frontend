@@ -1,0 +1,113 @@
+<app-header></app-header>
+<app-title routerLink="/main" [text]="'USER_PAGE.MY_CATEGORIES' | translate"></app-title>
+<div class="container">
+    <div class="categories_container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.NAME' | translate }}
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'COMMON.BALANCE' | translate }}
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row.Currency.symbol}} {{row.balance | customNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'CATEGORY.PRIORITY' | translate}}
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row.priority}} </td>
+            </ng-container>
+            <ng-container matColumnDef="isTransference">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.IS_TRANSFERENCE' |
+                    translate }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="row.isTransference">
+                        done
+                    </mat-icon>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="isDebitRequired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.IS_DEBIT_REQUIRED' |
+                    translate }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="row.isDebitRequired">
+                        done
+                    </mat-icon>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="table_row" [class.disabled_row]="!row.active"
+                [class.selected_row]="row.name == selectedCategory.name" mat-row (click)="selectCategory(row)"
+                *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="4"> {{ 'COMMON.NO_DATA' | translate }} </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="selectedCategory" class="selected_category_container">
+        <div class="status">
+            <div *ngIf="saved == true">
+                saved
+            </div>
+            <div *ngIf="saved == false">
+                saving...
+            </div>
+        </div>
+        <div class="name">
+            <input [(ngModel)]="selectedCategory.name" (ngModelChange)="updateCategory('name')" type="text"
+                [placeholder]="'CATEGORY.NAME' | translate" class="default_input" />
+        </div>
+        <div class="priority">
+            <input [(ngModel)]="selectedCategory.priority" (ngModelChange)="updateCategory('priority')"
+                [placeholder]="'CATEGORY.PRIORITY' | translate" type="text" mask="990" limit="100" max="100" min="0"
+                class="default_input" />
+        </div>
+        <div class="description">
+            <textarea [(ngModel)]="selectedCategory.description" (ngModelChange)="updateCategory('description')"
+                [placeholder]="'CATEGORY.DESCRIPTION' | translate" class="default_input"></textarea>
+        </div>
+        <div class="flags">
+            <mat-checkbox [(ngModel)]="selectedCategory.isTransference"
+                (ngModelChange)="updateCategory('isTransference')">
+                {{ 'CATEGORY.IS_TRANSFERENCE' | translate }}
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="selectedCategory.isDebitRequired"
+                (ngModelChange)="updateCategory('isDebitRequired')">
+                {{ 'CATEGORY.IS_DEBIT_REQUIRED' | translate }}
+            </mat-checkbox>
+        </div>
+        <div class="options">
+            <div matTooltip="The balance should be zero to inactivate"
+                [matTooltipDisabled]="selectedCategory.balance <= 0">
+                <button *ngIf="selectedCategory.active" [disabled]="selectedCategory.balance > 0"
+                    class="default_danger_button" (click)="inactivate()" mat-button>
+                    Inactivate
+                </button>
+            </div>
+
+            <button *ngIf="!selectedCategory.active" class="default_button" (click)="activate()" mat-button>
+                Activate
+            </button>
+            <div matTooltip="The balance should be greater than zero to transfer"
+                [matTooltipDisabled]="selectedCategory.balance > 0">
+                <button *ngIf="selectedCategory.active" [disabled]="selectedCategory.balance <= 0"
+                    class="default_button" (click)="transfer()" mat-button>
+                    Transfer
+                </button>
+            </div>
+
+        </div>
+        <div class="chart">
+            <div [chart]="chart"></div>
+        </div>
+    </div>
+    <button (click)="addCategory()" class="btn_add" mat-icon-button>
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

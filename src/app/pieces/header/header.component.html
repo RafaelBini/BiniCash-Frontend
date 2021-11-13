@@ -2,7 +2,18 @@
     <div (click)="goMain()" style='cursor: pointer;'>
         <span class="bini-text">BINI</span><span class="cash-text">CASH</span>
     </div>
-    <div class="avatar">
+    <div class="avatar" [matMenuTriggerFor]="menu" [matTooltip]="'HEADER.CHANGE_PROFILE_TOOLTIP' | translate">
         <div *ngIf="me">{{me.name | initials}}</div>
     </div>
+
+    <mat-menu #menu="matMenu">
+        <button routerLink="/settings" mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>{{ 'HEADER.MY_SETTINGS' | translate }}</span>
+        </button>
+        <button routerLink="/categories" mat-menu-item>
+            <mat-icon>label</mat-icon>
+            <span>{{ 'USER_PAGE.MY_CATEGORIES' | translate }}</span>
+        </button>
+    </mat-menu>
 </div>

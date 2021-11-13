@@ -1,4 +1,6 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'BiniCash';
+  constructor(translate: TranslateService, userService: UserService) {
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en-US');
+
+  }
 }

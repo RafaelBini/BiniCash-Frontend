@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="center_container">
+        <h2>{{ 'NEW_CATEGORY_DIALOG.TITLE' | translate }}</h2>
+    </div>
+    <div class="name">
+        <input [(ngModel)]="newCategory.name" type="text" [placeholder]="'CATEGORY.NAME' | translate"
+            class="default_input" />
+    </div>
+    <div>
+        {{ 'COMMON.CURRENCY' | translate }}:
+        <select [(ngModel)]="newCategory.currencyId" class="default_input">
+            <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.symbol}}</option>
+        </select>
+        <button (click)="openNewCurrencyDialog()" mat-icon-button>
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="priority">
+        <input [(ngModel)]="newCategory.priority" [placeholder]="'CATEGORY.PRIORITY' | translate" type="text" mask="990"
+            limit="100" max="100" min="0" class="default_input" />
+    </div>
+    <div class="description">
+        <textarea [(ngModel)]="newCategory.description" [placeholder]="'CATEGORY.DESCRIPTION' | translate"
+            class="default_input"></textarea>
+    </div>
+    <div>
+        <mat-checkbox [(ngModel)]="newCategory.isTransference">
+            {{ 'CATEGORY.IS_TRANSFERENCE' | translate }}
+        </mat-checkbox>
+    </div>
+    <div>
+        <mat-checkbox [(ngModel)]="newCategory.isDebitRequired">
+            {{ 'CATEGORY.IS_DEBIT_REQUIRED' | translate }}
+        </mat-checkbox>
+    </div>
+
+    <div class="center_container">
+        <button (click)="add()" class="default_button" mat-button>
+            {{ 'COMMON.ADD' | translate }}
+        </button>
+    </div>
+</div>
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

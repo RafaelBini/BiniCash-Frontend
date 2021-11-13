@@ -109,7 +109,7 @@ tr.category-header{
     text-align: center;
 }
 
-.options-container{
+.credit-options-container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

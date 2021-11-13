@@ -7,9 +7,9 @@ export interface Source {
     name: string,
     type: string,
     imageUrl: string,
-    currency: Currency,
+    Currency: Currency,
     active: boolean,
-    user: User,
+    User: User,
     createdAt?: string,
     updatedAt?: string,
 }

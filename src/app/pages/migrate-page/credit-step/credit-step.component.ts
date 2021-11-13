@@ -19,10 +19,11 @@ export class CreditStepComponent implements OnInit {
   }
   @Output() refresh = new EventEmitter();
   @Output() refreshStep = new EventEmitter();
+  @ViewChild('newValueInput') newValueInput: any;
   categories: any[] = [];
   categoriesAvg: any[] = [];
   selectedCategory: any = undefined;
-  newValue = 0;
+  newValue: any = 0;
   creditsToDistribute: any[] = [];
   credits: any[] = []
 
@@ -52,7 +53,9 @@ export class CreditStepComponent implements OnInit {
 
 
   setNewValue(value: number) {
+
     this.newValue = value;
+
   }
 
   async undoCredit() {
@@ -108,7 +111,7 @@ export class CreditStepComponent implements OnInit {
       this.refresh.emit();
       this.newValue = 0;
     }
-    catch (error) {
+    catch (error: any) {
       this.snack.open(error.error.msg, undefined, { duration: 3500 })
       console.log("the error", error)
     }

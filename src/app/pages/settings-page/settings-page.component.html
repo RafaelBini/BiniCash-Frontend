@@ -1,0 +1,53 @@
+<app-header></app-header>
+<app-title routerLink="/main" [text]="'SETTINGS.TITLE' | translate"></app-title>
+<div class="container">
+
+    <div class="settings_group">
+        <h2>{{ 'SETTINGS.PERSONAL_INFORMATION' | translate }}</h2>
+        <div class="setting_container">
+            <div class="setting label">
+                {{ 'SETTINGS.USERNAME' | translate }}:
+            </div>
+            <div class="setting value">
+                <input [(ngModel)]="me.username" (ngModelChange)="onTextChange('username',$event)" class="default_input"
+                    type="text" />
+            </div>
+        </div>
+        <div class="setting_container">
+            <div class="setting label">
+                {{ 'SETTINGS.FULL_NAME' | translate }}:
+            </div>
+            <div class="setting value">
+                <input [(ngModel)]="me.name" (ngModelChange)="onTextChange('name',$event)" class="default_input"
+                    type="text" />
+            </div>
+        </div>
+        <div class="setting_container">
+            <div class="setting label">
+                Email:
+            </div>
+            <div class="setting value">
+                <input [(ngModel)]="me.email" (ngModelChange)="onTextChange('email',$event)" class="default_input"
+                    type="text" />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="settings_group">
+        <h2>{{ 'SETTINGS.USAGE_PREFERENCES' | translate }}</h2>
+        <div class="setting_container">
+            <div class="setting label">
+                {{ 'SETTINGS.SELECT_LANGUAGE' | translate }}:
+            </div>
+            <div class="setting value">
+                <select [(ngModel)]="me.Configs['LANGUAGE']" (ngModelChange)="updateConfig('LANGUAGE', $event)"
+                    class="default_input">
+                    <option *ngFor="let lang of languages" [value]="lang.id">
+                        {{lang.name | translate}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

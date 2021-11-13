@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="centered_container">
+        <h3>Add New Currency</h3>
+    </div>
+    <div>
+        <input type="text" [(ngModel)]="newCurrency.symbol" placeholder="Symbol" maxlength="3" class="default_input" />
+    </div>
+    <div>
+        <input type="text" [(ngModel)]="newCurrency.name" placeholder="Name" class="default_input" />
+    </div>
+    <div>
+        <textarea [(ngModel)]="newCurrency.description" placeholder="Description (optional)"
+            class="default_input"></textarea>
+    </div>
+    <div class="centered_container">
+        <button (click)="create()" mat-button class="default_button">
+            Done
+        </button>
+    </div>
+</div>

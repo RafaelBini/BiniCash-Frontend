@@ -1,0 +1,81 @@
+{
+    "CATEGORY": {
+        "DESCRIPTION": "Descrição",
+        "IS_DEBIT_REQUIRED": "Gasto Obrigatório",
+        "IS_TRANSFERENCE": "Transferência",
+        "NAME": "Categoria",
+        "PRIORITY": "Prioridade"
+    },
+    "COMMON": {
+        "ADD": "Adicionar",
+        "BALANCE": "Saldo",
+        "COUNT": "Contagem",
+        "CREDIT": "Ganho",
+        "CURRENCY": "Moeda",
+        "DEBIT": "Gasto",
+        "ENTER": "Entrar",
+        "NO_DATA": "Sem dados...",
+        "SAVE": "Salvar",
+        "SUM": "Soma"
+    },
+    "HEADER": {
+        "CHANGE_PROFILE_TOOLTIP": "Editar meu perfil",
+        "MY_SETTINGS": "Meu Perfil"
+    },
+    "LOGIN": {
+        "PASSWORD": "Senha",
+        "TITLE": "Fazer Login",
+        "USERNAME": "Usuário"
+    },
+    "MY_TRANSACTIONS": {
+        "ALL": "Todos",
+        "ALL_CATEGORIES": "Todas Categorias",
+        "ALL_SOURCES": "Todas Fontes",
+        "ALL_VALUES": "Todos Valores",
+        "INCLUDE_TRANSF": "Incluir Transferências",
+        "SEARCHING_ON": "Buscando em"
+    },
+    "NEW_CATEGORY_DIALOG": {
+        "TITLE": "Nova Categoria"
+    },
+    "SETTINGS": {
+        "COMMA": "Vírgula \",\"",
+        "DECIMAL_SEPARATOR": "Separador Decimal",
+        "DOT": "Ponto \".\"",
+        "FULL_NAME": "Nome completo",
+        "LANGUAGE": {
+            "EN_US": "Inglês (Estados Unidos)",
+            "PT_BR": "Português (Brasil)"
+        },
+        "PERSONAL_INFORMATION": "Informações Pessoais",
+        "SELECT_LANGUAGE": "Idioma",
+        "TITLE": "Minhas Configurações",
+        "USAGE_PREFERENCES": "Preferências de Uso",
+        "USERNAME": "Usuário"
+    },
+    "TRANSACTION": {
+        "CATEGORY": "Categoria",
+        "DESCRIPTION": "Descrição",
+        "ID": "Código da Transação",
+        "INPUT_METHOD": "Método de Entrada",
+        "SOURCE": "Fonte",
+        "SOURCE_DESCRIPTION": "Descrição da Fonte",
+        "SOURCE_REFERENCE": "Refrência da Fonte",
+        "TRANSACTION_DATE": "Data da Transação",
+        "VALUE": "Valor"
+    },
+    "UNDO_MIGRATION": {
+        "SELECT": "Selecione uma migração para reverter"
+    },
+    "USER_PAGE": {
+        "CHART_ACCUMULATED": "Orçamento x Gastos (Acumulados)",
+        "CHART_BUDGET": "Orçamento x Gastos",
+        "HOW_AM_I": "Como estou indo?",
+        "MIGRATE": "Migrar Dados",
+        "MY_CATEGORIES": "Minhas Categorias",
+        "MY_SOURCES": "Minhas Fontes",
+        "MY_TRANSACTIONS": "Minhas Transações",
+        "SURVIVING_TIME": "Posso viver {{survivingMonths}} meses desempregado",
+        "UNDO_MIGRATION": "Desfazer Migração"
+    }
+}

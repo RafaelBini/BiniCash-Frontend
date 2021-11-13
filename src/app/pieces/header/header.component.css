@@ -19,6 +19,11 @@
     align-items: center;
     justify-content: center;
 }
+.avatar:hover{
+    background-color: var(--primary);
+    cursor: pointer;
+    color: white;
+}
 
 .bini-text{
     color: white;

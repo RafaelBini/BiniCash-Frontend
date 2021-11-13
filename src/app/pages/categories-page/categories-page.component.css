@@ -1,0 +1,90 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: relative;
+}
+
+.categories_container{
+    width: 50%;
+    height: 82vh;
+    overflow: auto;
+}
+
+.categories_container>table{
+    width: 100%;    
+}
+
+.selected_category_container{
+    width: 50%;
+    max-height: 82vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: whitesmoke;
+    position: relative;
+    padding-top: 23px;
+    box-sizing: border-box;
+}
+
+.selected_category_container>div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.selected_category_container>div>input{
+    text-align: center;
+    font-size: 22px;
+}
+
+.selected_category_container>div>mat-checkbox{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.table_row:hover{
+    background-color: rgba(153, 153, 153, 0.397);
+    cursor: pointer;
+}
+
+.selected_row{
+    background-color: var(--primary);
+}
+
+.disabled_row{
+    background-color: gray;
+}
+
+.flags{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.options *{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.status{
+    color: gray;
+    font-size: 12px;
+    justify-content: flex-start !important;
+    position: absolute;
+    left: 3px;
+    top: 0px;
+}
+
+.btn_add{
+    position: absolute;
+    bottom: 30px;
+    right: 55%;
+    background-color: var(--primary);
+    color: white;
+}

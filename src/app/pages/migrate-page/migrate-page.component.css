@@ -16,9 +16,12 @@
 }
 
 .header{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
+    position: relative;
+}
+
+.options{
+    position: absolute;
+    top:5px;
+    right: 5px;
 }

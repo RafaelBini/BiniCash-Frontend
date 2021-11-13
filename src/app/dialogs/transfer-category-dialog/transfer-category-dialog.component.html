@@ -1,0 +1,19 @@
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>
+<h2>Category Transference</h2>
+<div>
+    From {{category.name}} (balance {{category.Currency.symbol}} {{category.balance | customNumber}})
+    to <select [(ngModel)]="toCategoryId" class="default_input">
+        <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
+    </select>
+</div>
+<div>
+    Value to transfer:
+    <input class="default_input" type="text" [allowNegativeNumbers]="false" [prefix]="category.Currency.symbol + ' '"
+        mask="separator.2" [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000"
+        [(ngModel)]="transferValue" />
+</div>
+<div>
+    <button mat-button (click)="transfer()" class="default_button">Transfer</button>
+</div>

@@ -9,7 +9,7 @@
             <h2>Almost done!</h2>
             <div class="total_container">
                 <div class="total_card" *ngFor="let currency of currencies">
-                    {{currency.symbol}} {{currency.value.total | number: '1.2-2':'en-US'}}
+                    {{currency.symbol}} {{currency.value.total | customNumber}}
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <td>Categories</td>
         </tr>
         <tr *ngFor="let currency of currencies" class="total_rows">
-            <td>{{currency.symbol}} {{currency.value.total | number: '1.2-2':'en-US'}}</td>
+            <td>{{currency.symbol}} {{currency.value.total | customNumber}}</td>
             <td>
                 <div class="little_table_container">
                     <table>
@@ -53,7 +53,7 @@
                     <table>
                         <tr *ngFor="let category of currency.value.categories">
                             <td>{{category.name}}</td>
-                            <td>{{currency.symbol}} {{(category.stagedBalance) | number: '1.2-2':'en-US'}}</td>
+                            <td>{{currency.symbol}} {{(category.stagedBalance) | customNumber}}</td>
                         </tr>
                     </table>
                 </div>

@@ -1,4 +1,58 @@
 <app-header></app-header>
+<div class="container">
+    <div *ngIf="!IS_SIDE_BAR_HIDDEN" class="side_bar">
+        <button mat-button routerLink="/migrate">{{ 'USER_PAGE.MIGRATE' | translate }}</button>
+        <button mat-button routerLink="/migrate/undo">{{ 'USER_PAGE.UNDO_MIGRATION' | translate }}</button>
+        <button mat-button routerLink="/my-transactions">{{ 'USER_PAGE.MY_TRANSACTIONS' | translate }}</button>
+        <button mat-button routerLink="/categories">{{ 'USER_PAGE.MY_CATEGORIES' | translate }}</button>
+        <button mat-button routerLink="/sources">{{ 'USER_PAGE.MY_SOURCES' | translate }}</button>
+    </div>
+    <div *ngIf="!IS_SIDE_BAR_HIDDEN" (click)="toggleSideBar()" class="hidden_side_bar">
+        <mat-icon>
+            chevron_left
+        </mat-icon>
+    </div>
+    <div *ngIf="IS_SIDE_BAR_HIDDEN" (click)="toggleSideBar()" class="hidden_side_bar">
+        <mat-icon>
+            chevron_right
+        </mat-icon>
+    </div>
+    <div class="main_content">
 
-<button mat-button routerLink="/migrate">Migrate Data</button>
-<button mat-button routerLink="/migrate/undo">Undo Migration</button>
+        <div class="content_title">
+            <mat-icon>label</mat-icon><span style="cursor: pointer;" routerLink="/categories">{{
+                'USER_PAGE.MY_CATEGORIES' | translate }}</span>
+        </div>
+        <div class="categories_banlances_container">
+
+            <div *ngFor="let category of balancesByCategories">
+                <div>{{category.name}}</div>
+                <div>{{category.symbol}} {{category.balance | customNumber}}</div>
+            </div>
+        </div>
+        <div>
+            <div class="content_title">
+                <mat-icon>tag</mat-icon> {{ 'USER_PAGE.HOW_AM_I' | translate }}
+                <select [(ngModel)]="selectedCurrency" (ngModelChange)="loadData()" class="select_currency">
+                    <option *ngFor="let currency of currencies" [value]="currency.symbol">{{currency.symbol}}</option>
+                </select>
+                <div class='chart_date_container'>
+                    <button mat-icon-button (click)="goChartMonth(-1)">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+                    {{chartYear}}/{{chartMonth + 1}}
+                    <button mat-icon-button (click)="goChartMonth(1)">
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="content_title survive">
+                {{ 'USER_PAGE.SURVIVING_TIME' | translate: { survivingMonths: survivingMonths} }}
+            </div>
+            <div class="how_am_i_going_container">
+                <div [chart]="budgetChart" class="chart"></div>
+                <div [chart]="accumulatedChart" class="chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

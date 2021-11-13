@@ -1,0 +1,104 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    padding-bottom: 70px;
+    position: relative;
+}
+
+.rules_container{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    background-color: whitesmoke;
+    border: 1px solid gray;
+    border-radius: 3px;
+    position: relative;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.rule_row{
+    width: 100%;
+    border-bottom: 1px solid black;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+.rule_row:hover{
+    background-color: var(--primary);
+    cursor: pointer;
+}
+
+.selected_rule_row{
+    background-color: var(--primary);
+}
+
+.add_btn{
+    position: absolute;
+    bottom: 13px;
+    right: 13px;
+    background-color: lightgreen;
+    color: white;
+}
+
+.rule_editor{
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.432);
+    border-radius: 6px;
+}
+
+.rule_editor>div{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 7px;
+    box-sizing: border-box;
+    background-color: rgba(245, 245, 245, 0.788);
+}
+
+.status{
+    background-color: transparent !important;
+    display: flex;
+    justify-content: center;
+    font-size: 11px;
+    color: gray;
+    padding: 3px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+select, input {
+    width: fit-content !important;
+}
+
+li{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.btn_container{
+    justify-content: center; display: flex; padding: 10px; box-sizing: border-box
+}
+
+.btn_delete_conditional{
+    color: var(--danger);
+}
+
+.drag_placeholder{
+    background-color: whitesmoke;
+    height: 50px;
+    width: 100%;
+}

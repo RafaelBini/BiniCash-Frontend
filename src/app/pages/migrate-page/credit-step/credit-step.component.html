@@ -4,7 +4,7 @@
     <div *ngFor="let creditToDistribute of creditsToDistribute" (click)="setNewValue(creditToDistribute.credit)"
         class="total-to-distribute"
         [class.total-to-distribute-active]="!selectedCategory || selectedCategory?.Currency.symbol == creditToDistribute.symbol">
-        {{creditToDistribute.symbol}} {{creditToDistribute.credit | number: '1.2-2':'en-US'}}
+        {{creditToDistribute.symbol}} {{creditToDistribute.credit | customNumber}}
     </div>
     <button mat-button matStepperNext [disabled]="!canGo()" (click)="goNext()">
         Next</button>
@@ -24,7 +24,7 @@
                 <td style="color: darkgreen">{{category.Currency.symbol}} {{category.stagedCredit | number:
                     '1.2-2':'en-US'}}
                 </td>
-                <td>{{category.Currency.symbol}} {{ category.stagedBalance | number: '1.2-2':'en-US'}}</td>
+                <td>{{category.Currency.symbol}} {{ category.stagedBalance | customNumber}}</td>
             </tr>
         </table>
     </div>
@@ -37,26 +37,26 @@
             <span>
                 Balance:
                 {{selectedCategory.Currency.symbol}}
-                {{(selectedCategory.stagedBalance + newValue) | number: '1.2-2':'en-US'}}
+                {{(selectedCategory.stagedBalance + newValue) | customNumber}}
             </span>
 
         </div>
 
         <div class="right-item">
             <input type="text" (keyup)="onNewValueKeyUp($event)" [prefix]="selectedCategory?.Currency.symbol + ' '"
-                [(ngModel)]="newValue" mask="separator.2" thousandSeparator="," separatorLimit="1000000000" />
+                [(ngModel)]="newValue" mask="separator.2" separatorLimit="1000000000" #newValueInput />
             <br />
 
             <button *ngIf="selectedCategory.stagedCredit" (click)="undoCredit()" mat-button>
-                <mat-icon>undo</mat-icon> {{selectedCategory.Currency.symbol}} {{selectedCategory.stagedCredit | number:
-                '1.2-2'}}
+                <mat-icon>undo</mat-icon> {{selectedCategory.Currency.symbol}} {{selectedCategory.stagedCredit |
+                customNumber}}
             </button>
             <button (click)="addCredit()" mat-icon-button>
                 <mat-icon>add</mat-icon>
             </button>
         </div>
 
-        <div class="options-container">
+        <div class="credit-options-container">
 
             <div class="option-item" (click)="setNewValue(getNeededToZero() )">
                 <div class="option-header">
@@ -64,10 +64,10 @@
                 </div>
 
                 <div>
-                    {{selectedCategory?.Currency.symbol}} 0
+                    {{selectedCategory?.Currency.symbol}} {{0 | customNumber}}
                 </div>
                 (+ {{selectedCategory?.Currency.symbol}}
-                {{getNeededToZero() | number: '1.2-2':'en-US' }})
+                {{getNeededToZero() | customNumber }})
             </div>
 
             <div class="option-item" (click)="setNewValue(getNeededToCreditAVG())">
@@ -75,11 +75,12 @@
                     Credit AVG
                 </div>
                 <div>
-                    {{selectedCategory?.Currency.symbol}} {{getAvgsFromCategory(selectedCategory.id).creditAvg}}
+                    {{selectedCategory?.Currency.symbol}} {{getAvgsFromCategory(selectedCategory.id).creditAvg |
+                    customNumber}}
                 </div>
                 <div>
                     (+ {{selectedCategory?.Currency.symbol}}
-                    {{ getNeededToCreditAVG() | number: '1.2-2':'en-US' }}) </div>
+                    {{ getNeededToCreditAVG() | customNumber }}) </div>
             </div>
 
             <div class="option-item" (click)="setNewValue(getNeededToDebitAVG())">
@@ -88,13 +89,13 @@
                 </div>
                 <div>
                     {{selectedCategory?.Currency.symbol}}
-                    {{getAvgsFromCategory(selectedCategory.id).debitAvg *
-                    -1}}
+                    {{(getAvgsFromCategory(selectedCategory.id).debitAvg *
+                    -1) | customNumber}}
                 </div>
 
                 <div>
                     (+ {{selectedCategory?.Currency.symbol}}
-                    {{ getNeededToDebitAVG() | number: '1.2-2':'en-US' }}) </div>
+                    {{ getNeededToDebitAVG() | customNumber }}) </div>
 
             </div>
 
@@ -120,7 +121,7 @@
                 <tr *ngFor="let credit of credits">
                     <td>{{credit.Source.name}}</td>
                     <td><input type="text" [(ngModel)]="credit.description" (change)="updateDescription(credit)" /></td>
-                    <td>{{credit.Source.Currency.symbol}} {{credit.value | number: '1.2-2':'en-US'}}</td>
+                    <td>{{credit.Source.Currency.symbol}} {{credit.value | customNumber}}</td>
                     <td>{{credit.transactionDate}}</td>
                     <td>{{credit.sourceDescription}}</td>
                 </tr>

@@ -1,26 +1,19 @@
-- Fazer Models no front
 
-- Configuração de idioma front
+- CRUD de Currency
 
-- Configuração de idioma back
+- CRUD de Source
 
-- Configuração de pontuação numérica
+- Publish database/front/back
 
-- CRUD de Category
 
-- Home do user
-
-- Esquema para ver todas as transacoes
 
 ---- OBJETIVANDO EXTERN USERS ---
+
+- Configuração de idioma back
 
 - Home do não cadastrado
 
 - Cadastro de novo usuário
-
-- CRUD de Source
-
-- CRUD de Currency
 
 - Undo migration funcionando
 

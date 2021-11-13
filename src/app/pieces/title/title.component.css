@@ -1,0 +1,15 @@
+.default_title_container{
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    padding: 14px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+.back_button{
+    position: absolute !important;
+    left: 7px;
+    top: 5px;
+}

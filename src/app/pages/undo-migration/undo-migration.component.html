@@ -1,13 +1,9 @@
 <app-header></app-header>
-
-<a mat-icon-button routerLink="/main">
-    <mat-icon>arrow_back</mat-icon>
-</a>
-
+<app-title routerLink="/main" [text]="'USER_PAGE.UNDO_MIGRATION' | translate"></app-title>
 <div class="big_container">
     <div class="migrations_container">
         <div class="t2">
-            Select a migration date to revert
+            {{ 'UNDO_MIGRATION.SELECT' | translate }}
         </div>
         <div *ngFor="let migration of migrations" (click)="select(migration)" (mouseleave)="onLeave()"
             (mouseover)="onHover(migration)" class="migration" [class.selected]="migrationSelected == migration.date"
@@ -28,7 +24,7 @@
             </tr>
             <tr *ngFor="let source of sources">
                 <td>{{source.name}}</td>
-                <td>{{source.symbol}} {{source.balance}}</td>
+                <td>{{source.symbol}} {{source.balance | customNumber}}</td>
             </tr>
         </table>
         <div style="padding: 17px; text-align: center;">

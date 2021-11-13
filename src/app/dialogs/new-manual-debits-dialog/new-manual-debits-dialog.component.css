@@ -33,10 +33,36 @@ td{
     padding: 10px;
 }
 
-.insert_button {
-    background-color: var(--primary);
-    color: white;
+h2, h5{
+    margin-bottom: 0px;
 }
-.insert_button:disabled{
+
+.add_debit_button {
+    background-color: salmon;
+    color: white;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.add_debit_button:disabled{
     background-color: whitesmoke;
+}
+
+.add_credit_button {
+    background-color: lightgreen;
+    color: white;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.add_credit_button:disabled{
+    background-color: whitesmoke;
+}
+
+.new_balance_input{
+    padding: 5px;
+    border: 1px dashed whitesmoke;
+    background-color: white;
+    border-radius: 3px;
+}
+.new_balance_input:focus{
+    outline: 1px solid gray;
 }

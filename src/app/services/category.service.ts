@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SharedService } from './shared.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -9,11 +8,27 @@ import { environment } from '../../environments/environment';
 export class CategoryService {
 
   constructor(
-    private http: HttpClient,
-    private sharedService: SharedService
+    private http: HttpClient
   ) { }
 
   getMyCategories() {
-    return this.http.get<any[]>(`${environment.apiHost}/category`, this.sharedService.getDefaultApiOptions())
+    return this.http.get<any[]>(`${environment.apiHost}/category`)
   }
+
+  updateCategory(id: number, category: any) {
+    return this.http.put<any>(`${environment.apiHost}/category/${id}`, { ...category })
+  }
+
+  create(category: any) {
+    return this.http.post<any>(`${environment.apiHost}/category/create`, { ...category })
+  }
+
+  inactivate(categoryId: string) {
+    return this.http.delete<any>(`${environment.apiHost}/category/${categoryId}`)
+  }
+
+  activate(categoryId: string) {
+    return this.http.put<any>(`${environment.apiHost}/category/active/${categoryId}`, {})
+  }
+
 }

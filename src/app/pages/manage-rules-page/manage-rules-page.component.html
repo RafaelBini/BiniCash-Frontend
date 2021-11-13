@@ -1,0 +1,101 @@
+<app-header></app-header>
+<app-title routerLink="/migrate" text="Manage My Rules"></app-title>
+<div class="container">
+    <div *ngIf="selectedRule" cdkDropList (cdkDropListDropped)="drop($event)" class="rules_container">
+        <div *ngFor="let rule of rules" cdkDrag (click)="selectRule(rule)" class="rule_row"
+            [class.selected_rule_row]="rule.id == selectedRule.id">
+            #{{rule.orderNumber}}.
+            <span *ngIf="rule.field == 'category'">
+                Input <b>{{getCategory(rule.value)?.name}}</b> on {{rule.field}}
+            </span>
+            <span *ngIf="rule.field == 'description'">
+                Input <b>{{rule.value}}</b> on {{rule.field}}
+            </span>
+            <div class="drag_placeholder" *cdkDragPlaceholder>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="rule_editor">
+        <div class="status" [innerHTML]="statusMessage"></div>
+
+        <div>
+            Affect:
+            <select [(ngModel)]="selectedRule.field" (ngModelChange)="saveRuleProperty('field')" class="default_input">
+                <option value="description">Description</option>
+                <option value="category">Category</option>
+            </select>
+        </div>
+        <div>
+            Input:
+            <span *ngIf="selectedRule.field == 'description'">
+                <input [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
+                    class="default_input" type="text" />
+            </span>
+            <span *ngIf="selectedRule.field == 'category'">
+                <select [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
+                    class="default_input">
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                </select>
+            </span>
+        </div>
+        <div>
+            When:
+            <li *ngFor="let conditional of selectedRule.Conditionals; index as conditionalIndex">
+
+                <span *ngIf="conditionalIndex > 0">Or </span>
+
+                <select [(ngModel)]="conditional.field" (ngModelChange)="saveConditionalProperty(conditional, 'field')"
+                    class="default_input">
+                    <option *ngFor="let conditionalField of conditionalFields" [value]="conditionalField.id">
+                        {{conditionalField.name}}
+                    </option>
+                </select>
+
+                <select [(ngModel)]="conditional.operator"
+                    (ngModelChange)="saveConditionalProperty(conditional, 'operator')" class="default_input">
+                    <option *ngFor="let operator of getOperatorsFromConditionalFieldId(conditional.field)"
+                        [value]="operator.id">
+                        {{operator.name}}
+                    </option>
+                </select>
+
+
+                <input *ngIf="getConditionalField(conditional.field)?.type == 'string'" [(ngModel)]="conditional.value"
+                    (ngModelChange)="saveConditionalProperty(conditional, 'value')" type="text" class="default_input" />
+
+                <input *ngIf="getConditionalField(conditional.field)?.type == 'number'" [(ngModel)]="conditional.value"
+                    (ngModelChange)="saveConditionalProperty(conditional, 'value')" type="number"
+                    class="default_input" />
+
+                <button (click)="deleteConditional(conditional.id)" class="btn_delete_conditional" mat-button>
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </button>
+
+
+
+            </li>
+
+            <li>
+
+                <button (click)="addConditional()" mat-button class="default_button">
+                    Or...
+                </button>
+            </li>
+        </div>
+        <div class="btn_container">
+            <button mat-button (click)="deleteRule()" class="default_danger_button">
+                Delete Rule
+            </button>
+            <button (click)="addRule()" mat-button class="default_button" style="margin-left: 20px;">
+                New Rule
+            </button>
+        </div>
+    </div>
+
+
+
+</div>

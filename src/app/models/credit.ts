@@ -6,9 +6,9 @@ export interface Credit {
     description: string,
     value: number,
     sourceDescription: string,
-    source: Source,
+    Source: Source,
     credit_date: string,
-    user: User,
+    User: User,
     createdAt?: string,
     updatedAt?: string,
 }

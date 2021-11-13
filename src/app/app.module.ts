@@ -1,8 +1,9 @@
+import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // HTTP
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 // MATERIAL
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -15,15 +16,34 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+
+// CDK
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // NGX MASK
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) | null = null;
 
 // Locale
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt);
+
+// Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// HighCharts
+import { ChartModule } from 'angular-highcharts';
+
+// Custom Prototypes
+import '../assets/custom-prototypes.ts';
+
+// HTTP Interceptor 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,13 +62,33 @@ import { NewManualDebitsDialogComponent } from './dialogs/new-manual-debits-dial
 import { FinishStepComponent } from './pages/migrate-page/finish-step/finish-step.component';
 import { UndoMigrationComponent } from './pages/undo-migration/undo-migration.component';
 import { CreateTransactionChildrenDialogComponent } from './dialogs/create-transaction-children-dialog/create-transaction-children-dialog.component';
-import { ManageRulesDialogComponent } from './dialogs/manage-rules-dialog/manage-rules-dialog.component';
-import { ShortDatePipe } from './pipes/short-date.pipe';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { MyTransactionsPageComponent } from './pages/my-transactions-page/my-transactions-page.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { CustomNumberPipe } from './pipes/custom-number.pipe';
+import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
+import { NewCategoryDialogComponent } from './dialogs/new-category-dialog/new-category-dialog.component';
+import { TransferCategoryDialogComponent } from './dialogs/transfer-category-dialog/transfer-category-dialog.component';
+import { ThousandSeparatorTranslatePipe } from './pipes/thousand-separator-translate.pipe';
+import { ManageRulesPageComponent } from './pages/manage-rules-page/manage-rules-page.component';
+import { NewCurrencyComponent } from './dialogs/new-currency/new-currency.component';
+import { TitleComponent } from './pieces/title/title.component';
+import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
+
 
 const MATERIAL_MODULES = [
   MatSnackBarModule, MatButtonModule, MatStepperModule, MatIconModule, MatCheckboxModule,
-  MatTableModule, MatSortModule, MatDialogModule, MatTooltipModule, MatMenuModule
+  MatTableModule, MatSortModule, MatDialogModule, MatTooltipModule, MatMenuModule,
+  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule
 ]
+
+const CDK_MODULES = [
+  DragDropModule
+]
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -66,8 +106,18 @@ const MATERIAL_MODULES = [
     FinishStepComponent,
     UndoMigrationComponent,
     CreateTransactionChildrenDialogComponent,
-    ManageRulesDialogComponent,
-    ShortDatePipe
+    CustomDatePipe,
+    SettingsPageComponent,
+    MyTransactionsPageComponent,
+    CustomNumberPipe,
+    CategoriesPageComponent,
+    NewCategoryDialogComponent,
+    TransferCategoryDialogComponent,
+    ThousandSeparatorTranslatePipe,
+    ManageRulesPageComponent,
+    NewCurrencyComponent,
+    TitleComponent,
+    SourcesPageComponent
   ],
   imports: [
     BrowserModule,
@@ -75,11 +125,25 @@ const MATERIAL_MODULES = [
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    ChartModule,
     NgxMaskModule.forRoot(),
-    ...MATERIAL_MODULES
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    ...MATERIAL_MODULES,
+    ...CDK_MODULES
   ],
   providers: [
-
+    DecimalPipe, CustomDatePipe, DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

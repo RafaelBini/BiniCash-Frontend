@@ -1,6 +1,12 @@
 <div class="container">
-    <h1>LOGIN</h1>
-    <div><input [(ngModel)]="user.username" class="login-field" type='text' placeholder="Username" /></div>
-    <div><input [(ngModel)]="user.password" class="login-field" type='password' placeholder="Password" /></div>
-    <div><button mat-button (click)="login()">Enter</button></div>
+    <h1>{{'LOGIN.TITLE' | translate}}</h1>
+    <div>
+        <input [(ngModel)]="user.username" class="login-field" type='text' [placeholder]="'LOGIN.USERNAME' | translate"
+            (keyup)="onKeyUp($event)" />
+    </div>
+    <div>
+        <input [(ngModel)]="user.password" class="login-field" type='password'
+            [placeholder]="'LOGIN.PASSWORD' | translate" (keyup)="onKeyUp($event)" />
+    </div>
+    <div><button mat-button (click)="login()">{{'COMMON.ENTER' | translate}}</button></div>
 </div>

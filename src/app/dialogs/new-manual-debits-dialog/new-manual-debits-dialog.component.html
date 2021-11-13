@@ -1,6 +1,7 @@
 <div class='inputs_container'>
     <div style="text-align: center;">
-        <h1>Add Transactions</h1>
+        <h2>Add Transactions</h2>
+        <h5>{{source?.name}}</h5>
     </div>
     <div>
         <input class="default_input" type="date" [(ngModel)]="newTransaction.transactionDate" />
@@ -10,12 +11,17 @@
             [(ngModel)]="newTransaction.sourceDescription" />
     </div>
     <div>
-        <input class="default_input" type="text" [allowNegativeNumbers]="true" [prefix]="source?.symbol + ' '"
-            mask="separator.2" thousandSeparator="," separatorLimit="1000000000" [(ngModel)]="newTransaction.value" />
+        <input class="default_input" #newTransactionValueInput type="text" [allowNegativeNumbers]="false"
+            [placeholder]="'Value ('+source?.symbol+')'" mask="separator.2"
+            [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000"
+            (keyup)="setNewTransactionValue(newTransactionValueInput.value)" />
     </div>
     <div style="text-align: center;">
-        <button (click)="add()" class="insert_button" mat-button>
-            <mat-icon>add</mat-icon>
+        <button (click)="add('debit')" class="add_debit_button" mat-button>
+            Add Debit
+        </button>
+        <button (click)="add('credit')" class="add_credit_button" mat-button>
+            Add Credit
         </button>
     </div>
 </div>
@@ -28,12 +34,12 @@
             <td>Description</td>
             <td></td>
         </tr>
-        <tr *ngFor='let transaction of transactions'>
-            <td>{{transaction.transactionDate | shortDate}}</td>
+        <tr *ngFor='let transaction of transactions; index as index'>
+            <td>{{transaction.transactionDate | customDate:'shortDate'}}</td>
             <td>{{source?.symbol}} {{transaction.value | number:'1.2-2':'en-US'}}</td>
             <td>{{transaction.sourceDescription}}</td>
             <td>
-                <button mat-icon-button>
+                <button (click)="remove(index)" mat-icon-button>
                     <mat-icon>cancel</mat-icon>
                 </button>
             </td>
@@ -42,7 +48,10 @@
 </div>
 <div class='inputs_container'>
     <div style="text-align: center;">
-
+        New balance ({{source?.symbol}}):
+        <input class="new_balance_input" #newBalanceInput type="text" [allowNegativeNumbers]="false" mask="separator.2"
+            [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000"
+            (keyup)="updateNewTransactionValue(newBalanceInput.value)" />
     </div>
     <button [disabled]="transactions.length <= 0" (click)='finish()' mat-button class="insert_button">
         It´s done, finish!

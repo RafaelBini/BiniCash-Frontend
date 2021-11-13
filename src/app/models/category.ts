@@ -9,8 +9,8 @@ export interface Category {
     isTransference: boolean,
     priority: number,
     active: boolean,
-    currency: Currency,
-    user: User,
+    Currency: Currency,
+    User: User,
     createdAt?: string,
     updatedAt?: string,
 }

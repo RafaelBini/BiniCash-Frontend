@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SharedService } from 'src/app/services/shared.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-page',
@@ -13,10 +13,12 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private sharedService: SharedService,
     private snack: MatSnackBar,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {
+
+
+  }
 
   user = {
     username: '',
@@ -25,6 +27,13 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onKeyUp(event: any) {
+    if (event.key == 'Enter') {
+      this.login();
+    }
+  }
+
 
   login() {
 

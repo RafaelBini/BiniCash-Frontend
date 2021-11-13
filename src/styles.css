@@ -20,6 +20,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border: 1px dashed gray;
 }
 
+.default_danger_button {
+    background-color: var(--danger);
+    color: white;
+    border: 1px solid  var(--danger);
+}
+.default_danger_button:disabled {
+    background-color: transparent;
+    color: gray;
+    border: 1px dashed gray;
+}
+
+
+
+
 /* MAT STEPPER */
 .migrate-stepper .mat-step-header  {
     pointer-events: none !important;
@@ -35,6 +49,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
 
 .default_input{
     padding: 5px;
+    box-sizing: border-box;
     border-radius: 3px;
     width: 85%;
     border: 1px dashed lightgrey;
@@ -58,4 +73,29 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
 .btn_dialog_close:hover{
     opacity: 1;
     color: var(--danger);
+}
+
+.spinner{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.supplier-details-container .mat-checkbox-ripple .mat-ripple-element,.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: var(--primary) !important;
+}
+
+.mat-paginator-container{
+    width: fit-content !important;
+}
+
+.mat-form-field-underline{
+    width: 0px !important;
+}
+.mat-form-field-wrapper{
+    padding-bottom: 0px !important;
 }
