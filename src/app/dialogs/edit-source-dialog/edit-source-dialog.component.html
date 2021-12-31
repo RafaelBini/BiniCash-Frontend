@@ -1,0 +1,39 @@
+<div *ngIf="source != null" class="header">
+    <img [src]="source.imageUrl" />
+    <input type="text" [(ngModel)]="source.imageUrl" (ngModelChange)="save()" class="default_input" />
+</div>
+<div *ngIf="source != null" class="container">
+    <div>
+        Name <input type="text" [(ngModel)]="source.name" (ngModelChange)="save()" class="default_input" />
+    </div>
+    <div>
+        Import <select [(ngModel)]="source.type" (ngModelChange)="save()" class="default_input">
+            <option>CSV</option>
+            <option>OFX</option>
+        </select>
+    </div>
+    <div>
+        Code <input type="text" [(ngModel)]="source.secondId" (ngModelChange)="save()" class="default_input" />
+    </div>
+    <div>
+        Currency <select [(ngModel)]="source.currencyId" [disabled]="sourceId != undefined" class="default_input">
+            <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
+        </select>
+    </div>
+
+</div>
+
+<div *ngIf="source != null" class="header">
+    <button *ngIf="sourceId != undefined" (click)="inactivate()" mat-button class="default_danger_button">
+        <mat-icon>delete</mat-icon>
+        Inactivate
+    </button>
+    <button *ngIf="sourceId == undefined" (click)="create()" mat-button class="default_button">
+        <mat-icon>add</mat-icon>
+        Create
+    </button>
+</div>
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

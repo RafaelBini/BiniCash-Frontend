@@ -17,4 +17,24 @@ export class SourceService {
     return this.http.get<Source[]>(`${environment.apiHost}/source`)
   }
 
+  getMyActiveSources() {
+    return this.http.get<Source[]>(`${environment.apiHost}/source?active=true`)
+  }
+
+  getSource(sourceId: number) {
+    return this.http.get<Source[]>(`${environment.apiHost}/source?id=${sourceId}`)
+  }
+
+  updateSource(source: any) {
+    return this.http.put(`${environment.apiHost}/source`, source)
+  }
+
+  inativate(sourceId: number) {
+    return this.http.delete(`${environment.apiHost}/source/${sourceId}`)
+  }
+
+  create(source: any) {
+    return this.http.post(`${environment.apiHost}/source`, source)
+  }
+
 }

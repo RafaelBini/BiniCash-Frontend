@@ -2,8 +2,7 @@
 - CRUD de Currency
 
 - CRUD de Source
-
-- Publish database/front/back
+	- Ao criar um novo source: insert into credits (description, source_id, source_description, credit_date, user_id, value) values ('Initial credit', 14, 'Initial credit', '2021-11-01', 2, 0)
 
 
 

@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.container>*{
+    margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 40%;
+}
+
+.header{
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+img{
+    width: 200px;
+}
+
+button{
+    margin-left: 3px;
+    margin-right: 3px;
+}

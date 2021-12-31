@@ -74,6 +74,7 @@ import { ManageRulesPageComponent } from './pages/manage-rules-page/manage-rules
 import { NewCurrencyComponent } from './dialogs/new-currency/new-currency.component';
 import { TitleComponent } from './pieces/title/title.component';
 import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
+import { EditSourceDialogComponent } from './dialogs/edit-source-dialog/edit-source-dialog.component';
 
 
 const MATERIAL_MODULES = [
@@ -117,7 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ManageRulesPageComponent,
     NewCurrencyComponent,
     TitleComponent,
-    SourcesPageComponent
+    SourcesPageComponent,
+    EditSourceDialogComponent
   ],
   imports: [
     BrowserModule,

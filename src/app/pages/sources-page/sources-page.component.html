@@ -1,1 +1,20 @@
-<p>sources-page works!</p>
+<app-header></app-header>
+<app-title routerLink="/main" [text]="'USER_PAGE.MY_SOURCES' | translate"></app-title>
+<div class="container">
+    <div *ngFor="let source of sources" (click)="edit(source.id)" class="source">
+        <div class="source_title">
+            <div class="img_container">
+                <img [src]="source.image_url" />
+            </div>
+            <div>
+                {{source.name}}
+            </div>
+        </div>
+        <div class="source_content">
+            {{source.symbol}} {{source.balance | customNumber}}
+        </div>
+    </div>
+</div>
+<button (click)="add()" class="btn_add" mat-icon-button>
+    <mat-icon>add</mat-icon>
+</button>

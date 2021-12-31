@@ -53,6 +53,10 @@ export class TransactionService {
     return this.http.get<any[]>(`${environment.apiHost}/transaction/balances-by-sources-until-date/${createdAt}`)
   }
 
+  getBalancesBySources() {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/balances-by-sources`)
+  }
+
   getMigrations() {
     return this.http.get<any>(`${environment.apiHost}/transaction/migrations`)
   }
