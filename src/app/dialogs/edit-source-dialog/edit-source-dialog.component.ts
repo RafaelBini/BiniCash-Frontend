@@ -4,6 +4,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { NewCurrencyComponent } from '../new-currency/new-currency.component';
 
 @Component({
   selector: 'app-edit-source-dialog',
@@ -64,6 +65,19 @@ export class EditSourceDialogComponent implements OnInit {
       this.dialogRef.close();
     });
 
+  }
+
+  openNewCurrencyDialog() {
+    var newCurrenyDiag = this.dialog.open(NewCurrencyComponent, {
+      data: this.currencies
+    })
+    newCurrenyDiag.afterClosed().subscribe(result => {
+      if (result) {
+        this.currencyService.getMyCurrencies().subscribe(currencies => {
+          this.currencies = currencies;
+        })
+      }
+    })
   }
 
   inactivate() {

@@ -19,6 +19,9 @@
         Currency <select [(ngModel)]="source.currencyId" [disabled]="sourceId != undefined" class="default_input">
             <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
         </select>
+        <button (click)="openNewCurrencyDialog()" mat-icon-button>
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 
 </div>
