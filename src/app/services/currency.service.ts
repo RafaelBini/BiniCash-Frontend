@@ -16,7 +16,20 @@ export class CurrencyService {
     return this.http.get<Currency[]>(`${environment.apiHost}/currency`)
   }
 
+  updateCurrency(id: number, currency: any) {
+    return this.http.put<any>(`${environment.apiHost}/currency/${id}`, { ...currency })
+  }
+
   createCurrency(currency: any) {
     return this.http.post<Currency[]>(`${environment.apiHost}/currency`, currency)
   }
+
+  inactivate(currencyId: string) {
+    return this.http.delete<any>(`${environment.apiHost}/currency/${currencyId}`)
+  }
+
+  activate(currencyId: string) {
+    return this.http.put<any>(`${environment.apiHost}/currency/active/${currencyId}`, {})
+  }
+
 }

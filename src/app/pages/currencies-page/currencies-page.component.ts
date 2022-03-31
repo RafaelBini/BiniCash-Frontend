@@ -1,28 +1,26 @@
-import { TransferCategoryDialogComponent } from './../../dialogs/transfer-category-dialog/transfer-category-dialog.component';
 import { ConfirmDialogComponent } from './../../dialogs/confirm-dialog/confirm-dialog.component';
-import { NewCategoryDialogComponent } from './../../dialogs/new-category-dialog/new-category-dialog.component';
+import { NewCurrencyComponent } from './../../dialogs/new-currency/new-currency.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransactionService } from './../../services/transaction.service';
-import { CategoryService } from './../../services/category.service';
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { CurrencyService } from './../../services/currency.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Chart } from 'angular-highcharts';
 
 @Component({
-  selector: 'app-categories-page',
-  templateUrl: './categories-page.component.html',
-  styleUrls: ['./categories-page.component.css']
+  selector: 'app-currencies-page',
+  templateUrl: './currencies-page.component.html',
+  styleUrls: ['./currencies-page.component.css']
 })
-export class CategoriesPageComponent implements OnInit, AfterViewInit {
-
+export class CurrenciesPageComponent implements OnInit {
   displayedColumns: string[] = [
-    'name', 'balance', 'priority', 'isTransference', 'isDebitRequired'
+    'name', 'balance'
   ]
   dataSource: any;
   @ViewChild(MatSort) sort: any;
-  selectedCategory: any;
+  selectedCurrency: any;
   chart = new Chart({
     chart: {
       type: 'column'
@@ -54,7 +52,7 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
   saved?: boolean | null = undefined;
 
   constructor(
-    private categoryService: CategoryService,
+    private currencyService: CurrencyService,
     private transactionService: TransactionService,
     private snack: MatSnackBar,
     private dialog: MatDialog,
@@ -69,10 +67,10 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
   }
 
   async loadData() {
-    var categories = await this.categoryService.getMyCategories().toPromise();
-    var balances = await this.transactionService.getBalancesByCategories().toPromise();
+    var currencies = await this.currencyService.getMyCurrencies().toPromise();
+    var balances = await this.transactionService.getBalancesByCurrencies().toPromise();
 
-    categories = categories.map(c => {
+    currencies = currencies.map(c => {
       var relatedBalance = balances.find(b => b.id == c.id);
       return {
         ...c,
@@ -80,14 +78,14 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
       }
     })
 
-    this.dataSource = new MatTableDataSource(categories.sort((a, b) => a.name > b.name ? 1 : -1));
+    this.dataSource = new MatTableDataSource(currencies.sort((a, b) => a.name > b.name ? 1 : -1));
     this.dataSource.sort = this.sort;
 
-    this.selectCategory(categories[0]);
+    this.selectCurrency(currencies[0]);
   }
 
   async loadChartData() {
-    var transactions = (await this.transactionService.getTransactionsByCategory(this.selectedCategory.id).toPromise()).sort((a, b) => a.transactionDate > b.transactionDate ? 1 : -1);
+    var transactions = (await this.transactionService.getTransactionsByCurrency(this.selectedCurrency.id).toPromise()).sort((a, b) => a.transactionDate > b.transactionDate ? 1 : -1);
 
     while (this.chart.ref.series.length > 0)
       this.chart.ref.series[0].remove(true);
@@ -98,9 +96,9 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
       data: [],
       tooltip: {
         valueDecimals: 2,
-        valuePrefix: this.selectedCategory.Currency.symbol,
+        valuePrefix: this.selectedCurrency.symbol,
         pointFormat: `{point.description}`,
-        headerFormat: `<div style='font-size: 10px;'>${this.selectedCategory.Currency.symbol} {point.y}</div><br/>`
+        headerFormat: `<div style='font-size: 10px;'>${this.selectedCurrency.symbol} {point.y}</div><br/>`
       },
       stack: 'Credit'
     }, false, true)
@@ -111,9 +109,9 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
       data: [],
       tooltip: {
         valueDecimals: 2,
-        valuePrefix: this.selectedCategory.Currency.symbol,
+        valuePrefix: this.selectedCurrency.symbol,
         pointFormat: `{point.description}`,
-        headerFormat: `<div style='font-size: 10px;'>${this.selectedCategory.Currency.symbol} {point.y}</div><br/>`
+        headerFormat: `<div style='font-size: 10px;'>${this.selectedCurrency.symbol} {point.y}</div><br/>`
       },
       stack: 'Debit'
     }, false, true)
@@ -146,13 +144,13 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
     this.chart.ref.series[1].setData(debits);
   }
 
-  selectCategory(category: any) {
-    this.selectedCategory = category;
+  selectCurrency(currency: any) {
+    this.selectedCurrency = currency;
     this.loadChartData();
   }
 
-  addCategory() {
-    var diagRef = this.dialog.open(NewCategoryDialogComponent);
+  addCurrency() {
+    var diagRef = this.dialog.open(NewCurrencyComponent);
     diagRef.afterClosed().subscribe(result => {
       if (result) {
         this.loadData();
@@ -162,7 +160,7 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
 
   async activate() {
     try {
-      await this.categoryService.activate(this.selectedCategory.id).toPromise();
+      await this.currencyService.activate(this.selectedCurrency.id).toPromise();
       this.snack.open('Activated', undefined, { duration: 1500 });
       this.loadData();
     }
@@ -171,28 +169,18 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  transfer() {
-    var ref = this.dialog.open(TransferCategoryDialogComponent, {
-      data: this.selectedCategory
-    })
-    ref.afterClosed().subscribe(result => {
-      if (result)
-        this.loadData();
-    })
-  }
-
   inactivate() {
     var ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
         isDanger: true,
-        title: 'Inactivate category?',
-        content: 'You will not be able to see this category anymore'
+        title: 'Inactivate currency?',
+        content: 'You will not be able to see this currency anymore'
       }
     })
     ref.afterClosed().subscribe(async result => {
       if (result) {
         try {
-          await this.categoryService.inactivate(this.selectedCategory.id).toPromise();
+          await this.currencyService.inactivate(this.selectedCurrency.id).toPromise();
           this.snack.open('Inactivated', undefined, { duration: 1500 });
           this.loadData();
         }
@@ -204,10 +192,10 @@ export class CategoriesPageComponent implements OnInit, AfterViewInit {
 
   }
 
-  async updateCategory(property: string) {
+  async updateCurrency(property: string) {
     this.saved = false;
     try {
-      await this.categoryService.updateCategory(this.selectedCategory.id, { [`${property}`]: this.selectedCategory[property] }).toPromise()
+      await this.currencyService.updateCurrency(this.selectedCurrency.id, { [`${property}`]: this.selectedCurrency[property] }).toPromise()
       this.saved = true;
     }
     catch (error: any) {

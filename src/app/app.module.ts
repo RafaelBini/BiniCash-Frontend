@@ -75,6 +75,7 @@ import { NewCurrencyComponent } from './dialogs/new-currency/new-currency.compon
 import { TitleComponent } from './pieces/title/title.component';
 import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
 import { EditSourceDialogComponent } from './dialogs/edit-source-dialog/edit-source-dialog.component';
+import { CurrenciesPageComponent } from './pages/currencies-page/currencies-page.component';
 
 
 const MATERIAL_MODULES = [
@@ -119,7 +120,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewCurrencyComponent,
     TitleComponent,
     SourcesPageComponent,
-    EditSourceDialogComponent
+    EditSourceDialogComponent,
+    CurrenciesPageComponent
   ],
   imports: [
     BrowserModule,

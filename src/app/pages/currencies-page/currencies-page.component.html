@@ -1,0 +1,74 @@
+<app-header></app-header>
+<app-title routerLink="/main" [text]="'USER_PAGE.MY_CURRENCIES' | translate"></app-title>
+<div class="container">
+    <div class="currencies_container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.NAME' | translate }}
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'COMMON.BALANCE' | translate }}
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row.symbol}} {{row.balance | customNumber}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="table_row" [class.disabled_row]="!row.active"
+                [class.selected_row]="row.name == selectedCurrency.name" mat-row (click)="selectCurrency(row)"
+                *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="4"> {{ 'COMMON.NO_DATA' | translate }} </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="selectedCurrency" class="selected_category_container">
+        <div class="status">
+            <div *ngIf="saved == true">
+                saved
+            </div>
+            <div *ngIf="saved == false">
+                saving...
+            </div>
+        </div>
+        <div class="name">
+            <input [(ngModel)]="selectedCurrency.name" (ngModelChange)="updateCurrency('name')" type="text"
+                [placeholder]="'CATEGORY.NAME' | translate" class="default_input" />
+        </div>
+        <div class="name">
+            <input [(ngModel)]="selectedCurrency.symbol" (ngModelChange)="updateCurrency('symbol')" type="text"
+                [placeholder]="'CURRENCY.SYMBOL' | translate" class="default_input" />
+        </div>
+        <div class="description">
+            <textarea [(ngModel)]="selectedCurrency.description" (ngModelChange)="updateCurrency('description')"
+                [placeholder]="'CATEGORY.DESCRIPTION' | translate" class="default_input"></textarea>
+        </div>
+        <div class="options">
+            <div matTooltip="The balance should be zero to inactivate"
+                [matTooltipDisabled]="selectedCurrency.balance <= 0">
+                <button *ngIf="selectedCurrency.active" [disabled]="selectedCurrency.balance > 0"
+                    class="default_danger_button" (click)="inactivate()" mat-button>
+                    Inactivate
+                </button>
+            </div>
+
+            <button *ngIf="!selectedCurrency.active" class="default_button" (click)="activate()" mat-button>
+                Activate
+            </button>
+            <div matTooltip="The balance should be greater than zero to transfer"
+                [matTooltipDisabled]="selectedCurrency.balance > 0">
+
+            </div>
+
+        </div>
+        <div class="chart">
+            <div [chart]="chart"></div>
+        </div>
+    </div>
+    <button (click)="addCurrency()" class="btn_add" mat-icon-button>
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

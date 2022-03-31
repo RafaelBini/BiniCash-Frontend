@@ -18,6 +18,9 @@
         "SAVE": "Salvar",
         "SUM": "Soma"
     },
+    "CURRENCY": {
+        "SYMBOL": "Símbolo"
+    },
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Editar meu perfil",
         "MY_SETTINGS": "Meu Perfil"
@@ -73,6 +76,7 @@
         "HOW_AM_I": "Como estou indo?",
         "MIGRATE": "Migrar Dados",
         "MY_CATEGORIES": "Minhas Categorias",
+        "MY_CURRENCIES": "Minhas Moedas",
         "MY_SOURCES": "Minhas Fontes",
         "MY_TRANSACTIONS": "Minhas Transações",
         "SURVIVING_TIME": "Posso viver {{survivingMonths}} meses desempregado",

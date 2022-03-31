@@ -18,6 +18,9 @@
         "SAVE": "Save",
         "SUM": "Sum"
     },
+    "CURRENCY": {
+        "SYMBOL": "Symbol"
+    },
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Edit my profile",
         "MY_SETTINGS": "My Settings"
@@ -73,6 +76,7 @@
         "HOW_AM_I": "How am I going?",
         "MIGRATE": "Migrate Data",
         "MY_CATEGORIES": "My Categories",
+        "MY_CURRENCIES": "My Currencies",
         "MY_SOURCES": "My Sources",
         "MY_TRANSACTIONS": "My Transactions",
         "SURVIVING_TIME": "Can live {{survivingMonths}} months without a job",

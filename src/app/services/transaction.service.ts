@@ -22,12 +22,20 @@ export class TransactionService {
     return this.http.get<any[]>(`${environment.apiHost}/transaction/balances-by-categories`)
   }
 
+  getBalancesByCurrencies() {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/balances-by-currencies`)
+  }
+
   getTransactions() {
     return this.http.get<Transaction[]>(`${environment.apiHost}/transaction`)
   }
 
   getTransactionsByCategory(categoryId: number) {
     return this.http.get<Transaction[]>(`${environment.apiHost}/transaction?categoryId=${categoryId}`)
+  }
+
+  getTransactionsByCurrency(currencyId: number) {
+    return this.http.get<Transaction[]>(`${environment.apiHost}/transaction?currencyId=${currencyId}`)
   }
 
   getTransactionsFrom(startDate: Date, endDate: Date) {

@@ -1,3 +1,4 @@
+import { CurrenciesPageComponent } from './pages/currencies-page/currencies-page.component';
 import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
 import { ManageRulesPageComponent } from './pages/manage-rules-page/manage-rules-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsPageComponent, canActivate: [AuthGuard] },
   { path: 'rules', component: ManageRulesPageComponent, canActivate: [AuthGuard] },
   { path: 'sources', component: SourcesPageComponent, canActivate: [AuthGuard] },
+  { path: 'currencies', component: CurrenciesPageComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesPageComponent, canActivate: [AuthGuard] },
   { path: 'categories/:categoryId', component: CategoriesPageComponent, canActivate: [AuthGuard] },
 ];
