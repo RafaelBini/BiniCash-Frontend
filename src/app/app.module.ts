@@ -76,6 +76,7 @@ import { TitleComponent } from './pieces/title/title.component';
 import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
 import { EditSourceDialogComponent } from './dialogs/edit-source-dialog/edit-source-dialog.component';
 import { CurrenciesPageComponent } from './pages/currencies-page/currencies-page.component';
+import { EditStagedTransactionsDialogComponent } from './edit-staged-transactions-dialog/edit-staged-transactions-dialog.component';
 
 
 const MATERIAL_MODULES = [
@@ -121,7 +122,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TitleComponent,
     SourcesPageComponent,
     EditSourceDialogComponent,
-    CurrenciesPageComponent
+    CurrenciesPageComponent,
+    EditStagedTransactionsDialogComponent
   ],
   imports: [
     BrowserModule,

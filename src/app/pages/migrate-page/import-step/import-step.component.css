@@ -1,4 +1,4 @@
-.sources-container{
+.sources-container {
     width: 80%;
     height: fit-content;
     margin: auto;
@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-.source{
+.source {
     background-color: white;
     width: 95%;
     padding: 9px;
@@ -26,31 +26,34 @@
     justify-content: space-between;
     margin-bottom: 7px;
 }
-.source:hover{
+
+.source:hover {
     border: 1px dashed black;
+    cursor: pointer;
 }
 
-.saldo{
+.saldo {
     background-color: rgba(0, 0, 0, 0.014);
     padding: 3px;
     border-radius: 2px;
 }
 
-.options{
+.options {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     color: gray;
 }
-.options:hover{
+
+.options:hover {
     color: black;
 }
 
-.was_imported{
+.was_imported {
     background-color: rgb(200, 230, 200);
 }
 
-.block{
+.block {
     padding: 17px;
 }

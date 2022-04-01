@@ -1,3 +1,4 @@
+import { EditStagedTransactionsDialogComponent } from './../../../edit-staged-transactions-dialog/edit-staged-transactions-dialog.component';
 import { NewManualDebitsDialogComponent } from './../../../dialogs/new-manual-debits-dialog/new-manual-debits-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from './../../../services/user.service';
@@ -38,6 +39,7 @@ export class ImportStepComponent implements OnInit {
 
   async uploadFile(event: any, source: any, input: any) {
 
+
     if (source.type == 'OFX') {
       var files = event.target.files as File[];
       for (let file of files) {
@@ -70,21 +72,24 @@ export class ImportStepComponent implements OnInit {
           })
       }
     }
+
   }
 
-  async undo(source: any) {
-    this.stagedTransactionService.deleteBySource(source.id).subscribe(result => {
-      console.log(result)
-      this.updateSources();
-    },
-      error => {
-        this.snack.open(error.error.msg, undefined, { duration: 3500 });
-      })
-  }
 
   openManualDebitDialog(source: any) {
     var diagRef = this.dialog.open(NewManualDebitsDialogComponent, {
       data: source
+    });
+    diagRef.afterClosed().subscribe(() => {
+      this.updateSources();
+    })
+  }
+
+  openEditStagedTransactionsDialog(source: any) {
+    var diagRef = this.dialog.open(EditStagedTransactionsDialogComponent, {
+      data: source,
+      height: '92%',
+      width: '92%'
     });
     diagRef.afterClosed().subscribe(() => {
       this.updateSources();

@@ -1,0 +1,42 @@
+<div class="header">
+    <div>
+        <h2>{{source.name}} ({{source.symbol}} {{getBalance() | customNumber}})</h2>
+    </div>
+    <div class="options">
+        <div>
+            <button *ngIf="source.stagedBalance != 0" mat-button class="options" (click)="undo(source)">
+                <mat-icon>undo</mat-icon> Undo All
+            </button>
+        </div>
+        <div>
+            <button mat-button class="options" (click)="fileInput.click()">
+                <mat-icon>upload</mat-icon> {{source.type}}
+                <input type="file" #fileInput (input)="uploadFile($event, source, fileInput)" style="display: none;" />
+            </button>
+        </div>
+        <div>
+            <button mat-button (click)="openManualDebitDialog(source)" class="options">
+                <mat-icon>list</mat-icon> Manually
+            </button>
+        </div>
+    </div>
+
+
+</div>
+<div *ngIf="stagedTransactions.length == 0">
+    No transactions uploaded
+</div>
+<div *ngIf="stagedTransactions.length > 0" class='container'>
+    <table>
+        <tr *ngFor="let stagedTransaction of stagedTransactions">
+            <td>{{stagedTransaction.transactionDate | customDate:'shortDate'}}</td>
+            <td>{{stagedTransaction.Source.Currency.symbol}} {{stagedTransaction.value | customNumber}}</td>
+            <td>{{stagedTransaction.sourceDescription}}</td>
+            <td align="right">
+                <button (click)="delete(stagedTransaction.id)" class="cancel_btn" mat-button>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

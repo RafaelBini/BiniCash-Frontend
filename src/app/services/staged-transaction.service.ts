@@ -12,6 +12,13 @@ export class StagedTransactionService {
     private http: HttpClient
   ) { }
 
+  deleteById(stagedTransactionId: number) {
+    return this.http.delete<any>(`${environment.apiHost}/staged-transaction/${stagedTransactionId}`)
+  }
+
+  getStagedTransactionsBySourceId(sourceId: number) {
+    return this.http.get<any>(`${environment.apiHost}/staged-transaction?sourceId=${sourceId}`)
+  }
 
   getStagedBlancesBySource() {
     return this.http.get<any>(`${environment.apiHost}/staged-transaction/balances-by-source`)
