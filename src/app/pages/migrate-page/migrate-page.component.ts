@@ -68,7 +68,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
   async loadData(event: any) {
 
     const index = event?.selectedIndex || this.stepper?.selectedIndex || 0;
-    console.log('loading data...', index)
+
     if (index == 0) {
       var stagedSources = await this.stagedTransactionService.getStagedBlancesBySource().toPromise();
       this.importStep.sources = stagedSources;
@@ -81,8 +81,9 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
     else if (index == 2) {
       var transactions = await this.stagedTransactionService.get().toPromise();
       this.creditStep.credits = transactions.filter(t => t.value > 0 && !t.categoryId && t.sourceId);
+      this.creditStep.debits = transactions.filter(t => t.value < 0);
+      this.creditStep.lastCreditDistribs = await this.transactionService.getLastCreditDistribs().toPromise();
       this.updateCategories();
-      this.creditStep.categoriesAvg = await this.transactionService.getAveragesByCategory().toPromise();
       this.creditStep.creditsToDistribute = await this.stagedTransactionService.getCreditsToDistribute().toPromise();
       if (!this.transactionMessageSent) {
         var pendingTransferenceCreditCategories = this.creditStep.categories.filter((c: any) => (c.isTransference == true && c.stagedBalance < 0));

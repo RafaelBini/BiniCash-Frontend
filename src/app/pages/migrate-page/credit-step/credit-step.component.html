@@ -58,6 +58,7 @@
 
         <div class="credit-options-container">
 
+            <!-- ZERO BALANCE OPTION -->
             <div class="option-item" (click)="setNewValue(getNeededToZero() )">
                 <div class="option-header">
                     Zero balance
@@ -70,33 +71,32 @@
                 {{getNeededToZero() | customNumber }})
             </div>
 
-            <div class="option-item" (click)="setNewValue(getNeededToCreditAVG())">
+            <!-- CURRENT DEBITS SUM OPTION -->
+            <div class="option-item" (click)="setNewValue(getNeededToCurrentDebit() )">
                 <div class="option-header">
-                    Credit AVG
+                    Current Debit
                 </div>
-                <div>
-                    {{selectedCategory?.Currency.symbol}} {{getAvgsFromCategory(selectedCategory.id).creditAvg |
-                    customNumber}}
-                </div>
-                <div>
-                    (+ {{selectedCategory?.Currency.symbol}}
-                    {{ getNeededToCreditAVG() | customNumber }}) </div>
-            </div>
 
-            <div class="option-item" (click)="setNewValue(getNeededToDebitAVG())">
-                <div class="option-header">
-                    Debit AVG
-                </div>
                 <div>
                     {{selectedCategory?.Currency.symbol}}
-                    {{(getAvgsFromCategory(selectedCategory.id).debitAvg *
-                    -1) | customNumber}}
+                    {{getCurrentDebit() | customNumber}}
+                </div>
+                (+ {{selectedCategory?.Currency.symbol}}
+                {{getNeededToCurrentDebit() | customNumber }})
+            </div>
+
+            <!-- LAST CREDIT DISTRIBUTION OPTION -->
+            <div class="option-item" (click)="setNewValue(getNeededToLastCreditDistrib() )">
+                <div class="option-header">
+                    Last Credit
                 </div>
 
                 <div>
-                    (+ {{selectedCategory?.Currency.symbol}}
-                    {{ getNeededToDebitAVG() | customNumber }}) </div>
-
+                    {{selectedCategory?.Currency.symbol}}
+                    {{getLastCreditDistrib() | customNumber}}
+                </div>
+                (+ {{selectedCategory?.Currency.symbol}}
+                {{getNeededToLastCreditDistrib() | customNumber }})
             </div>
 
         </div>

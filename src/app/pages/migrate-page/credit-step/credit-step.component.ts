@@ -21,11 +21,12 @@ export class CreditStepComponent implements OnInit {
   @Output() refreshStep = new EventEmitter();
   @ViewChild('newValueInput') newValueInput: any;
   categories: any[] = [];
-  categoriesAvg: any[] = [];
   selectedCategory: any = undefined;
   newValue: any = 0;
   creditsToDistribute: any[] = [];
   credits: any[] = []
+  debits: any[] = []
+  lastCreditDistribs: any[] = []
 
   ngOnInit(): void {
   }
@@ -43,8 +44,12 @@ export class CreditStepComponent implements OnInit {
     }
   }
 
-  getAvgsFromCategory(categoryId: number) {
-    return this.categoriesAvg.find(ca => ca.id == categoryId);
+  getCurrentDebit() {
+    return Math.abs(this.debits.filter(d => d.categoryId == this.selectedCategory.id).reduce((p, c) => p + c.value, 0))
+  }
+
+  getLastCreditDistrib() {
+    return this.lastCreditDistribs.find(lcd => lcd.id == this.selectedCategory.id).sum;
   }
 
   updateDescription(credit: any) {
@@ -63,22 +68,18 @@ export class CreditStepComponent implements OnInit {
     this.refresh.emit();
   }
 
-  getNeededToCreditAVG() {
-    const creditAVG = this.getAvgsFromCategory(this.selectedCategory.id).creditAvg;
-    if (this.selectedCategory.stagedBalance - creditAVG < 0)
-      return (this.selectedCategory.stagedBalance - creditAVG) * -1;
-    return 0
-  }
-
-  getNeededToDebitAVG() {
-    const debitAVG = this.getAvgsFromCategory(this.selectedCategory.id).debitAvg;
-    if (this.selectedCategory.stagedBalance - (debitAVG * -1) < 0)
-      return (this.selectedCategory.stagedBalance - (debitAVG * -1)) * -1;
-    return 0;
-  }
-
   getNeededToZero() {
     return (this.selectedCategory.stagedBalance < 0 ? this.selectedCategory.stagedBalance * -1 : 0)
+  }
+
+  getNeededToCurrentDebit() {
+    const value = this.getCurrentDebit() - this.selectedCategory.stagedBalance
+    return value > 0 ? value : 0;
+  }
+
+  getNeededToLastCreditDistrib() {
+    const value = this.getLastCreditDistrib() - this.selectedCategory.stagedBalance
+    return value > 0 ? value : 0;
   }
 
   canGo() {

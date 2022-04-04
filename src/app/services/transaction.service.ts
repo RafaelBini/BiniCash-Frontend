@@ -44,6 +44,10 @@ export class TransactionService {
     return this.http.get<Transaction[]>(`${environment.apiHost}/transaction?startDate=${startDateStr}&endDate=${endDateStr}`)
   }
 
+  getLastCreditDistribs() {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/last-credit-distribution-by-category`)
+  }
+
   getCreditsFrom(startDate: Date, endDate: Date) {
     const startDateStr = startDate.toISOString().substr(0, 10);
     const endDateStr = endDate.toISOString().substr(0, 10);
