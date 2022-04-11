@@ -24,6 +24,10 @@ export class StagedTransactionService {
     return this.http.get<any>(`${environment.apiHost}/staged-transaction/balances-by-source`)
   }
 
+  getStagedSavings() {
+    return this.http.get<any>(`${environment.apiHost}/staged-transaction/savings-by-currency`)
+  }
+
   getStagedBlancesByCategory() {
     return this.http.get<any[]>(`${environment.apiHost}/staged-transaction/balances-by-category`)
   }

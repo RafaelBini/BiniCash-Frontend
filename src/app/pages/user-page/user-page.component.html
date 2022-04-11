@@ -50,6 +50,12 @@
             <div class="content_title survive">
                 {{ 'USER_PAGE.SURVIVING_TIME' | translate: { survivingMonths: survivingMonths} }}
             </div>
+            <div class="content_title saving">
+                Poupança curto prazo: {{selectedCurrency}} {{savingBalances.short | customNumber}}
+            </div>
+            <div class="content_title saving">
+                Poupança longo prazo: {{selectedCurrency}} {{savingBalances.long | customNumber}}
+            </div>
             <div class="how_am_i_going_container">
                 <div [chart]="budgetChart" class="chart"></div>
                 <div [chart]="accumulatedChart" class="chart"></div>

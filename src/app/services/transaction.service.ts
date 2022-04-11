@@ -73,6 +73,10 @@ export class TransactionService {
     return this.http.get<any>(`${environment.apiHost}/transaction/migrations`)
   }
 
+  getSavings(currencyId: number) {
+    return this.http.get<any>(`${environment.apiHost}/transaction/savings-from-currency/${currencyId}`)
+  }
+
   transferCategory(fromCategoryId: number, toCategoryId: number, value: number) {
     return this.http.post<any>(`${environment.apiHost}/transaction/transfer-category`, { fromCategoryId, toCategoryId, value })
   }

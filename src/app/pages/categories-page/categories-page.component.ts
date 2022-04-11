@@ -18,7 +18,7 @@ import { Chart } from 'angular-highcharts';
 export class CategoriesPageComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
-    'name', 'balance', 'priority', 'isTransference', 'isDebitRequired'
+    'name', 'balance', 'priority', 'isTransference', 'isDebitRequired', 'isShortSaving', 'isLongSaving'
   ]
   dataSource: any;
   @ViewChild(MatSort) sort: any;

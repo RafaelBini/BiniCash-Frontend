@@ -6,6 +6,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { Point, PointOptionsType } from 'highcharts';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { AsyncSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-page',
@@ -69,17 +70,17 @@ export class UserPageComponent implements OnInit, AfterViewInit {
   public selectedCurrency = "R$";
   public currencies: any[] = [];
   survivingMonths = 0;
+  savingBalances: any = {
+    short: 0,
+    long: 0
+  };
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.transactionService.getBalancesByCategories().subscribe(balances => {
       this.balancesByCategories = balances;
     });
-    this.currencyService.getMyCurrencies().subscribe(currencies => {
-      this.currencies = currencies;
-    })
-    this.loadSurvivingMonths();
-    this.loadAccumulatedChartData();
-    this.loadBudgetChartData();
+    this.currencies = await this.currencyService.getMyCurrencies().toPromise();
+    this.loadData();
   }
 
   async ngAfterViewInit() {
@@ -235,10 +236,16 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  async loadSavings() {
+    var currencyId = this.currencies.find(c => c.symbol == this.selectedCurrency).id;
+    this.savingBalances = await this.transactionService.getSavings(currencyId).toPromise();
+  }
+
   loadData() {
     this.loadSurvivingMonths();
     this.loadAccumulatedChartData();
     this.loadBudgetChartData();
+    this.loadSavings();
   }
 
   toggleSideBar() {

@@ -125,6 +125,8 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
     else if (index == 3) {
       var stagedBalancesByCategory = await this.stagedTransactionService.getStagedBlancesByCategory().toPromise()
       var stagedSources = await this.stagedTransactionService.getStagedBlancesBySource().toPromise();
+      var stagedSavings = await this.stagedTransactionService.getStagedSavings().toPromise();
+
       var stagedCurrencies = new Map();
 
       for (let stagedSource of stagedSources) {
@@ -152,6 +154,14 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
           stagedCurrency.categories.push(stagedCategory)
           stagedCurrencies.set(stagedCategory.Currency.symbol, stagedCurrency)
         }
+      }
+
+      for (let stagedSaving of stagedSavings) {
+        var stagedCurrency = stagedCurrencies.get(stagedSaving.symbol);
+        if (!stagedCurrency) break;
+
+        stagedCurrency.savings = [{ name: 'CATEGORY.IS_SHORT_SAVING', value: stagedSaving.short }, { name: 'CATEGORY.IS_LONG_SAVING', value: stagedSaving.long }];
+        stagedCurrencies.set(stagedSaving.symbol, stagedCurrency)
       }
 
       this.finishStep.currencies = Array.from(stagedCurrencies, ([symbol, value]) => ({ symbol, value }));;

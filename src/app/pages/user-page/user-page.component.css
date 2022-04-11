@@ -1,11 +1,11 @@
-.container{
+.container {
     width: 100%;
     display: flex;
     flex-direction: row;
     min-height: 100vh;
 }
 
-.side_bar{
+.side_bar {
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -13,25 +13,27 @@
     justify-content: flex-start;
     background-color: whitesmoke;
 }
-.side_bar>button{
+
+.side_bar>button {
     width: 100%;
     padding: 10px;
     text-align: left;
     box-sizing: border-box;
 }
 
-.hidden_side_bar{
-    width: fit-content; 
+.hidden_side_bar {
+    width: fit-content;
     padding-top: 13px;
     box-sizing: border-box;
-    background-color: whitesmoke;  
-}
-.hidden_side_bar:hover{
-    background-color: rgb(214, 214, 214);
-    cursor: pointer;    
+    background-color: whitesmoke;
 }
 
-.main_content{
+.hidden_side_bar:hover {
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+.main_content {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -39,13 +41,13 @@
     justify-content: flex-start;
 }
 
-.main_content>div{
+.main_content>div {
     margin-top: 12px;
     margin-bottom: 12px;
     width: 97.5%;
 }
 
-.categories_banlances_container{
+.categories_banlances_container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -55,7 +57,8 @@
     max-height: 70vh;
     overflow: auto;
 }
-.categories_banlances_container>div{
+
+.categories_banlances_container>div {
     border-collapse: collapse;
     display: flex;
     flex-direction: row;
@@ -68,14 +71,16 @@
     margin: 10px;
     border-radius: 5px;
 }
-.categories_banlances_container>div>div{
+
+.categories_banlances_container>div>div {
     padding: 7px;
 }
-.categories_banlances_container>div>div:nth-child(1){
+
+.categories_banlances_container>div>div:nth-child(1) {
     text-align: right;
 }
 
-.content_title{
+.content_title {
     padding-left: 25px;
     font-size: 20px;
     color: rgb(40, 40, 133);
@@ -83,26 +88,34 @@
     align-items: center;
     box-sizing: border-box;
 }
-.content_title .mat-icon{
+
+.content_title .mat-icon {
     margin-right: 10px;
 }
 
-.how_am_i_going_container{
-   width: 100%;
+.how_am_i_going_container {
+    width: 100%;
 }
 
-.select_currency{
+.select_currency {
     padding: 6px;
     margin-left: 20px;
 }
 
-.survive{
+.survive {
     box-sizing: border-box;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.chart_date_container{
+.saving {
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.chart_date_container {
     font-size: 15px;
     padding: 5px;
     border-radius: 3px;

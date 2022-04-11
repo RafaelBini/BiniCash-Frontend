@@ -1,5 +1,5 @@
 
-- 
+- Recurso para identificar possiveis transações duplicadas
 
 ---- OBJETIVANDO EXTERN USERS ---
 

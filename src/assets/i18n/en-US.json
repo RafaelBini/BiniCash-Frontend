@@ -2,6 +2,8 @@
     "CATEGORY": {
         "DESCRIPTION": "Description",
         "IS_DEBIT_REQUIRED": "Debit Required",
+        "IS_SHORT_SAVING": "Short term saving",
+        "IS_LONG_SAVING": "Long term saving",
         "IS_TRANSFERENCE": "Transference",
         "NAME": "Category",
         "PRIORITY": "Priority"

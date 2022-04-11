@@ -33,6 +33,16 @@
             {{ 'CATEGORY.IS_DEBIT_REQUIRED' | translate }}
         </mat-checkbox>
     </div>
+    <div>
+        <mat-checkbox [(ngModel)]="newCategory.isShortSaving">
+            {{ 'CATEGORY.IS_SHORT_SAVING' | translate }}
+        </mat-checkbox>
+    </div>
+    <div>
+        <mat-checkbox [(ngModel)]="newCategory.isLongSaving">
+            {{ 'CATEGORY.IS_LONG_SAVING' | translate }}
+        </mat-checkbox>
+    </div>
 
     <div class="center_container">
         <button (click)="add()" class="default_button" mat-button>

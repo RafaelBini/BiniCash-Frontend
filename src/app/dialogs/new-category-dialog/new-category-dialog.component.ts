@@ -27,6 +27,8 @@ export class NewCategoryDialogComponent implements OnInit {
     priority: 50,
     isTransference: false,
     isDebitRequired: false,
+    isShortSaving: false,
+    isLongSaving: false,
     currencyId: undefined,
   };
   currencies: Currency[] = []

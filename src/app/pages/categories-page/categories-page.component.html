@@ -40,6 +40,26 @@
                     </mat-icon>
                 </td>
             </ng-container>
+            <ng-container matColumnDef="isShortSaving">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.IS_SHORT_SAVING' |
+                    translate }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="row.isShortSaving">
+                        done
+                    </mat-icon>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="isLongSaving">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'CATEGORY.IS_LONG_SAVING' |
+                    translate }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="row.isLongSaving">
+                        done
+                    </mat-icon>
+                </td>
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr class="table_row" [class.disabled_row]="!row.active"
                 [class.selected_row]="row.name == selectedCategory.name" mat-row (click)="selectCategory(row)"
@@ -80,6 +100,13 @@
             <mat-checkbox [(ngModel)]="selectedCategory.isDebitRequired"
                 (ngModelChange)="updateCategory('isDebitRequired')">
                 {{ 'CATEGORY.IS_DEBIT_REQUIRED' | translate }}
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="selectedCategory.isShortSaving"
+                (ngModelChange)="updateCategory('isShortSaving')">
+                {{ 'CATEGORY.IS_SHORT_SAVING' | translate }}
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="selectedCategory.isLongSaving" (ngModelChange)="updateCategory('isLongSaving')">
+                {{ 'CATEGORY.IS_LONG_SAVING' | translate }}
             </mat-checkbox>
         </div>
         <div class="options">

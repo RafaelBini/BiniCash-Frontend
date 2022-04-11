@@ -6,6 +6,8 @@ export interface Category {
     name: string,
     description: string,
     isDebitRequired: boolean,
+    isShortSaving: boolean,
+    isLongSaving: boolean,
     isTransference: boolean,
     priority: number,
     active: boolean,

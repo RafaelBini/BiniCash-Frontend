@@ -26,6 +26,20 @@
         </div>
     </div>
 
+    <div class="currencies_container">
+        <div *ngFor="let currency of currencies" class="savings_container">
+            <div *ngFor="let saving of currency.value.savings">
+                <div *ngIf="saving.value > 0" class="saving">
+                    <div class="saving_name">
+                        {{saving.name | translate}}
+                    </div>
+                    <div>
+                        + {{currency.symbol}} {{saving.value | customNumber}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="big_table">
         <tr>

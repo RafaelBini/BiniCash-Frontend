@@ -45,7 +45,7 @@ export class FinishStepComponent implements OnInit {
           await this.transactionService.finishMigration().toPromise();
           this.router.navigate(['main']);
         }
-        catch (error) {
+        catch (error: any) {
           this.snack.open('Error: ' + error.msg);
         }
       }

@@ -1,49 +1,53 @@
-.container{
+.container {
     padding: 10px;
     box-sizing: border-box;
 }
 
-table{
-    border-collapse: collapse;    
+table {
+    border-collapse: collapse;
     width: 100%;
-    
+
 }
-td{
+
+td {
     padding: 6px;
     vertical-align: top;
 }
-tr{
-    background-color: whitesmoke;    
+
+tr {
+    background-color: whitesmoke;
 }
 
-.little_table_container td{
+.little_table_container td {
     width: 50%;
     background-color: white;
 }
 
-.little_table_container{
+.little_table_container {
     max-height: 30vh;
     overflow: auto;
 }
 
 
-.total_rows{
+.total_rows {
     font-weight: 550;
 }
 
-.confirmation_container{
+.confirmation_container {
     margin-bottom: 7px;
     border-radius: 5px;
     padding: 8px;
     background-color: whitesmoke;
     text-align: center;
+    box-sizing: border-box;
 }
-.confirmation_container div{
+
+.confirmation_container div {
     padding: 5px;
 }
 
 
-.btns-container{
+.btns-container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -52,7 +56,7 @@ tr{
     background-color: whitesmoke;
 }
 
-.total_container{
+.total_container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +66,7 @@ tr{
     background-color: rgba(245, 245, 245, 0.712);
 }
 
-.total_card{
+.total_card {
     padding: 8px;
     margin-left: 3px;
     margin-right: 3px;
@@ -73,4 +77,38 @@ tr{
     font-size: 16px;
     border: 1px solid rgba(0, 0, 255, 0.582);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.currencies_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 7px;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: whitesmoke;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.savings_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+}
+
+.saving_name {
+    font-size: 12px;
+}
+
+.saving {
+    background-color: lightgreen;
+    color: black;
+    padding: 6px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

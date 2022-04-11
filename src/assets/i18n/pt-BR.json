@@ -2,6 +2,8 @@
     "CATEGORY": {
         "DESCRIPTION": "Descrição",
         "IS_DEBIT_REQUIRED": "Gasto Obrigatório",
+        "IS_LONG_SAVING": "Poupança longo prazo",
+        "IS_SHORT_SAVING": "Poupança curto prazo",
         "IS_TRANSFERENCE": "Transferência",
         "NAME": "Categoria",
         "PRIORITY": "Prioridade"
