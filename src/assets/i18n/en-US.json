@@ -1,9 +1,13 @@
 {
+    "ANALYTICS": {
+        "CEDITS": "Credits",
+        "DEBITS": "Debits"
+    },
     "CATEGORY": {
         "DESCRIPTION": "Description",
         "IS_DEBIT_REQUIRED": "Debit Required",
-        "IS_SHORT_SAVING": "Short term saving",
         "IS_LONG_SAVING": "Long term saving",
+        "IS_SHORT_SAVING": "Short term saving",
         "IS_TRANSFERENCE": "Transference",
         "NAME": "Category",
         "PRIORITY": "Priority"
@@ -73,6 +77,7 @@
         "SELECT": "Select a migration date to revert"
     },
     "USER_PAGE": {
+        "ANALYTICS": "Analytics",
         "CHART_ACCUMULATED": "Budget vs Debits (Accumulated)",
         "CHART_BUDGET": "Budget vs Debits",
         "HOW_AM_I": "How am I going?",

@@ -1,4 +1,8 @@
 {
+    "ANALYTICS": {
+        "CEDITS": "Ver Meus Ganhos",
+        "DEBITS": "Ver Meus Gastos"
+    },
     "CATEGORY": {
         "DESCRIPTION": "Descrição",
         "IS_DEBIT_REQUIRED": "Gasto Obrigatório",
@@ -73,6 +77,7 @@
         "SELECT": "Selecione uma migração para reverter"
     },
     "USER_PAGE": {
+        "ANALYTICS": "Estatísticas",
         "CHART_ACCUMULATED": "Orçamento x Gastos (Acumulados)",
         "CHART_BUDGET": "Orçamento x Gastos",
         "HOW_AM_I": "Como estou indo?",

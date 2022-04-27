@@ -1,3 +1,4 @@
+import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 import { CurrenciesPageComponent } from './pages/currencies-page/currencies-page.component';
 import { SourcesPageComponent } from './pages/sources-page/sources-page.component';
 import { ManageRulesPageComponent } from './pages/manage-rules-page/manage-rules-page.component';
@@ -12,6 +13,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyTransactionsPageComponent } from './pages/my-transactions-page/my-transactions-page.component';
+import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'rules', component: ManageRulesPageComponent, canActivate: [AuthGuard] },
   { path: 'sources', component: SourcesPageComponent, canActivate: [AuthGuard] },
   { path: 'currencies', component: CurrenciesPageComponent, canActivate: [AuthGuard] },
+  { path: 'analytics', component: AnalyticsPageComponent, canActivate: [AuthGuard] },
+  { path: 'analytics/debits', component: AnalyticsDebitsPageComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesPageComponent, canActivate: [AuthGuard] },
   { path: 'categories/:categoryId', component: CategoriesPageComponent, canActivate: [AuthGuard] },
 ];

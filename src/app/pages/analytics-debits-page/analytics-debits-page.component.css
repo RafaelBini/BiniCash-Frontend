@@ -1,0 +1,10 @@
+.control {
+    padding: 14px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

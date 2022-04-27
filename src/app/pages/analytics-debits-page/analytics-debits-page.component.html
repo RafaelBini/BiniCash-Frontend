@@ -1,0 +1,23 @@
+<app-header></app-header>
+<app-title routerLink="/analytics" [text]="'ANALYTICS.DEBITS' | translate"></app-title>
+<div class="control">
+    Debits per month from
+    <button mat-icon-button (click)="goPreviousMonth('start')">
+        <mat-icon>arrow_left</mat-icon>
+    </button>
+    {{startDate.toISOString().substring(0, 7)}}
+    <button mat-icon-button (click)="goNextMonth('start')">
+        <mat-icon>arrow_right</mat-icon>
+    </button>
+    to
+    <button mat-icon-button (click)="goPreviousMonth('end')">
+        <mat-icon>arrow_left</mat-icon>
+    </button>
+    {{endDate.toISOString().substring(0, 7)}}
+    <button mat-icon-button (click)="goNextMonth('end')">
+        <mat-icon>arrow_right</mat-icon>
+    </button>
+</div>
+<div class="chart">
+    <div [chart]="chart"></div>
+</div>

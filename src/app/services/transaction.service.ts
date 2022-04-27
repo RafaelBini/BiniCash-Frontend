@@ -14,6 +14,18 @@ export class TransactionService {
     private http: HttpClient
   ) { }
 
+  getDebits() {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/debits`)
+  }
+
+  getAnalytics(months: number) {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/analytics/${months}`)
+  }
+
+  getDebitsFrom(category: string, month: string) {
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/debits-from?month=${month}&category=${category}`)
+  }
+
   getAveragesByCategory() {
     return this.http.get<any[]>(`${environment.apiHost}/transaction/averages-by-categories`)
   }

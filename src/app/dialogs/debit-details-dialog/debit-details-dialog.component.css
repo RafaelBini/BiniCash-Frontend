@@ -1,0 +1,16 @@
+table {
+    border-collapse: collapse;
+    word-wrap: normal;
+    word-break: normal;
+    white-space: nowrap;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid gray;
+}
+
+div {
+    height: 300px;
+    overflow: auto;
+}

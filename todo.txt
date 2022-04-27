@@ -1,4 +1,6 @@
 
+- Restingir para a transação ser ou short ou long saving (não os dois)
+
 - Recurso para identificar possiveis transações duplicadas
 
 ---- OBJETIVANDO EXTERN USERS ---

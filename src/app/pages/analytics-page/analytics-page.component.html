@@ -1,0 +1,31 @@
+<app-header></app-header>
+<app-title routerLink="/main" [text]="'USER_PAGE.ANALYTICS' | translate"></app-title>
+
+<div class="container">
+    <div>
+        <button mat-button routerLink="/analytics/debits" class="debit">{{ 'ANALYTICS.DEBITS' | translate }}</button>
+        <div class="red card">
+            Debit AVG from last <input type="number" [(ngModel)]="months" (ngModelChange)="loadAnalytics()" /> months
+            <div>
+                <ul>
+                    <li *ngFor="let debit of analytics.debitAvgs">
+                        {{debit.symbol}} {{debit.avg | customNumber}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button mat-button routerLink="/analytics/credits" class="credit">{{ 'ANALYTICS.CEDITS' | translate }}</button>
+        <div class="blue card">
+            Credit AVG from last <input type="number" [(ngModel)]="months" (ngModelChange)="loadAnalytics()" /> months
+            <div>
+                <ul>
+                    <li *ngFor="let credit of analytics.creditAvgs">
+                        {{credit.symbol}} {{credit.avg | customNumber}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

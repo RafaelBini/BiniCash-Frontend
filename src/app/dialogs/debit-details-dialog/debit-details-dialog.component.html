@@ -1,0 +1,24 @@
+<div>
+    <table>
+        <tr>
+            <td>{{'TRANSACTION.TRANSACTION_DATE' | translate}}</td>
+            <td>{{'TRANSACTION.VALUE' | translate}}</td>
+            <td>{{'TRANSACTION.DESCRIPTION' | translate}}</td>
+            <td>{{'TRANSACTION.SOURCE_DESCRIPTION' | translate}}</td>
+            <td>{{'TRANSACTION.ID' | translate}}</td>
+        </tr>
+        <tr *ngFor="let debit of debits">
+
+            <td>{{debit.transaction_date | customDate:'shortDate'}}</td>
+            <td>{{debit.symbol}} {{debit.value | customNumber}}</td>
+            <td>{{debit.description}}</td>
+            <td>{{debit.source_description}}</td>
+            <td>#{{debit.id}}</td>
+        </tr>
+    </table>
+</div>
+
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>
