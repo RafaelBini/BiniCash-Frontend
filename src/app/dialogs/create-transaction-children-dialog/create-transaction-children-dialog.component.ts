@@ -81,4 +81,20 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
   remove(childIndex: number) {
     this.children.splice(childIndex, 1);
   }
+
+  async uploadFile(event: any, input: any) {
+    var files = event.target.files as File[];
+    for (let file of files) {
+      const rawContent = await file.text();
+      var transactions = rawContent.split('\n').splice(1).map(row => {
+        var obj = row.split(';')
+        return {
+          description: obj[1],
+          value: +obj[2]
+        }
+      })
+      this.children = [...this.children, ...transactions]
+    }
+    input.value = "";
+  }
 }

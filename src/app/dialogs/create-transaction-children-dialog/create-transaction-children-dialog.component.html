@@ -1,9 +1,16 @@
 <h2>Split Transaction
     ({{transaction.Source.Currency.symbol}}
     {{(transaction.value - getChildrenSum() + newChildTransaction.value) | customNumber}})</h2>
-<div>
+
+<div class="sub_cont">
     {{transaction.sourceDescription}}
+    <button mat-button (click)="fileInput.click(); $event.stopPropagation();">
+        Load CSV
+        <input type="file" #fileInput (input)="uploadFile($event, fileInput)" style="display: none;" />
+    </button>
+
 </div>
+
 
 <div class="inserted_container">
     <table>
