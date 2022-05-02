@@ -36,3 +36,11 @@ table {
     align-items: center;
     justify-content: space-between;
 }
+
+.btn {
+    border: 1px solid gray;
+}
+
+.btn_container {
+    padding: 17px;
+}

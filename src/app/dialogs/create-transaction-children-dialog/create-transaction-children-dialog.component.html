@@ -39,9 +39,16 @@
                     [(ngModel)]="newChildTransaction.value" mask="separator.2"
                     [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000" />
             </td>
-            <td>
-                <button (click)="add()" mat-icon-button>
-                    <mat-icon>add</mat-icon>
+        </tr>
+        <tr>
+            <td class="btn_container" align="center">
+                <button class="btn" (click)="add('+')" mat-button>
+                    Add Credit
+                </button>
+            </td>
+            <td class="btn_container" align="center">
+                <button class="btn" (click)="add('-')" mat-button>
+                    Add Debit
                 </button>
             </td>
         </tr>

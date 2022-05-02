@@ -29,11 +29,11 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
 
   onKeyUp(event: any) {
     if (event.key == 'Enter') {
-      this.add();
+      this.add('-');
     }
   }
 
-  add() {
+  add(type: '-' | '+') {
 
     if ((this.transaction.value - this.getChildrenSum() + this.newChildTransaction.value) > 0) {
       this.snack.open('Not enough money to split', undefined, { duration: 3500 })
@@ -50,7 +50,7 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
 
     var newTransaction = {
       description: this.newChildTransaction.description,
-      value: this.newChildTransaction.value > 0 ? this.newChildTransaction.value * -1 : this.newChildTransaction.value
+      value: Math.abs(this.newChildTransaction.value) * (type == '-' ? -1 : 1)
     };
 
     this.children.push(newTransaction)
