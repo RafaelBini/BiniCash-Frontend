@@ -90,7 +90,7 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
       var transactions = rawContent.split('\n').splice(1).map(row => {
         var obj = row.split(';')
         return {
-          description: obj[1],
+          description: `${obj[0].substring(2, 10)} ${obj[1]}`,
           value: +obj[2]
         }
       })
