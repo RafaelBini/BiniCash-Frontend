@@ -33,13 +33,13 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
     }
   }
 
+  substring(text: string) {
+    return text.substring(0, 20) + '...'
+  }
+
   add(type: '-' | '+') {
 
-    if ((this.transaction.value - this.getChildrenSum() + this.newChildTransaction.value) > 0) {
-      this.snack.open('Not enough money to split', undefined, { duration: 3500 })
-      return;
-    }
-    else if (!this.newChildTransaction.description) {
+    if (!this.newChildTransaction.description) {
       this.snack.open('A description is required', undefined, { duration: 3500 })
       return;
     }
@@ -67,12 +67,13 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
 
 
   async finish() {
+
     try {
       await this.stagedTransactionService.insertChildrenArray(this.children, this.transaction.id).toPromise();
       this.dialogRef.close()
     }
-    catch (error) {
-      this.snack.open('Problem when trying to finish', undefined, { duration: 3500 })
+    catch (error: any) {
+      this.snack.open(error.error.msg, undefined, { duration: 3500 })
       return;
     }
 

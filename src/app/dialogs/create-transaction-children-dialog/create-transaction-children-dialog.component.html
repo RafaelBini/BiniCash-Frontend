@@ -1,9 +1,9 @@
-<h2>Split Transaction
+<h2 [class.warning]="(transaction.value - getChildrenSum()) > 0">Split Transaction
     ({{transaction.Source.Currency.symbol}}
-    {{(transaction.value - getChildrenSum() + newChildTransaction.value) | customNumber}})</h2>
+    {{(transaction.value - getChildrenSum()) | customNumber}})</h2>
 
 <div class="sub_cont">
-    {{transaction.sourceDescription}}
+    {{substring(transaction.sourceDescription)}}
     <button mat-button (click)="fileInput.click(); $event.stopPropagation();">
         Load CSV
         <input type="file" #fileInput (input)="uploadFile($event, fileInput)" style="display: none;" />
@@ -13,28 +13,28 @@
 
 
 <div class="inserted_container">
+    <div class="transactions_container">
+        <table>
+            <tr *ngFor="let child of children; index as childIndex">
+                <td class="item">
+                    {{child.description}}
+                </td>
+                <td class="item">
+                    {{transaction.Source.Currency.symbol}} {{child.value | customNumber}}
+                </td>
+                <td>
+                    <button (click)="remove(childIndex)" mat-icon-button>
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
     <table>
         <tr>
-            <td class="item">Description</td>
-            <td class="item">Value</td>
-        </tr>
-        <tr *ngFor="let child of children; index as childIndex">
-            <td class="item">
-                {{child.description}}
-            </td>
-            <td class="item">
-                {{transaction.Source.Currency.symbol}} {{child.value | customNumber}}
-            </td>
-            <td>
-                <button (click)="remove(childIndex)" mat-icon-button>
-                    <mat-icon>remove</mat-icon>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" (keyup)="onKeyUp($event)" [(ngModel)]="newChildTransaction.description"
+            <td class="item"><input type="text" (keyup)="onKeyUp($event)" [(ngModel)]="newChildTransaction.description"
                     placeholder="Description" /></td>
-            <td>
+            <td class="item">
                 <input type="text" (keyup)="onKeyUp($event)" [prefix]="transaction.Source.Currency.symbol + ' '"
                     [(ngModel)]="newChildTransaction.value" mask="separator.2"
                     [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000" />

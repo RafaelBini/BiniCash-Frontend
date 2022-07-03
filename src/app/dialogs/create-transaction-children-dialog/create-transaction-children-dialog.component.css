@@ -23,7 +23,6 @@ input[type=text]:focus {
 
 table {
     width: 100%;
-    padding: 20px;
 }
 
 .item {
@@ -43,4 +42,13 @@ table {
 
 .btn_container {
     padding: 17px;
+}
+
+.transactions_container {
+    height: 200px;
+    overflow: auto;
+}
+
+.warning {
+    color: red;
 }
