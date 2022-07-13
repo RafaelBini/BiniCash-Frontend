@@ -1,0 +1,255 @@
+<app-header></app-header>
+<app-title [text]="'USER_PAGE.MY_TRANSACTIONS' | translate"></app-title>
+<div class="filters_container">
+    <div class="filters_line">
+        <!-- TERM FILTER -->
+
+        <div style="width: 80%;">
+            <input type="text" [disabled]="isLoading" [(ngModel)]="filter.term" class="default_input"
+                style="width: 100%;" (keyup.enter)="fetchData()" />
+        </div>
+        <div style="width: 20%;">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'MY_TRANSACTIONS.SEARCHING_ON' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.searchingTextFields" multiple>
+                    <mat-select-trigger>
+                        <span *ngIf="filter.searchingTextFields.length == searchingTextFieldsOptions.length">
+                            {{ 'MY_TRANSACTIONS.ALL' | translate }}
+                        </span>
+                        <span
+                            *ngIf="filter.searchingTextFields.length >= 2 && filter.searchingTextFields.length < searchingTextFieldsOptions.length">
+                            {{ 'MY_TRANSACTIONS.SEVERAL' | translate }} ({{filter.searchingTextFields.length}})
+                        </span>
+                        <span *ngIf="filter.searchingTextFields.length == 1">
+                            {{('TRANSACTION.'+filter.searchingTextFields[0]) | translate}}
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let searchingTextFieldsOption of searchingTextFieldsOptions"
+                        [value]="searchingTextFieldsOption.value">
+                        {{searchingTextFieldsOption.name | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="filters_line">
+        <!-- DATE FILTER -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Date Range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input [disabled]="isLoading" [(ngModel)]="filter.dateRange.start" matStartDate
+                        placeholder="Start date">
+                    <input [disabled]="isLoading" [(ngModel)]="filter.dateRange.end" matEndDate placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+        <!-- SORTING BY -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'MY_TRANSACTIONS.ORDER_BY' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.orderBy">
+                    <mat-option value="TRANSACTION_DATE">
+                        {{'TRANSACTION.TRANSACTION_DATE' | translate}}
+                    </mat-option>
+                    <mat-option value="TRANSACTION_DATE DESC">
+                        {{'TRANSACTION.TRANSACTION_DATE' | translate}} DESC
+                    </mat-option>
+                    <mat-option value="VALUE">
+                        {{'TRANSACTION.VALUE' | translate}}
+                    </mat-option>
+                    <mat-option value="VALUE DESC">
+                        {{'TRANSACTION.VALUE' | translate}} DESC
+                    </mat-option>
+                    <mat-option value="DESCRIPTION">
+                        {{'TRANSACTION.DESCRIPTION' | translate}}
+                    </mat-option>
+                    <mat-option value="DESCRIPTION DESC">
+                        {{'TRANSACTION.DESCRIPTION' | translate}} DESC
+                    </mat-option>
+                    <mat-option value="ID">
+                        {{'TRANSACTION.ID' | translate}}
+                    </mat-option>
+                    <mat-option value="ID DESC">
+                        {{'TRANSACTION.ID' | translate}} DESC
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- CATEGORY FILTER -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'TRANSACTION.CATEGORY' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.categoriesIds" multiple>
+                    <mat-select-trigger>
+                        <span *ngIf="filter.categoriesIds.length == (categories.length + 1)">
+                            {{ 'MY_TRANSACTIONS.ALL_CATEGORIES' | translate }}
+                        </span>
+                        <span *ngIf="filter.categoriesIds.length == 1">
+                            {{categoryById(filter.categoriesIds[0]).name}}
+                        </span>
+                        <span
+                            *ngIf="filter.categoriesIds.length > 1 && filter.categoriesIds.length != (categories.length + 1)">
+
+                            {{ 'MY_TRANSACTIONS.SEVERAL' | translate }} ({{filter.categoriesIds.length}})
+
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="toggleAllSelection('categories')" [value]="'All'">
+                        {{ 'MY_TRANSACTIONS.ALL' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let category of categories" (click)="updateAllOption('categories')"
+                        [value]="category.id">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- SOURCE FILTER -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'TRANSACTION.SOURCE' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.sourcesIds" multiple>
+                    <mat-select-trigger>
+                        <span *ngIf="filter.sourcesIds.length == (sources.length + 1)">
+                            {{ 'MY_TRANSACTIONS.ALL_SOURCES' | translate }}
+                        </span>
+                        <span *ngIf="filter.sourcesIds.length == 1">
+                            {{sourceById(filter.sourcesIds[0]).name}}
+                        </span>
+                        <span *ngIf="filter.sourcesIds.length > 1 && filter.sourcesIds.length != (sources.length + 1)">
+
+                            {{ 'MY_TRANSACTIONS.SEVERAL' | translate }} ({{filter.sourcesIds.length}})
+
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="toggleAllSelection('sources')" [value]="'All'">
+                        {{ 'MY_TRANSACTIONS.ALL' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let source of sources" (click)="updateAllOption('sources')" [value]="source.id">
+                        {{source.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- CURRENCY FILTER -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label> {{ 'TRANSACTION.CURRENCY' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.currenciesIds" multiple>
+                    <mat-select-trigger>
+                        <span *ngIf="filter.currenciesIds.length == (currencies.length + 1)">
+                            {{ 'MY_TRANSACTIONS.ALL_CURRENCIES' | translate }}
+                        </span>
+                        <span *ngIf="filter.currenciesIds.length == 1">
+                            {{currencyById(filter.currenciesIds[0]).name}}
+                        </span>
+                        <span
+                            *ngIf="filter.currenciesIds.length > 1 && filter.currenciesIds.length != (currencies.length + 1)">
+
+                            {{ 'MY_TRANSACTIONS.SEVERAL' | translate }} ({{filter.currenciesIds.length}})
+
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="toggleAllSelection('currencies')" [value]="'All'">
+                        {{ 'MY_TRANSACTIONS.ALL' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let currency of currencies" (click)="updateAllOption('currencies')"
+                        [value]="currency.id">
+                        {{currency.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- VALUE TYPE FILTER -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label> {{ 'TRANSACTION.VALUE' | translate }}</mat-label>
+                <mat-select [disabled]="isLoading" [(ngModel)]="filter.valueTypes" multiple>
+                    <mat-select-trigger>
+                        <span *ngIf="filter.valueTypes.length == 2">
+                            {{ 'MY_TRANSACTIONS.ALL_VALUES' | translate }}
+                        </span>
+                        <span *ngIf="filter.valueTypes.length == 1">
+                            {{filter.valueTypes[0] | translate}}
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option value="DEBITS">
+                        {{ 'DEBITS' | translate }}
+                    </mat-option>
+                    <mat-option value="CREDITS">
+                        {{ 'CREDITS' | translate }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- INCLUDE TRANSFERENCES FILTER -->
+        <div>
+            <mat-checkbox [(ngModel)]="filter.includeTransferences">
+                {{ 'MY_TRANSACTIONS.INCLUDE_TRANSF' | translate }}
+            </mat-checkbox>
+        </div>
+    </div>
+</div>
+
+<div class="spinner" *ngIf="isLoading">
+    <mat-spinner [diameter]="200" strokeWidth="6"></mat-spinner>
+</div>
+
+<div class="results_container" *ngIf="!isLoading">
+    <table>
+        <tr>
+            <td>{{ 'TRANSACTION.ID' | translate }} </td>
+            <td>{{ 'TRANSACTION.TRANSACTION_DATE' | translate }} </td>
+            <td>{{ 'TRANSACTION.VALUE' | translate }} </td>
+            <td>{{ 'TRANSACTION.DESCRIPTION' | translate }} </td>
+            <td>{{ 'TRANSACTION.CATEGORY' | translate }} </td>
+            <td>{{ 'TRANSACTION.SOURCE_DESCRIPTION' | translate }} </td>
+            <td>{{ 'TRANSACTION.SOURCE' | translate }} </td>
+            <td>{{ 'TRANSACTION.SOURCE_REFERENCE' | translate }} </td>
+            <td>{{ 'TRANSACTION.INPUT_METHOD' | translate }} </td>
+        </tr>
+        <tr *ngFor="let transaction of transactions">
+            <td>
+                #{{transaction.id}}
+            </td>
+            <td>
+                {{transaction.transaction_date | customDate:'shortDate'}}
+            </td>
+            <td>
+                {{transaction.currency_symbol}} {{transaction.value | customNumber}}
+            </td>
+            <td>
+                {{transaction.description}}
+            </td>
+            <td>
+                {{transaction.category_name}}
+            </td>
+            <td>
+                {{transaction.source_description}}
+            </td>
+            <td>
+                {{transaction.source_name}}
+            </td>
+            <td>
+                {{transaction.source_reference}}
+            </td>
+            <td>
+                {{transaction.input_method}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="total_container">
+    {{ 'COMMON.SUM' | translate }}:
+    <span *ngFor="let sum of sums">
+        {{sum.currency_symbol}} {{sum.value | customNumber}} |
+    </span>
+    {{ 'COMMON.COUNT' | translate }}: {{transactions.length}}
+</div>
+
+
+<div class="filter_button">
+    <button color="primary" (click)="fetchData()" mat-fab>
+        <mat-icon>filter_alt</mat-icon>
+    </button>
+</div>

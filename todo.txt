@@ -1,4 +1,11 @@
 
+- Criar uma nova tela de "Minhas Transações" (bem otimizada em performance)
+    - Incluir todos os debitos e creditos (novo endpoint para isso) - todos os filtros via api
+    - Filtro por data, termo (descr. source_descr., input_meth)
+    - Filtro por categoria, source, currency
+    - Esquema de "Mostrar mais" (sempre via API)
+    - Permitir edição de transações (tanto na migração quanto depois de migrado)
+
 - Restingir para a transação ser ou short ou long saving (não os dois)
 
 - Recurso para identificar possiveis transações duplicadas

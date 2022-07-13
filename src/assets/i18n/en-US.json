@@ -24,9 +24,11 @@
         "SAVE": "Save",
         "SUM": "Sum"
     },
+    "CREDITS": "Credits",
     "CURRENCY": {
         "SYMBOL": "Symbol"
     },
+    "DEBITS": "Debits",
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Edit my profile",
         "MY_SETTINGS": "My Settings"
@@ -39,10 +41,13 @@
     "MY_TRANSACTIONS": {
         "ALL": "All",
         "ALL_CATEGORIES": "All Categories",
+        "ALL_CURRENCIES": "All Currencies",
         "ALL_SOURCES": "All Sources",
         "ALL_VALUES": "All Values",
         "INCLUDE_TRANSF": "Include Transferences",
-        "SEARCHING_ON": "Searching on"
+        "ORDER_BY": "Order By",
+        "SEARCHING_ON": "Searching on",
+        "SEVERAL": "Several"
     },
     "NEW_CATEGORY_DIALOG": {
         "TITLE": "New Category"
@@ -64,6 +69,7 @@
     },
     "TRANSACTION": {
         "CATEGORY": "Category",
+        "CURRENCY": "Currency",
         "DESCRIPTION": "Description",
         "ID": "Transaction Code",
         "INPUT_METHOD": "Input Method",

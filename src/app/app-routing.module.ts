@@ -12,14 +12,15 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MyTransactionsPageComponent } from './pages/my-transactions-page/my-transactions-page.component';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
+import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'login', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'main', component: UserPageComponent, canActivate: [AuthGuard] },
-  { path: 'my-transactions', component: MyTransactionsPageComponent, canActivate: [AuthGuard] },
+  { path: 'my-transactions', component: AllTransactionsPageComponent, canActivate: [AuthGuard] },
+  { path: 'all-transactions', component: AllTransactionsPageComponent, canActivate: [AuthGuard] },
   { path: 'migrate', component: MigratePageComponent, canActivate: [AuthGuard] },
   { path: 'migrate/undo', component: UndoMigrationComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsPageComponent, canActivate: [AuthGuard] },

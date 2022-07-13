@@ -96,4 +96,8 @@ export class TransactionService {
   finishMigration() {
     return this.http.post<any>(`${environment.apiHost}/transaction/finish-migration`, undefined)
   }
+
+  getAllTransactions(filter: any) {
+    return this.http.post<any>(`${environment.apiHost}/transaction/all-transactions`, filter)
+  }
 }

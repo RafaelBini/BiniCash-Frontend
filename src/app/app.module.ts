@@ -19,6 +19,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // CDK
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -63,7 +65,6 @@ import { FinishStepComponent } from './pages/migrate-page/finish-step/finish-ste
 import { UndoMigrationComponent } from './pages/undo-migration/undo-migration.component';
 import { CreateTransactionChildrenDialogComponent } from './dialogs/create-transaction-children-dialog/create-transaction-children-dialog.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
-import { MyTransactionsPageComponent } from './pages/my-transactions-page/my-transactions-page.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CustomNumberPipe } from './pipes/custom-number.pipe';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
@@ -80,12 +81,14 @@ import { EditStagedTransactionsDialogComponent } from './edit-staged-transaction
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
 import { DebitDetailsDialogComponent } from './dialogs/debit-details-dialog/debit-details-dialog.component';
+import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 
 
 const MATERIAL_MODULES = [
   MatSnackBarModule, MatButtonModule, MatStepperModule, MatIconModule, MatCheckboxModule,
   MatTableModule, MatSortModule, MatDialogModule, MatTooltipModule, MatMenuModule,
-  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule
+  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatDatepickerModule,
+  MatNativeDateModule
 ]
 
 const CDK_MODULES = [
@@ -114,7 +117,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateTransactionChildrenDialogComponent,
     CustomDatePipe,
     SettingsPageComponent,
-    MyTransactionsPageComponent,
     CustomNumberPipe,
     CategoriesPageComponent,
     NewCategoryDialogComponent,
@@ -129,7 +131,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditStagedTransactionsDialogComponent,
     AnalyticsPageComponent,
     AnalyticsDebitsPageComponent,
-    DebitDetailsDialogComponent
+    DebitDetailsDialogComponent,
+    AllTransactionsPageComponent
   ],
   imports: [
     BrowserModule,
