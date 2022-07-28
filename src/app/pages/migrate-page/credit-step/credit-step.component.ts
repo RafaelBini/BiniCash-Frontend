@@ -1,7 +1,9 @@
+import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
 import { UserService } from 'src/app/services/user.service';
+import { ConfirmDialogComponent } from 'src/app/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-credit-step',
@@ -14,6 +16,7 @@ export class CreditStepComponent implements OnInit {
     private userService: UserService,
     private stagedTransactionService: StagedTransactionService,
     private snack: MatSnackBar,
+    private dialog: MatDialog
   ) {
 
   }
@@ -52,8 +55,19 @@ export class CreditStepComponent implements OnInit {
     return this.lastCreditDistribs.find(lcd => lcd.id == this.selectedCategory.id).sum;
   }
 
-  updateDescription(credit: any) {
-    this.stagedTransactionService.update({ id: credit.id, description: credit.description }).subscribe()
+  updateCredit(credit: any) {
+    this.stagedTransactionService.updateCredit({ id: credit.id, description: credit.description }).subscribe()
+  }
+
+  toggleIsTransference(credit: any) {
+    if (credit.sourceReference == 'TRANSFERENCE') {
+      credit.sourceReference = ''
+      this.stagedTransactionService.updateCredit({ id: credit.id, isTransference: false }).subscribe()
+    }
+    else {
+      credit.sourceReference = 'TRANSFERENCE'
+      this.stagedTransactionService.updateCredit({ id: credit.id, isTransference: true }).subscribe()
+    }
   }
 
 
@@ -131,9 +145,41 @@ export class CreditStepComponent implements OnInit {
   }
 
   goNext() {
-    this.userService.goToStep(3).subscribe();
-    this.refreshStep.emit();
+
+    if (this.getTransferenceDifference() != 0) {
+      var diagRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Inconsistent transactions',
+          content: 'There is a difference between distributed and declared credit transactions values.<br /><br />Are you sure you want to proceed?',
+        }
+      })
+
+      diagRef.afterClosed().subscribe(async (result) => {
+        if (result) {
+          this.userService.goToStep(3).subscribe();
+          this.refreshStep.emit();
+        }
+      })
+    }
+    else {
+      this.userService.goToStep(3).subscribe();
+      this.refreshStep.emit();
+    }
+
+
+
   }
 
+  getDistributedCreditTransferencesTotal() {
+    return this.categories.filter((c: any) => (c.isTransference == true)).reduce((p, c) => p + c.stagedCredit, 0);
+  }
+
+  getDeclaredCreditTransferencesTotal() {
+    return this.credits.filter((c: any) => (c.sourceReference == 'TRANSFERENCE')).reduce((p, c) => p + c.value, 0);
+  }
+
+  getTransferenceDifference() {
+    return Math.abs(this.getDistributedCreditTransferencesTotal() - this.getDeclaredCreditTransferencesTotal())
+  }
 
 }

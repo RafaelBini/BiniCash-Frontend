@@ -54,7 +54,7 @@ export class FinishStepComponent implements OnInit {
   }
 
   goPrevious() {
-    this.userService.goToStep(1).subscribe();
+    this.userService.goToStep(2).subscribe();
     this.refreshStep.emit();
   }
 

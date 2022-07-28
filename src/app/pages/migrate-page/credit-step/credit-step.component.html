@@ -6,7 +6,7 @@
         [class.total-to-distribute-active]="!selectedCategory || selectedCategory?.Currency.symbol == creditToDistribute.symbol">
         {{creditToDistribute.symbol}} {{creditToDistribute.credit | customNumber}}
     </div>
-    <button mat-button matStepperNext [disabled]="!canGo()" (click)="goNext()">
+    <button mat-button [disabled]="!canGo()" (click)="goNext()">
         Next</button>
 </div>
 
@@ -28,6 +28,7 @@
             </tr>
         </table>
     </div>
+
     <div *ngIf="selectedCategory" class="right-container">
         <button (click)='back()' class="back_btn" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
@@ -107,12 +108,25 @@
             <h2 *ngIf="!canGo()">Select a category to distribute</h2>
             <h2 *ngIf="canGo()" (click)="goNext()" style="cursor: pointer;">Alright! No credits to distribute</h2>
 
-            <h3>Describe your credits below (optional)</h3>
+            <h3>Describe your credits below</h3>
 
-
+            <table *ngIf="getTransferenceDifference() > 0" class="credits_to_describe" style="background-color: red;">
+                <tr>
+                    <td colspan="3">INCONSISTENT TRANSFERENCES</td>
+                </tr>
+                <tr>
+                    <td>Distributed: {{getDistributedCreditTransferencesTotal()}}</td>
+                    <td>Declared: {{getDeclaredCreditTransferencesTotal()}} </td>
+                    <td>Difference: {{getTransferenceDifference()}}
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
             <table class="credits_to_describe">
                 <tr>
                     <td>Source</td>
+                    <td>Is Transference</td>
                     <td>Description</td>
                     <td>Value</td>
                     <td>Date</td>
@@ -120,7 +134,12 @@
                 </tr>
                 <tr *ngFor="let credit of credits">
                     <td>{{credit.Source.name}}</td>
-                    <td><input type="text" [(ngModel)]="credit.description" (change)="updateDescription(credit)" /></td>
+                    <td>
+                        <mat-checkbox [checked]="(credit.sourceReference == 'TRANSFERENCE')"
+                            (change)="toggleIsTransference(credit)">
+                        </mat-checkbox>
+                    </td>
+                    <td><input type="text" [(ngModel)]="credit.description" (change)="updateCredit(credit)" /></td>
                     <td>{{credit.Source.Currency.symbol}} {{credit.value | customNumber}}</td>
                     <td>{{credit.transactionDate}}</td>
                     <td>{{credit.sourceDescription}}</td>

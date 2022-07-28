@@ -79,4 +79,8 @@ export class StagedTransactionService {
   update(debit: any) {
     return this.http.put<any>(`${environment.apiHost}/staged-transaction/${debit.id}`, debit)
   }
+
+  updateCredit(credit: any) {
+    return this.http.put<any>(`${environment.apiHost}/staged-transaction/update-staged-credit/${credit.id}`, credit)
+  }
 }
