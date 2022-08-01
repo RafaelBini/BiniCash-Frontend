@@ -60,9 +60,9 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
   }
 
   getChildrenSum() {
-    return this.children.reduce((p, c) => {
+    return Math.round(this.children.reduce((p, c) => {
       return p + c.value
-    }, 0)
+    }, 0) * 1e2) / 1e2
   }
 
 
