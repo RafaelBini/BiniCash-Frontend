@@ -32,6 +32,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   categories: any[] = [];
   selectedCategory: any = undefined;
   displayedColumns = ['category', 'description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
+  showCompletedDebits = true;
 
   ngOnInit(): void {
 

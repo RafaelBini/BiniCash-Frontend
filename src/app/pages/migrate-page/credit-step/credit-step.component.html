@@ -87,7 +87,7 @@
             </div>
 
             <!-- LAST CREDIT DISTRIBUTION OPTION -->
-            <div class="option-item" (click)="setNewValue(getNeededToLastCreditDistrib() )">
+            <div class="option-item" (click)="setNewValue(getLastCreditDistrib() )">
                 <div class="option-header">
                     Last Credit
                 </div>
@@ -97,7 +97,7 @@
                     {{getLastCreditDistrib() | customNumber}}
                 </div>
                 (+ {{selectedCategory?.Currency.symbol}}
-                {{getNeededToLastCreditDistrib() | customNumber }})
+                {{getLastCreditDistrib() | customNumber }})
             </div>
 
         </div>

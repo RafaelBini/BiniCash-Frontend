@@ -4,6 +4,8 @@
 
     <div *ngIf="selectedCategory">Select transactions for {{selectedCategory.name}}</div>
 
+    <mat-checkbox [(ngModel)]="showCompletedDebits">Show completed debits</mat-checkbox>
+
     <button [disabled]="!isReadyToGo()" mat-button (click)="goNext()">
         Next</button>
 </div>
@@ -65,7 +67,8 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row (click)="onDebitClick(row)" *matRowDef="let row; columns: displayedColumns;"
-                [class.completed_debit]="row.Category && row.description"></tr>
+                [class.completed_debit]="row.Category && row.description"
+                [style.display]="(row.Category && row.description && !showCompletedDebits) ? 'none' : ''"></tr>
 
         </table>
     </div>

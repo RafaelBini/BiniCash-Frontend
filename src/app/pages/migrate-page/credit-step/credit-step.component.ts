@@ -91,11 +91,6 @@ export class CreditStepComponent implements OnInit {
     return value > 0 ? value : 0;
   }
 
-  getNeededToLastCreditDistrib() {
-    const value = this.getLastCreditDistrib() - this.selectedCategory.stagedBalance
-    return value > 0 ? value : 0;
-  }
-
   canGo() {
     for (let creditToDistribute of this.creditsToDistribute) {
       if (creditToDistribute.credit != 0)
