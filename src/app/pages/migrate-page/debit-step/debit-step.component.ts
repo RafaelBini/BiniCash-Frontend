@@ -133,4 +133,9 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
     })
   }
 
+  hasHttp(sourceReference: string): boolean {
+    return sourceReference != null && sourceReference.includes('://')
+  }
+
+
 }

@@ -57,7 +57,13 @@
 
             <ng-container matColumnDef="sourceDescription">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Source Description </th>
-                <td mat-cell *matCellDef="let element"> {{element.sourceDescription}} </td>
+                <td mat-cell *matCellDef="let element">
+                    {{element.sourceDescription}}
+                    <br />
+                    <a *ngIf="hasHttp(element.sourceReference)" target="_blank" [href]="element.sourceReference">
+                        <mat-icon>receipt</mat-icon>
+                    </a>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="sourceName">
