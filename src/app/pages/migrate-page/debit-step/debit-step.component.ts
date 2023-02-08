@@ -1,3 +1,4 @@
+import { Category } from './../../../models/category';
 import { CreateTransactionChildrenDialogComponent } from './../../../dialogs/create-transaction-children-dialog/create-transaction-children-dialog.component';
 import { ConfirmDialogComponent } from './../../../dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +34,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   selectedCategory: any = undefined;
   displayedColumns = ['category', 'description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
   showCompletedDebits = true;
+  categoryIdFiltered: any = undefined;
 
   ngOnInit(): void {
 
@@ -46,6 +48,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key == 'Escape') {
+      this.categoryIdFiltered = undefined;
       this.selectCategory(this.selectedCategory);
     }
   }
@@ -68,7 +71,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
 
   selectCategory(category: any) {
 
-    if (this.selectedCategory?.id == category.id) {
+    if (this.selectedCategory?.id == category?.id) {
       this.selectedCategory = undefined;
       this.debits.filter = '';
     }
@@ -135,6 +138,15 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
 
   hasHttp(sourceReference: string): boolean {
     return sourceReference != null && sourceReference.includes('://')
+  }
+
+  filterByCategory(category: Category) {
+    if (this.categoryIdFiltered == category.id) {
+      this.categoryIdFiltered = undefined;
+    }
+    else {
+      this.categoryIdFiltered = category.id;
+    }
   }
 
 

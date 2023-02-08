@@ -1,4 +1,4 @@
-.container{
+.container {
     background-color: whitesmoke;
     width: 100%;
     display: flex;
@@ -7,20 +7,20 @@
     justify-content: space-between;
 }
 
-.left-container{
+.left-container {
     width: 29.5%;
     height: 70vh !important;
     overflow: auto;
 }
 
-.right-container{
+.right-container {
     background-color: whitesmoke;
     width: 70%;
     height: 70vh !important;
     overflow: auto;
 }
 
-.btns-container{
+.btns-container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -29,26 +29,28 @@
     background-color: whitesmoke;
 }
 
-input[type=text]{
+input[type=text] {
     padding: 8px;
     border: 1px solid transparent;
     border-radius: 4px;
     outline: none;
     background-color: rgba(245, 245, 245, 0.308);
 }
-input[type=text]:hover{
+
+input[type=text]:hover {
     border: 1px dashed gray;
 }
-input[type=text]:focus{
+
+input[type=text]:focus {
     border: 1px solid gray;
 }
 
-table.categories{
+table.categories {
     border-collapse: collapse;
     width: 100%;
 }
 
-.categories td{
+.categories td {
     border-bottom: 2px dashed rgb(182, 182, 182);
     padding: 10px;
     padding-top: 17px;
@@ -56,36 +58,42 @@ table.categories{
     user-select: none;
 }
 
-tr.category-header{
+tr.category-header {
     font-weight: 300;
 }
 
-.categories tr:not(.category-header):hover{
+.categories tr:not(.category-header):hover {
     background-color: var(--primary);
     cursor: pointer;
 }
 
-.selected_category{
+.selected_category {
     background-color: var(--primary);
+}
+
+.filtered_category {
+    border: 2px solid rgb(78, 48, 177);
 }
 
 .with_category_selected {
     cursor: crosshair;
 }
-.with_category_selected tr:hover{
+
+.with_category_selected tr:hover {
     background-color: var(--primary);
 }
-.with_category_selected input[type=text]{
+
+.with_category_selected input[type=text] {
     pointer-events: none;
 }
 
 
-.split_button:hover{
+.split_button:hover {
     background-color: var(--primary);
     color: white;
     cursor: pointer;
 }
 
-.completed_debit{
+.completed_debit {
     background-color: rgba(139, 230, 139, 0.144);
 }

@@ -18,7 +18,8 @@
                 <td>Balance</td>
             </tr>
             <tr *ngFor="let category of categories" [class.selected_category]="selectedCategory?.id == category.id"
-                (click)="selectCategory(category)">
+                [class.filtered_category]="categoryIdFiltered == category.id" (click)="selectCategory(category)"
+                (dblclick)="filterByCategory(category)">
                 <td>{{category.name}}</td>
                 <td style="color: darkred">{{category.Currency.symbol}} {{category.stagedDebit | number:
                     '1.2-2':'en-US'}}</td>
@@ -74,7 +75,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row (click)="onDebitClick(row)" *matRowDef="let row; columns: displayedColumns;"
                 [class.completed_debit]="row.Category && row.description"
-                [style.display]="(row.Category && row.description && !showCompletedDebits) ? 'none' : ''"></tr>
+                [style.display]="(row.Category && row.description && !showCompletedDebits) || (categoryIdFiltered && categoryIdFiltered != row.Category?.id) ? 'none' : ''">
+
+            </tr>
 
         </table>
     </div>
