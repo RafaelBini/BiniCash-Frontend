@@ -40,7 +40,7 @@ export class ExportInvestmentsDialogComponent implements OnInit {
 
   getBalance() {
     const newBalance = this.stagedTransactions.filter(st => st.selected).reduce((p, c) => p + (c.value * -1), 0)
-    if (this.selectedSourceToIndex) return this.data.sources[this.selectedSourceToIndex].balance + newBalance
+    if (this.selectedSourceToIndex) return this.data.sources[this.selectedSourceToIndex].balance + this.data.sources[this.selectedSourceToIndex].stagedBalance + newBalance
     else return undefined
   }
 
@@ -78,12 +78,18 @@ export class ExportInvestmentsDialogComponent implements OnInit {
         sourceId: this.data.sources[this.selectedSourceToIndex].id,
         transactionDate: st.transactionDate,
         value: (st.value * -1),
-        sourceDescription: st.value >= 0 ? 'RESGATE' : 'APLICAÇÃO'
+        sourceDescription: st.sourceDescription
       }
     })
 
     await this.stagedTransactionService.insertArray(insertArray).toPromise();
     this.dialogRef.close();
 
+  }
+
+  onKeyUp(event: any) {
+    if (event.key == 'Enter') {
+      this.selectAll()
+    }
   }
 }

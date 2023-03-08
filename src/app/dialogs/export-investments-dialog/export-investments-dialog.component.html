@@ -7,8 +7,8 @@
         [{{data.selectedSource.symbol}} {{getBalance() | customNumber}}]
         <br />
         <div class="bar" *ngIf="stagedTransactions.length > 0 && data.sources.length > 0">
-            <input type="text" placeholder="Search" [(ngModel)]="searchTerm" class="default_input"
-                style="width: fit-content" />
+            <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (keyup)="onKeyUp($event)"
+                class="default_input" style="width: fit-content" />
             <button mat-button (click)="selectAll()">
                 Select all <mat-icon>expand_circle_down</mat-icon>
             </button>
