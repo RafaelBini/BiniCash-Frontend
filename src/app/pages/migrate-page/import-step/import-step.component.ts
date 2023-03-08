@@ -1,3 +1,4 @@
+import { ExportInvestmentsDialogComponent } from './../../../dialogs/export-investments-dialog/export-investments-dialog.component';
 import { EditStagedTransactionsDialogComponent } from './../../../edit-staged-transactions-dialog/edit-staged-transactions-dialog.component';
 import { NewManualDebitsDialogComponent } from './../../../dialogs/new-manual-debits-dialog/new-manual-debits-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -76,9 +77,11 @@ export class ImportStepComponent implements OnInit {
   }
 
 
-  openManualDebitDialog(source: any) {
-    var diagRef = this.dialog.open(NewManualDebitsDialogComponent, {
-      data: source
+  openManualExportInvest(source: any) {
+    var diagRef = this.dialog.open(ExportInvestmentsDialogComponent, {
+      data: { selectedSource: source, sources: this.sources.filter(s => s.symbol == source.symbol && s.id != source.id) },
+      height: '92%',
+      width: '92%'
     });
     diagRef.afterClosed().subscribe(() => {
       this.updateSources();

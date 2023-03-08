@@ -1,0 +1,41 @@
+<div class="header">
+    <div>
+        Create inverse transactions from <u>{{data.selectedSource.name}}</u> to
+        <select class="default_input" [(ngModel)]="selectedSourceToIndex" style="width: fit-content">
+            <option *ngFor="let source of data.sources; index as index" [value]="index">{{source.name}}</option>
+        </select>
+        [{{data.selectedSource.symbol}} {{getBalance() | customNumber}}]
+        <br />
+        <div class="bar" *ngIf="stagedTransactions.length > 0 && data.sources.length > 0">
+            <input type="text" placeholder="Search" [(ngModel)]="searchTerm" class="default_input"
+                style="width: fit-content" />
+            <button mat-button (click)="selectAll()">
+                Select all <mat-icon>expand_circle_down</mat-icon>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<div *ngIf="stagedTransactions.length == 0  || data.sources.length <= 0">
+    No transactions uploaded
+</div>
+<div *ngIf="stagedTransactions.length > 0 && data.sources.length > 0" class='container'>
+    <table>
+        <tr *ngFor="let stagedTransaction of stagedTransactions" (click)="select(stagedTransaction)"
+            [class.selected]="stagedTransaction.selected"
+            [style.display]="isFiltered(stagedTransaction.sourceDescription) ? '' : 'none'">
+            <td>{{stagedTransaction.transactionDate | customDate:'shortDate'}}</td>
+            <td>{{stagedTransaction.Source.Currency.symbol}} {{stagedTransaction.value | customNumber}}</td>
+            <td>{{stagedTransaction.sourceDescription}}</td>
+        </tr>
+    </table>
+</div>
+
+<button class="finish_btn" (click)="finish()" mat-button [disabled]="!canFinish()">Create</button>
+
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

@@ -82,6 +82,7 @@ import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.co
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
 import { DebitDetailsDialogComponent } from './dialogs/debit-details-dialog/debit-details-dialog.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
+import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-dialog/export-investments-dialog.component';
 
 
 const MATERIAL_MODULES = [
@@ -132,7 +133,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AnalyticsPageComponent,
     AnalyticsDebitsPageComponent,
     DebitDetailsDialogComponent,
-    AllTransactionsPageComponent
+    AllTransactionsPageComponent,
+    ExportInvestmentsDialogComponent
   ],
   imports: [
     BrowserModule,

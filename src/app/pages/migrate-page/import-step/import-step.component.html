@@ -13,8 +13,8 @@
                 <mat-icon>upload</mat-icon> {{source.type}}
                 <input type="file" #fileInput (input)="uploadFile($event, source, fileInput)" style="display: none;" />
             </button>
-            <button mat-button (click)="openManualDebitDialog(source); $event.stopPropagation();" class="options">
-                <mat-icon>list</mat-icon> Manually
+            <button mat-button (click)="openManualExportInvest(source); $event.stopPropagation();" class="options">
+                <mat-icon>sync_alt</mat-icon> Invest
             </button>
         </div>
     </div>
