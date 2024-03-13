@@ -1,0 +1,26 @@
+.copy_div {
+    background-color: whitesmoke;
+    padding: 8px;
+    border-radius: 6px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+div {
+    margin: auto;
+    text-align: center;
+}
+
+td {
+    padding: 6px;
+    border-bottom: 1px dashed gray;
+}
+
+tr:hover {
+    background-color: whitesmoke;
+}

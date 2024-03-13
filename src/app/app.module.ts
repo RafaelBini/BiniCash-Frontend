@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 // CDK
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // NGX MASK
 import { NgxMaskModule, IConfig } from 'ngx-mask'
@@ -83,6 +84,7 @@ import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/anal
 import { DebitDetailsDialogComponent } from './dialogs/debit-details-dialog/debit-details-dialog.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-dialog/export-investments-dialog.component';
+import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 
 
 const MATERIAL_MODULES = [
@@ -93,7 +95,7 @@ const MATERIAL_MODULES = [
 ]
 
 const CDK_MODULES = [
-  DragDropModule
+  DragDropModule, ClipboardModule
 ]
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -134,7 +136,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AnalyticsDebitsPageComponent,
     DebitDetailsDialogComponent,
     AllTransactionsPageComponent,
-    ExportInvestmentsDialogComponent
+    ExportInvestmentsDialogComponent,
+    TithePageComponent
   ],
   imports: [
     BrowserModule,

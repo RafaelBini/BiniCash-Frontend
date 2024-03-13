@@ -14,6 +14,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
+import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsPageComponent, canActivate: [AuthGuard] },
   { path: 'rules', component: ManageRulesPageComponent, canActivate: [AuthGuard] },
   { path: 'sources', component: SourcesPageComponent, canActivate: [AuthGuard] },
+  { path: 'tithing', component: TithePageComponent, canActivate: [AuthGuard] },
   { path: 'currencies', component: CurrenciesPageComponent, canActivate: [AuthGuard] },
   { path: 'analytics', component: AnalyticsPageComponent, canActivate: [AuthGuard] },
   { path: 'analytics/debits', component: AnalyticsDebitsPageComponent, canActivate: [AuthGuard] },

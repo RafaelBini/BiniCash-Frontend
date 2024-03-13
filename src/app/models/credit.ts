@@ -7,8 +7,9 @@ export interface Credit {
     value: number,
     sourceDescription: string,
     Source: Source,
-    credit_date: string,
+    creditDate: string,
     User: User,
+    isTransference: Boolean,
     createdAt?: string,
     updatedAt?: string,
 }

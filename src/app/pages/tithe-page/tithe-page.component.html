@@ -1,0 +1,39 @@
+<app-header></app-header>
+<app-title [text]="'Tithing'"></app-title>
+
+<div>
+    From <input type="text" [(ngModel)]="startDate" (change)="loadData()" /> to <input type="text" [(ngModel)]="endDate"
+        (change)="loadData()" />
+</div>
+<br>
+<div>
+    <div class="copy_div" [cdkCopyToClipboard]="getFormula()">
+        {{getFormula()}}
+    </div>
+</div>
+<br>
+<div>
+
+    <div class="copy_div" [cdkCopyToClipboard]="getTotal()">
+        Total: R$ {{getTotal() | customNumber}}
+    </div>
+</div>
+
+<table>
+    <tr>
+        <td>Date</td>
+        <td>Source</td>
+        <td>Description</td>
+        <td>Value</td>
+        <td>Consider</td>
+    </tr>
+    <tr *ngFor="let credit of credits">
+        <td>{{credit.creditDate | customDate:'shortDate'}}</td>
+        <td>{{credit.Source.name}}</td>
+        <td>{{credit.sourceDescription}} {{credit.description}}</td>
+        <td>R$ {{credit.value | customNumber}}</td>
+        <td align="center"><mat-checkbox [(ngModel)]="credit.consider"></mat-checkbox></td>
+    </tr>
+</table>
+
+<div style="height: 100px;"></div>
