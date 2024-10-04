@@ -1,0 +1,19 @@
+<button mat-icon-button mat-dialog-close="null" class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>
+<h2>Yield Entry</h2>
+<div>
+    Current balance:
+    <input class="default_input" type="text" [allowNegativeNumbers]="false" [prefix]="data.receiverSource.symbol + ' '"
+        mask="separator.2" [thousandSeparator]="',' | thousandSeparatorTranslate" separatorLimit="1000000000"
+        [(ngModel)]="currentBalance" (focus)="true" />
+</div>
+<div style="text-align: center;">
+    <button *ngIf="currentBalance != undefined" mat-button (click)="enterYield()" class="default_button">
+        Enter Yield ({{data.receiverSource.symbol}} {{currentBalance - data.newBalance | customNumber}})
+        +{{(((currentBalance - data.newBalance) / data.receiverSource.balance) * 100) | customNumber}}%
+    </button>
+    <button *ngIf="currentBalance == undefined" mat-button mat-dialog-close="go" class="default_button">
+        I don't have yields
+    </button>
+</div>

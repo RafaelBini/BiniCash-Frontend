@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, ViewChild, AfterViewInit } from '@angular/co
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
+import { YieldEntryDialogComponent } from '../yield-entry-dialog/yield-entry-dialog.component';
 
 @Component({
   selector: 'app-export-investments-dialog',
@@ -82,8 +83,33 @@ export class ExportInvestmentsDialogComponent implements OnInit {
       }
     })
 
-    await this.stagedTransactionService.insertArray(insertArray).toPromise();
-    this.dialogRef.close();
+    var diagRef = this.dialog.open(YieldEntryDialogComponent, {
+      data: {
+        receiverSource: this.data.sources[this.selectedSourceToIndex],
+        newBalance: this.getBalance()
+      }
+    })
+    diagRef.afterClosed().subscribe(async value => {
+
+      if (value != null && value != undefined && value != 'go') {
+        insertArray.push({
+          sourceId: this.data.sources[this.selectedSourceToIndex].id,
+          transactionDate: new Date().toISOString(),
+          value,
+          sourceDescription: 'Rendimento'
+        })
+
+      }
+
+      if (value == 'go' || (value != null && value != undefined)) {
+        await this.stagedTransactionService.insertArray(insertArray).toPromise();
+        this.dialogRef.close();
+      }
+
+
+    })
+
+
 
   }
 
