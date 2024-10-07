@@ -30,8 +30,12 @@ export class CreditStepComponent implements OnInit {
   credits: any[] = []
   debits: any[] = []
   lastCreditDistribs: any[] = []
+  transferenceWords: string[] = [
+    'APLICAÇÃO', 'RESGATE', 'APLICACAO', 'IGREJA JESUS'
+  ]
 
   ngOnInit(): void {
+
   }
 
   @HostListener('window:keyup', ['$event'])

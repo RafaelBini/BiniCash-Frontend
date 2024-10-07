@@ -121,6 +121,14 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
 
       }
 
+      // Update credits isTransference
+      for (let credit of this.creditStep.credits) {
+
+        if (this.creditStep.transferenceWords.includes(credit.sourceDescription.toUpperCase()) && credit.sourceReference != 'TRANSFERENCE') {
+          this.creditStep.toggleIsTransference(credit);
+        }
+      }
+
     }
     else if (index == 3) {
       var stagedBalancesByCategory = await this.stagedTransactionService.getStagedBlancesByCategory().toPromise()
