@@ -31,7 +31,7 @@ export class CreditStepComponent implements OnInit {
   debits: any[] = []
   lastCreditDistribs: any[] = []
   transferenceWords: string[] = [
-    'APLICAÇÃO', 'RESGATE', 'APLICACAO', 'IGREJA JESUS'
+    'APLIC', 'RESG', 'JESUS'
   ]
 
   ngOnInit(): void {

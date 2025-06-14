@@ -123,8 +123,8 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
 
       // Update credits isTransference
       for (let credit of this.creditStep.credits) {
-
-        if (this.creditStep.transferenceWords.includes(credit.sourceDescription.toUpperCase()) && credit.sourceReference != 'TRANSFERENCE') {
+        var hasTransfWords = this.creditStep.transferenceWords.find((tw: string) => credit.sourceDescription.toUpperCase().includes(tw));
+        if (hasTransfWords && credit.sourceReference != 'TRANSFERENCE') {
           this.creditStep.toggleIsTransference(credit);
         }
       }
