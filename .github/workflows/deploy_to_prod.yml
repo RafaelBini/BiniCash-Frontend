@@ -1,15 +1,32 @@
 on:
   push:
     branches:
-      - master 
-      
+      - master # Seu branch principal para deploy de produção
+
 jobs:
-  build_and_preview:
+  build_and_deploy: # Mudei o nome para ser mais claro: build_and_deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Recomendo usar a versão mais recente do checkout
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Use a versão mais recente e estável do setup-node
+        with:
+          node-version: '16' # Verifique e defina a versão do Node.js que seu Angular exige
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli # Instale a CLI globalmente
+
+      - name: Install Dependencies
+        run: npm install # Instale as dependências do seu projeto
+
+      - name: Build Angular Application
+        run: ng build --configuration production # Comando para construir seu app Angular para produção
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0 # Mantendo a v0, mas veremos a configuração
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BINI_CASH }}'
-          projectId: bini-cash
+          projectId: bini-cash # O ID do seu projeto Firebase
