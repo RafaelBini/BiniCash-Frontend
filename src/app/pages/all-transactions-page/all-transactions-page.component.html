@@ -207,7 +207,7 @@
             <td>{{ 'TRANSACTION.SOURCE_REFERENCE' | translate }} </td>
             <td>{{ 'TRANSACTION.INPUT_METHOD' | translate }} </td>
         </tr>
-        <tr *ngFor="let transaction of transactions">
+        <tr *ngFor="let transaction of transactions" (dblclick)="editTransaction(transaction)">
             <td>
                 #{{transaction.id}}
             </td>

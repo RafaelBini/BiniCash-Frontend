@@ -100,4 +100,8 @@ export class TransactionService {
   getAllTransactions(filter: any) {
     return this.http.post<any>(`${environment.apiHost}/transaction/all-transactions`, filter)
   }
+
+  update(transaction: any) {
+    return this.http.post<any>(`${environment.apiHost}/transaction/update`, transaction)
+  }
 }

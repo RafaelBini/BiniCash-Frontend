@@ -86,6 +86,7 @@ import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-
 import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-dialog/export-investments-dialog.component';
 import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 import { YieldEntryDialogComponent } from './dialogs/yield-entry-dialog/yield-entry-dialog.component';
+import { EditTransactionDialogComponent } from './dialogs/edit-transaction-dialog/edit-transaction-dialog.component';
 
 
 const MATERIAL_MODULES = [
@@ -139,7 +140,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AllTransactionsPageComponent,
     ExportInvestmentsDialogComponent,
     TithePageComponent,
-    YieldEntryDialogComponent
+    YieldEntryDialogComponent,
+    EditTransactionDialogComponent
   ],
   imports: [
     BrowserModule,

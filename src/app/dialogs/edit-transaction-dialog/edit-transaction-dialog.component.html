@@ -1,0 +1,27 @@
+<div *ngIf="data.transaction.value <0">
+
+
+    <h2>Edit Transaction #{{data.transaction.id}}</h2>
+    Description:<br>
+    <input type="text" class="default_input" [(ngModel)]="editedTransaction.description">
+    <br><br>
+
+    Category: <br>
+    <select [(ngModel)]="editedTransaction.category_id">
+        <option *ngFor="let category of data.categories" [value]="category.id">{{category.name}}</option>
+    </select>
+
+    <br><br>
+    <div class="finish_container">
+        <button mat-button (click)="save()">Save</button>
+    </div>
+
+</div>
+
+<div *ngIf="data.transaction.value >0">
+    You can't edit credit transactions
+</div>
+
+<button mat-icon-button mat-dialog-close class="btn_dialog_close">
+    <mat-icon>cancel</mat-icon>
+</button>

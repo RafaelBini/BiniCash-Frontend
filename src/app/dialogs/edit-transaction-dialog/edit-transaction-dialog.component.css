@@ -1,0 +1,9 @@
+select {
+    padding: 5px;
+}
+
+.finish_container {
+    text-align: center;
+    padding: 12px;
+    box-sizing: border-box;
+}

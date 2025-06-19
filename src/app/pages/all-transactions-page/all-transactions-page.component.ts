@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { SourceService } from 'src/app/services/source.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTransactionDialogComponent } from 'src/app/dialogs/edit-transaction-dialog/edit-transaction-dialog.component';
 
 export const GRI_DATE_FORMATS: MatDateFormats = {
   ...MAT_NATIVE_DATE_FORMATS,
@@ -36,7 +38,8 @@ export class AllTransactionsPageComponent implements OnInit {
     private categoryService: CategoryService,
     private sourceService: SourceService,
     private currencyService: CurrencyService,
-    private readonly adapter: DateAdapter<Date>
+    private readonly adapter: DateAdapter<Date>,
+    private dialog: MatDialog
   ) {
     this.adapter.setLocale(this.userService.me.Configs['LANGUAGE'] || 'en-US');
 
@@ -116,6 +119,17 @@ export class AllTransactionsPageComponent implements OnInit {
     this.transactions = result.transactions;
     this.sums = result.sums;
     this.isLoading = false;
+  }
+
+  editTransaction(transaction: any) {
+    var diagRef = this.dialog.open(EditTransactionDialogComponent, {
+      data: { transaction, categories: this.categories }
+    });
+    diagRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
   }
 
 }
