@@ -20,7 +20,7 @@ export class NewManualDebitsDialogComponent implements OnInit, AfterViewInit {
   ) { }
 
   newTransaction = {
-    transactionDate: '',
+    transactionDate: new Date().toISOString().substring(0, 10),
     sourceDescription: '',
     value: 0,
   }
@@ -42,6 +42,7 @@ export class NewManualDebitsDialogComponent implements OnInit, AfterViewInit {
 
 
   add(type: 'debit' | 'credit') {
+    console.log(this.newTransaction.transactionDate)
     if (!this.newTransaction.sourceDescription) {
       this.snack.open('Please input a description', undefined, { duration: 3000 });
       return;
@@ -90,6 +91,12 @@ export class NewManualDebitsDialogComponent implements OnInit, AfterViewInit {
     var targetBalance = Number.parseFloat(targetBalanceString);
     this.newTransaction.value = Math.abs(this.newBalance - targetBalance);
     this.newTransactionValueInput.nativeElement.value = Math.abs(this.newTransaction.value).toLocaleString(this.userService.me.Configs['LANGUAGE']);
+
+
+    var percentage = ((this.newTransaction.value / this.newBalance) * 100);
+    if (!this.newTransaction.sourceDescription || this.newTransaction.sourceDescription.includes('Rendiment')) {
+      this.newTransaction.sourceDescription = `Rendimento (${percentage.toFixed(2)}%)`;
+    }
   }
 
   setNewTransactionValue(value: string) {

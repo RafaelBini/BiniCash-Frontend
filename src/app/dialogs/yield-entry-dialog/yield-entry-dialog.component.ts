@@ -19,8 +19,12 @@ export class YieldEntryDialogComponent implements OnInit {
   }
 
   enterYield() {
-    if (this.currentBalance)
-      this.dialogRef.close(this.currentBalance - this.data.newBalance);
+    if (this.currentBalance) {
+      var percent = (((this.currentBalance - this.data.newBalance) / this.data.receiverSource.balance) * 100).toFixed(2)
+      var value = this.currentBalance - this.data.newBalance;
+      this.dialogRef.close({ value, percent });
+    }
+
   }
 
 

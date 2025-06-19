@@ -89,19 +89,19 @@ export class ExportInvestmentsDialogComponent implements OnInit {
         newBalance: this.getBalance()
       }
     })
-    diagRef.afterClosed().subscribe(async value => {
+    diagRef.afterClosed().subscribe(async returnedYield => {
 
-      if (value != null && value != undefined && value != 'go') {
+      if (returnedYield != null && returnedYield != undefined && returnedYield != 'go') {
         insertArray.push({
           sourceId: this.data.sources[this.selectedSourceToIndex].id,
           transactionDate: new Date().toISOString(),
-          value,
-          sourceDescription: 'Rendimento'
+          value: returnedYield.value,
+          sourceDescription: `Rendimento (${returnedYield.percent}%)`
         })
 
       }
 
-      if (value == 'go' || (value != null && value != undefined)) {
+      if (returnedYield == 'go' || (returnedYield != null && returnedYield != undefined)) {
         await this.stagedTransactionService.insertArray(insertArray).toPromise();
         this.dialogRef.close();
       }
