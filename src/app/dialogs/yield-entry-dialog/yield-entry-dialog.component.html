@@ -11,7 +11,7 @@
 <div style="text-align: center;">
     <button *ngIf="currentBalance != undefined" mat-button (click)="enterYield()" class="default_button">
         Enter Yield ({{data.receiverSource.symbol}} {{currentBalance - data.newBalance | customNumber}})
-        +{{(((currentBalance - data.newBalance) / data.receiverSource.balance) * 100) | customNumber}}%
+        +{{(((currentBalance - data.newBalance) / data.newBalance) * 100) | customNumber}}%
     </button>
     <button *ngIf="currentBalance == undefined" mat-button mat-dialog-close="go" class="default_button">
         I don't have yields
