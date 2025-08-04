@@ -13,7 +13,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4 # Use a versão mais recente e estável do setup-node
         with:
-          node-version: '16' # Verifique e defina a versão do Node.js que seu Angular exige
+          node-version: '18' # Verifique e defina a versão do Node.js que seu Angular exige
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli # Instale a CLI globalmente
