@@ -19,7 +19,7 @@ jobs:
         run: npm install -g @angular/cli # Instale a CLI globalmente
 
       - name: Install Dependencies
-        run: npm install # Instale as dependências do seu projeto
+        run: npm ci # Instale as dependências do seu projeto
 
       - name: Build Angular Application
         run: ng build --configuration production # Comando para construir seu app Angular para produção
