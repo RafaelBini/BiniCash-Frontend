@@ -13,7 +13,7 @@ jobs:
       - name: Set up Node.js for Angular
         uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '16.14.2'
           cache: 'npm'
 
       - name: Install Dependencies
