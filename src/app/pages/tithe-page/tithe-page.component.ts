@@ -28,7 +28,7 @@ export class TithePageComponent implements OnInit {
     var startDate = new Date(this.startDate);
     var endDate = new Date(new Date(this.endDate).getTime() - 1)
     this.credits = await this.transactionService.getCreditsFrom(startDate, endDate).toPromise()
-    this.credits = this.credits.filter(c => !c.isTransference && c.Source.Currency.symbol == 'R$').map(c => ({ ...c, consider: true })).sort((a, b) => a.creditDate > b.creditDate ? 1 : -1)
+    this.credits = this.credits.filter(c => !c.isTransference && c.Source.Currency.symbol == 'R$').map(c => ({ ...c, consider: true })).sort((a, b) => b.value > a.value ? 1 : -1)
   }
 
   getFormula() {
