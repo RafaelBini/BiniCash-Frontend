@@ -34,3 +34,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BINI_CASH }}'
           projectId: bini-cash # O ID do seu projeto Firebase
+          channelId: live
