@@ -1,0 +1,19 @@
+.credits_table {
+    width: 100%;
+    font-size: 13px;
+}
+
+.credits_table .mat-header-cell {
+    font-weight: 600;
+}
+
+.credits_table .mat-cell,
+.credits_table .mat-header-cell {
+    padding: 8px 6px;
+}
+
+.total {
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: right;
+}

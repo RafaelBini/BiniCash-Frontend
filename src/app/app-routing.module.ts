@@ -13,6 +13,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
+import { AnalyticsCreditsPageComponent } from './pages/analytics-credits-page/analytics-credits-page.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'currencies', component: CurrenciesPageComponent, canActivate: [AuthGuard] },
   { path: 'analytics', component: AnalyticsPageComponent, canActivate: [AuthGuard] },
   { path: 'analytics/debits', component: AnalyticsDebitsPageComponent, canActivate: [AuthGuard] },
+  { path: 'analytics/credits', component: AnalyticsCreditsPageComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesPageComponent, canActivate: [AuthGuard] },
   { path: 'categories/:categoryId', component: CategoriesPageComponent, canActivate: [AuthGuard] },
 ];

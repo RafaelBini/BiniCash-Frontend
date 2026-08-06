@@ -1,0 +1,27 @@
+.hint {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.add_row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.add_row input {
+    flex: 1;
+}
+
+.keyword_row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.keyword_row input {
+    flex: 1;
+}

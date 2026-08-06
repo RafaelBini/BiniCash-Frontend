@@ -129,6 +129,8 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
         }
       }
 
+      await this.creditStep.runAutoDistributionFromPreferences();
+
     }
     else if (index == 3) {
       var stagedBalancesByCategory = await this.stagedTransactionService.getStagedBlancesByCategory().toPromise()

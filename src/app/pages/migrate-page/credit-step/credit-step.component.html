@@ -60,7 +60,7 @@
         <div class="credit-options-container">
 
             <!-- ZERO BALANCE OPTION -->
-            <div class="option-item" (click)="setNewValue(getNeededToZero() )">
+            <div class="option-item" (click)="applyCreditOption('zeroBalance', getNeededToZero())">
                 <div class="option-header">
                     Zero balance
                 </div>
@@ -73,7 +73,7 @@
             </div>
 
             <!-- CURRENT DEBITS SUM OPTION -->
-            <div class="option-item" (click)="setNewValue(getNeededToCurrentDebit() )">
+            <div class="option-item" (click)="applyCreditOption('currentDebit', getNeededToCurrentDebit())">
                 <div class="option-header">
                     Current Debit
                 </div>
@@ -87,7 +87,7 @@
             </div>
 
             <!-- LAST CREDIT DISTRIBUTION OPTION -->
-            <div class="option-item" (click)="setNewValue(getLastCreditDistrib() )">
+            <div class="option-item" (click)="applyCreditOption('lastCredit', getLastCreditDistrib())">
                 <div class="option-header">
                     Last Credit
                 </div>

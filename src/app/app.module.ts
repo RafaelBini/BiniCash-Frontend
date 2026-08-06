@@ -81,6 +81,9 @@ import { CurrenciesPageComponent } from './pages/currencies-page/currencies-page
 import { EditStagedTransactionsDialogComponent } from './edit-staged-transactions-dialog/edit-staged-transactions-dialog.component';
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
+import { AnalyticsCreditsPageComponent } from './pages/analytics-credits-page/analytics-credits-page.component';
+import { PassiveIncomeKeywordsDialogComponent } from './dialogs/passive-income-keywords-dialog/passive-income-keywords-dialog.component';
+import { CreditDetailsDialogComponent } from './dialogs/credit-details-dialog/credit-details-dialog.component';
 import { DebitDetailsDialogComponent } from './dialogs/debit-details-dialog/debit-details-dialog.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-dialog/export-investments-dialog.component';
@@ -136,6 +139,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditStagedTransactionsDialogComponent,
     AnalyticsPageComponent,
     AnalyticsDebitsPageComponent,
+    AnalyticsCreditsPageComponent,
+    PassiveIncomeKeywordsDialogComponent,
+    CreditDetailsDialogComponent,
     DebitDetailsDialogComponent,
     AllTransactionsPageComponent,
     ExportInvestmentsDialogComponent,
