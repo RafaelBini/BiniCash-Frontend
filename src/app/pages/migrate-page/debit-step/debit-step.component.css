@@ -29,6 +29,28 @@
     background-color: whitesmoke;
 }
 
+.debit_step_center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.debit_filters_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+}
+
+.debit_filters_row .mat-icon-button {
+    color: var(--primary);
+}
+
+.debit_filters_row .mat-icon-button .mat-icon {
+    color: var(--primary);
+}
+
 input[type=text] {
     padding: 8px;
     border: 1px solid transparent;
@@ -87,8 +109,29 @@ tr.category-header {
     pointer-events: none;
 }
 
+.source_description_cell {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+}
+
+.source_description_text {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+    line-height: 1.35;
+}
+
 .suggest_description_btn {
     pointer-events: auto;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.suggest_description_btn .mat-icon {
+    color: var(--primary);
 }
 
 

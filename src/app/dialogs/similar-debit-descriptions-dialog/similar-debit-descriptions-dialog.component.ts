@@ -26,7 +26,6 @@ export class SimilarDebitDescriptionsDialogComponent implements OnInit {
     const debit = this.data.stagedDebit;
     try {
       this.matches = await this.transactionService.getSimilarDebits(
-        debit.description,
         debit.sourceDescription,
       ).toPromise() || [];
     } finally {

@@ -8,14 +8,6 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button routerLink="/rules" mat-menu-item>
-                <mat-icon>settings</mat-icon>
-                Manage Rules
-            </button>
-            <button (click)="runRules()" mat-menu-item>
-                <mat-icon>rule</mat-icon>
-                Run Rules
-            </button>
             <button (click)="cancel()" class="delete_btn" mat-menu-item>
                 <mat-icon class="delete_btn">delete</mat-icon>
                 Cancel Migration
@@ -32,7 +24,7 @@
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Debits</ng-template>
         <app-debit-step (updateCategories)="updateCategories()" (refresh)="loadData({selectedIndex: 1})"
-            (refreshStep)="refreshStep()"></app-debit-step>
+            (refreshStep)="refreshStep()" (runRules)="runRules()"></app-debit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>Credits</ng-template>

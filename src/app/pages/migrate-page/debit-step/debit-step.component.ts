@@ -30,10 +30,11 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   @Output() updateCategories = new EventEmitter();
   @Output() refreshStep = new EventEmitter();
   @Output() refresh = new EventEmitter();
+  @Output() runRules = new EventEmitter<void>();
   debits: MatTableDataSource<any>;
   categories: any[] = [];
   selectedCategory: any = undefined;
-  displayedColumns = ['category', 'description', 'suggest', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
+  displayedColumns = ['category', 'description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
   showCompletedDebits = true;
   categoryIdFiltered: any = undefined;
 
