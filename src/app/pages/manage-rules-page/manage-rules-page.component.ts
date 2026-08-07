@@ -2,10 +2,8 @@ import { Category } from './../../models/category';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Rule } from 'src/app/models/rule';
 import { CategoryService } from 'src/app/services/category.service';
 import { RuleService } from 'src/app/services/rule.service';
-import { getLocaleExtraDayPeriodRules } from '@angular/common';
 import { ConfirmDialogComponent } from 'src/app/dialogs/confirm-dialog/confirm-dialog.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -27,27 +25,40 @@ export class ManageRulesPageComponent implements OnInit {
   rules: any[] = [];
   categories: Category[] = [];
   statusMessage: string = '';
+  ruleSearchTerm = '';
 
   conditionalFields = [
-    { id: 'sourceDescription', name: 'source description', type: 'string' },
-    { id: 'sourceName', name: 'source name', type: 'string' },
-    { id: 'value', name: 'value', type: 'number' },
+    { id: 'sourceDescription', name: 'Descrição no extrato', type: 'string' },
+    { id: 'sourceName', name: 'Nome da fonte', type: 'string' },
+    { id: 'value', name: 'Valor', type: 'number' },
   ]
   operators = [
-    { id: '==', name: 'is equals to', type: 'string' },
-    { id: 'like', name: 'includes', type: 'string' },
-    { id: 'not like', name: 'do not includes', type: 'string' },
-    { id: '!=', name: 'is not equals to', type: 'string' },
-    { id: '>', name: 'is greater than', type: 'number' },
-    { id: '<', name: 'is less than', type: 'number' },
-    { id: '==', name: 'is equals to', type: 'number' },
-    { id: '!=', name: 'is not equals to', type: 'number' },
+    { id: '==', name: 'é igual a', type: 'string' },
+    { id: 'like', name: 'contém', type: 'string' },
+    { id: 'not like', name: 'não contém', type: 'string' },
+    { id: '!=', name: 'é diferente de', type: 'string' },
+    { id: '>', name: 'é maior que', type: 'number' },
+    { id: '<', name: 'é menor que', type: 'number' },
+    { id: '==', name: 'é igual a', type: 'number' },
+    { id: '!=', name: 'é diferente de', type: 'number' },
   ]
 
   async ngOnInit() {
+    this.categories = (await this.categoryService.getMyCategories().toPromise()).sort((a, b) => a.name > b.name ? 1 : -1);
     await this.loadRules();
     this.selectedRule = this.rules[0];
-    this.categories = (await this.categoryService.getMyCategories().toPromise()).sort((a, b) => a.name > b.name ? 1 : -1);
+  }
+
+  get filteredRules() {
+    const term = this.ruleSearchTerm.trim().toLowerCase();
+    if (!term) {
+      return this.rules;
+    }
+    return this.rules.filter(r => this.getRuleSearchText(r).includes(term));
+  }
+
+  get canReorder() {
+    return !this.ruleSearchTerm.trim();
   }
 
   async loadRules() {
@@ -67,14 +78,70 @@ export class ManageRulesPageComponent implements OnInit {
     return this.categories.find(c => c.id == categoryId);
   }
 
+  getRuleActionLabel(rule: any): string {
+    if (rule.field === 'category') {
+      const name = this.getCategory(+rule.value)?.name;
+      return name ? `Categoria = ${name}` : 'Categoria = …';
+    }
+    const desc = (rule.value ?? '').toString().trim();
+    return desc ? `Descrição = ${desc}` : 'Descrição = …';
+  }
+
+  formatConditional(conditional: any): string {
+    const hasField = !!conditional.field;
+    const hasOperator = !!conditional.operator;
+    const valueStr = conditional.value != null ? String(conditional.value).trim() : '';
+    if (!hasField && !hasOperator && !valueStr) {
+      return '(condição incompleta)';
+    }
+    const field = this.getConditionalField(conditional.field)?.name || conditional.field || '…';
+    const fieldType = this.getConditionalField(conditional.field)?.type;
+    const operator = this.operators.find(o => o.id === conditional.operator && o.type === fieldType)?.name
+      || conditional.operator || '…';
+    const quotedValue = valueStr ? `"${valueStr}"` : '""';
+    return `${field} ${operator} ${quotedValue}`;
+  }
+
+  getRuleWhenSummary(rule: any): string {
+    const conditionals = rule.Conditionals || [];
+    if (!conditionals.length) {
+      return 'Sem condições';
+    }
+    return conditionals.map((c: any) => this.formatConditional(c)).join(' OU ');
+  }
+
+  getRuleSearchText(rule: any): string {
+    return [
+      rule.orderNumber,
+      this.getRuleActionLabel(rule),
+      this.getRuleWhenSummary(rule),
+      rule.field,
+      rule.value,
+    ].join(' ').toLowerCase();
+  }
+
   selectRule(rule: any) {
     this.selectedRule = rule;
   }
 
+  sameSelectValue = (a: any, b: any): boolean => {
+    const normalize = (v: any) => (v === undefined || v === '' ? null : v);
+    a = normalize(a);
+    b = normalize(b);
+    if (a == null && b == null) {
+      return true;
+    }
+    if (a == null || b == null) {
+      return false;
+    }
+    return String(a) === String(b);
+  };
+
   async addRule() {
+    const template = this.selectedRule || { field: 'description', value: '' };
     await this.ruleService.addRule({
-      field: this.selectedRule.field,
-      value: this.selectedRule.value
+      field: template.field,
+      value: template.value ?? ''
     }).toPromise()
     await this.loadRules();
     this.selectRule(this.rules[this.rules.length - 1]);
@@ -83,8 +150,8 @@ export class ManageRulesPageComponent implements OnInit {
   async deleteRule() {
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete rule?',
-        content: 'You will not be able recover this rule after deleted',
+        title: 'Excluir regra?',
+        content: 'Esta regra não poderá ser recuperada após a exclusão.',
         isDanger: true
       }
     })
@@ -106,12 +173,12 @@ export class ManageRulesPageComponent implements OnInit {
 
   async saveRuleProperty(property: string) {
     try {
-      this.statusMessage = 'saving changes...';
+      this.statusMessage = 'Salvando…';
       await this.ruleService.updateRule({ [property]: this.selectedRule[property] }, this.selectedRule.id).toPromise()
-      this.statusMessage = 'all changes were saved!';
+      this.statusMessage = 'Alterações salvas.';
     }
     catch (reason) {
-      this.statusMessage = '<span style="color: var(--danger);">problem when saving changes.<span>';
+      this.statusMessage = '<span style="color: var(--danger);">Erro ao salvar.</span>';
     }
 
   }
@@ -124,7 +191,7 @@ export class ManageRulesPageComponent implements OnInit {
       this.selectRule(this.rules.find(r => r.id == ruleId));
     }
     catch (reason) {
-      this.snack.open('Problem when adding a new conditional', undefined, { duration: 2500 })
+      this.snack.open('Erro ao adicionar condição', undefined, { duration: 2500 })
     }
   }
 
@@ -136,24 +203,24 @@ export class ManageRulesPageComponent implements OnInit {
       this.selectRule(this.rules.find(r => r.id == ruleId));
     }
     catch (reason) {
-      this.snack.open('Problem when deleting the conditional', undefined, { duration: 2500 })
+      this.snack.open('Erro ao remover condição', undefined, { duration: 2500 })
     }
   }
 
   async saveConditionalProperty(conditional: any, property: string) {
     try {
-      this.statusMessage = 'saving changes...';
+      this.statusMessage = 'Salvando…';
       await this.ruleService.updateConditional({ [property]: conditional[property] }, conditional.id).toPromise()
-      this.statusMessage = 'all changes were saved!';
+      this.statusMessage = 'Alterações salvas.';
     }
     catch (reason) {
-      this.statusMessage = '<span style="color: var(--danger);">problem when saving changes.<span>';
+      this.statusMessage = '<span style="color: var(--danger);">Erro ao salvar.</span>';
     }
   }
 
   async drop(event: CdkDragDrop<any[]>) {
     try {
-      this.statusMessage = 'saving changes...';
+      this.statusMessage = 'Salvando ordem…';
       moveItemInArray(this.rules, event.previousIndex, event.currentIndex);
       const orderedRules = this.rules.map((rule, ruleIndex) => {
         return {
@@ -165,11 +232,11 @@ export class ManageRulesPageComponent implements OnInit {
       const ruleId = this.selectedRule.id;
       await this.loadRules();
       this.selectRule(this.rules.find(r => r.id == ruleId));
-      this.statusMessage = 'all changes were saved!';
+      this.statusMessage = 'Ordem atualizada.';
     }
     catch (reason) {
       moveItemInArray(this.rules, event.currentIndex, event.previousIndex);
-      this.statusMessage = '<span style="color: var(--danger);">problem when saving changes.<span>';
+      this.statusMessage = '<span style="color: var(--danger);">Erro ao reordenar.</span>';
     }
 
 

@@ -19,6 +19,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -96,7 +98,8 @@ import { EditTransactionDialogComponent } from './dialogs/edit-transaction-dialo
 const MATERIAL_MODULES = [
   MatSnackBarModule, MatButtonModule, MatStepperModule, MatIconModule, MatCheckboxModule,
   MatTableModule, MatSortModule, MatDialogModule, MatTooltipModule, MatMenuModule,
-  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatDatepickerModule,
+  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatFormFieldModule, MatInputModule,
+  MatDatepickerModule,
   MatNativeDateModule
 ]
 

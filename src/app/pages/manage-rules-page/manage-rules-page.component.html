@@ -1,101 +1,170 @@
 <app-header></app-header>
-<app-title routerLink="/migrate" text="Manage My Rules"></app-title>
-<div class="container">
-    <div *ngIf="selectedRule" cdkDropList (cdkDropListDropped)="drop($event)" class="rules_container">
-        <div *ngFor="let rule of rules" cdkDrag (click)="selectRule(rule)" class="rule_row"
-            [class.selected_rule_row]="rule.id == selectedRule.id">
-            #{{rule.orderNumber}}.
-            <span *ngIf="rule.field == 'category'">
-                Input <b>{{getCategory(rule.value)?.name}}</b> on {{rule.field}}
-            </span>
-            <span *ngIf="rule.field == 'description'">
-                Input <b>{{rule.value}}</b> on {{rule.field}}
-            </span>
-            <div class="drag_placeholder" *cdkDragPlaceholder>
+<app-title routerLink="/migrate" text="Gerenciar regras"></app-title>
+
+<div class="page_layout">
+    <aside class="rules_panel">
+        <div class="panel_toolbar">
+            <mat-form-field appearance="fill" class="search_field">
+                <mat-label>Buscar regras</mat-label>
+                <input matInput [(ngModel)]="ruleSearchTerm" placeholder="Categoria, texto, fonte…" />
+                <button *ngIf="ruleSearchTerm" matSuffix mat-icon-button (click)="ruleSearchTerm = ''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-button class="default_button new_rule_btn" (click)="addRule()">
+                <mat-icon>add</mat-icon>
+                Nova regra
+            </button>
+        </div>
+
+        <p class="rules_hint" *ngIf="canReorder">
+            Arraste para alterar a ordem de execução (de cima para baixo).
+        </p>
+        <p class="rules_hint warn" *ngIf="!canReorder">
+            Limpe a busca para reordenar as regras.
+        </p>
+
+        <div *ngIf="canReorder" cdkDropList (cdkDropListDropped)="drop($event)" class="rules_list">
+            <div *ngFor="let rule of rules" cdkDrag (click)="selectRule(rule)" class="rule_card"
+                [class.selected_rule_row]="rule.id == selectedRule?.id"
+                [class.rule_field_category]="rule.field === 'category'"
+                [class.rule_field_description]="rule.field === 'description'">
+                <mat-icon cdkDragHandle class="drag_handle" matTooltip="Arrastar">drag_indicator</mat-icon>
+                <div class="rule_card_body">
+                    <span class="order_badge">#{{ rule.orderNumber }}</span>
+                    <strong [class.rule_action_category]="rule.field === 'category'"
+                        [class.rule_action_description]="rule.field === 'description'">{{ getRuleActionLabel(rule) }}</strong>
+                    <span class="when_line">{{ getRuleWhenSummary(rule) }}</span>
+                </div>
+                <div class="drag_placeholder" *cdkDragPlaceholder></div>
+            </div>
+            <p *ngIf="!rules.length" class="empty_list">Nenhuma regra cadastrada. Clique em "Nova regra".</p>
+        </div>
+
+        <div *ngIf="!canReorder" class="rules_list">
+            <div *ngFor="let rule of filteredRules" (click)="selectRule(rule)" class="rule_card"
+                [class.selected_rule_row]="rule.id == selectedRule?.id"
+                [class.rule_field_category]="rule.field === 'category'"
+                [class.rule_field_description]="rule.field === 'description'">
+                <div class="rule_card_body full">
+                    <span class="order_badge">#{{ rule.orderNumber }}</span>
+                    <strong [class.rule_action_category]="rule.field === 'category'"
+                        [class.rule_action_description]="rule.field === 'description'">{{ getRuleActionLabel(rule) }}</strong>
+                    <span class="when_line">{{ getRuleWhenSummary(rule) }}</span>
+                </div>
+            </div>
+            <p *ngIf="!filteredRules.length" class="empty_list">Nenhuma regra corresponde à busca.</p>
+        </div>
+
+        <div class="rules_count">{{ filteredRules.length }} de {{ rules.length }} regra(s)</div>
+    </aside>
+
+    <section class="rule_editor" *ngIf="selectedRule; else pickRule">
+        <div class="editor_header" [class.rule_field_category]="selectedRule.field === 'category'"
+            [class.rule_field_description]="selectedRule.field === 'description'">
+            <h2>Regra #{{ selectedRule.orderNumber }} — {{ getRuleActionLabel(selectedRule) }}</h2>
+            <div class="status" [innerHTML]="statusMessage"></div>
+        </div>
+
+        <div class="editor_block">
+            <label class="block_label">Então (ação)</label>
+            <div class="row_fields">
+                <mat-form-field appearance="fill" class="field_grow">
+                    <mat-label>Alterar campo</mat-label>
+                    <mat-select [(ngModel)]="selectedRule.field" (ngModelChange)="saveRuleProperty('field')">
+                        <mat-option value="description">Descrição</mat-option>
+                        <mat-option value="category">Categoria</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="field_grow" *ngIf="selectedRule.field == 'description'">
+                    <mat-label>Texto da descrição</mat-label>
+                    <input matInput [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')" />
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="field_grow" *ngIf="selectedRule.field == 'category'">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
+                        [compareWith]="sameSelectValue">
+                        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="editor_block">
+            <label class="block_label">Quando (condições)</label>
+            <p class="block_hint">As condições abaixo são unidas por <strong>OU</strong> — basta uma ser verdadeira.</p>
+
+            <div *ngFor="let conditional of selectedRule.Conditionals; index as conditionalIndex" class="conditional_card">
+                <span class="or_label" *ngIf="conditionalIndex > 0">OU</span>
+                <div class="conditional_fields">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Campo</mat-label>
+                        <mat-select [(ngModel)]="conditional.field"
+                            (ngModelChange)="saveConditionalProperty(conditional, 'field')"
+                            [compareWith]="sameSelectValue">
+                            <mat-option value="">—</mat-option>
+                            <mat-option *ngFor="let conditionalField of conditionalFields" [value]="conditionalField.id">
+                                {{ conditionalField.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Operador</mat-label>
+                        <mat-select [(ngModel)]="conditional.operator"
+                            (ngModelChange)="saveConditionalProperty(conditional, 'operator')"
+                            [compareWith]="sameSelectValue">
+                            <mat-option value="">—</mat-option>
+                            <mat-option *ngFor="let operator of getOperatorsFromConditionalFieldId(conditional.field)"
+                                [value]="operator.id">
+                                {{ operator.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="field_grow"
+                        *ngIf="getConditionalField(conditional.field)?.type == 'string'">
+                        <mat-label>Valor</mat-label>
+                        <input matInput [(ngModel)]="conditional.value"
+                            (ngModelChange)="saveConditionalProperty(conditional, 'value')" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="field_grow"
+                        *ngIf="getConditionalField(conditional.field)?.type == 'number'">
+                        <mat-label>Valor</mat-label>
+                        <input matInput type="number" [(ngModel)]="conditional.value"
+                            (ngModelChange)="saveConditionalProperty(conditional, 'value')" />
+                    </mat-form-field>
+
+                    <button mat-icon-button color="warn" (click)="deleteConditional(conditional.id)"
+                        matTooltip="Remover condição">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
             </div>
 
+            <button mat-stroked-button (click)="addConditional()" class="add_conditional_btn">
+                <mat-icon>add</mat-icon>
+                Adicionar condição
+            </button>
         </div>
 
-    </div>
-    <div class="rule_editor">
-        <div class="status" [innerHTML]="statusMessage"></div>
-
-        <div>
-            Affect:
-            <select [(ngModel)]="selectedRule.field" (ngModelChange)="saveRuleProperty('field')" class="default_input">
-                <option value="description">Description</option>
-                <option value="category">Category</option>
-            </select>
-        </div>
-        <div>
-            Input:
-            <span *ngIf="selectedRule.field == 'description'">
-                <input [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
-                    class="default_input" type="text" />
-            </span>
-            <span *ngIf="selectedRule.field == 'category'">
-                <select [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
-                    class="default_input">
-                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-                </select>
-            </span>
-        </div>
-        <div>
-            When:
-            <li *ngFor="let conditional of selectedRule.Conditionals; index as conditionalIndex">
-
-                <span *ngIf="conditionalIndex > 0">Or </span>
-
-                <select [(ngModel)]="conditional.field" (ngModelChange)="saveConditionalProperty(conditional, 'field')"
-                    class="default_input">
-                    <option *ngFor="let conditionalField of conditionalFields" [value]="conditionalField.id">
-                        {{conditionalField.name}}
-                    </option>
-                </select>
-
-                <select [(ngModel)]="conditional.operator"
-                    (ngModelChange)="saveConditionalProperty(conditional, 'operator')" class="default_input">
-                    <option *ngFor="let operator of getOperatorsFromConditionalFieldId(conditional.field)"
-                        [value]="operator.id">
-                        {{operator.name}}
-                    </option>
-                </select>
-
-
-                <input *ngIf="getConditionalField(conditional.field)?.type == 'string'" [(ngModel)]="conditional.value"
-                    (ngModelChange)="saveConditionalProperty(conditional, 'value')" type="text" class="default_input" />
-
-                <input *ngIf="getConditionalField(conditional.field)?.type == 'number'" [(ngModel)]="conditional.value"
-                    (ngModelChange)="saveConditionalProperty(conditional, 'value')" type="number"
-                    class="default_input" />
-
-                <button (click)="deleteConditional(conditional.id)" class="btn_delete_conditional" mat-button>
-                    <mat-icon>
-                        delete
-                    </mat-icon>
-                </button>
-
-
-
-            </li>
-
-            <li>
-
-                <button (click)="addConditional()" mat-button class="default_button">
-                    Or...
-                </button>
-            </li>
-        </div>
         <div class="btn_container">
             <button mat-button (click)="deleteRule()" class="default_danger_button">
-                Delete Rule
-            </button>
-            <button (click)="addRule()" mat-button class="default_button" style="margin-left: 20px;">
-                New Rule
+                <mat-icon>delete</mat-icon>
+                Excluir regra
             </button>
         </div>
-    </div>
+    </section>
 
-
-
+    <ng-template #pickRule>
+        <section class="rule_editor empty_editor">
+            <mat-icon>rule</mat-icon>
+            <p *ngIf="rules.length">Selecione uma regra na lista ou crie uma nova.</p>
+            <p *ngIf="!rules.length">Nenhuma regra ainda. Use "Nova regra" para começar.</p>
+            <button *ngIf="!rules.length" mat-button class="default_button" (click)="addRule()">Nova regra</button>
+        </section>
+    </ng-template>
 </div>

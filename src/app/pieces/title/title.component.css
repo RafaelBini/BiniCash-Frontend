@@ -13,3 +13,7 @@
     left: 7px;
     top: 5px;
 }
+
+.back_button mat-icon {
+    font-family: 'Material Icons';
+}

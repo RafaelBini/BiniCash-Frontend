@@ -1,104 +1,338 @@
-.container{
+.page_layout {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 16px;
+    padding: 12px 20px 24px;
     box-sizing: border-box;
-    padding-bottom: 70px;
-    position: relative;
+    min-height: calc(100vh - 120px);
 }
 
-.rules_container{
-    width: 100%;
-    height: 180px;
+.rules_panel {
+    flex: 0 0 38%;
+    max-width: 480px;
+    min-width: 280px;
     display: flex;
     flex-direction: column;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.panel_toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.search_field {
+    width: 100%;
+}
+
+:host ::ng-deep .rules_panel .mat-form-field,
+:host ::ng-deep .rule_editor .mat-form-field {
+    width: 100%;
+}
+
+:host ::ng-deep .rules_panel .mat-form-field-infix,
+:host ::ng-deep .rule_editor .mat-form-field-infix {
+    min-height: 36px;
+}
+
+:host mat-icon {
+    font-family: 'Material Icons';
+}
+
+.new_rule_btn {
+    width: 100%;
+    justify-content: center;
+}
+
+.rules_hint {
+    font-size: 12px;
+    color: #666;
+    margin: 8px 0 4px;
+}
+
+.rules_hint.warn {
+    color: #b45309;
+}
+
+.rules_list {
+    flex: 1;
+    overflow: auto;
+    min-height: 200px;
+    max-height: calc(100vh - 320px);
+    margin-top: 4px;
+}
+
+.rule_card {
+    display: flex;
     align-items: flex-start;
-    justify-content: stretch;
-    background-color: whitesmoke;
-    border: 1px solid gray;
-    border-radius: 3px;
-    position: relative;
-    padding: 6px;
+    gap: 4px;
+    padding: 10px 8px;
+    margin-bottom: 8px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    border-left-width: 4px;
+}
+
+.rule_card.rule_field_description {
+    border-left-color: #2e7d32;
+    background: rgba(46, 125, 50, 0.07);
+}
+
+.rule_card.rule_field_category {
+    border-left-color: #6a1b9a;
+    background: rgba(106, 27, 154, 0.07);
+}
+
+.rule_card:hover {
+    filter: brightness(0.98);
+}
+
+.rule_card.rule_field_description:hover {
+    border-color: #2e7d32;
+    background: rgba(46, 125, 50, 0.12);
+}
+
+.rule_card.rule_field_category:hover {
+    border-color: #6a1b9a;
+    background: rgba(106, 27, 154, 0.12);
+}
+
+.selected_rule_row {
+    box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.selected_rule_row.rule_field_description {
+    background: rgba(46, 125, 50, 0.16);
+    border-left-color: #1b5e20;
+}
+
+.selected_rule_row.rule_field_category {
+    background: rgba(106, 27, 154, 0.16);
+    border-left-color: #4a148c;
+}
+
+.drag_handle {
+    cursor: grab;
+    color: #888;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.rule_card_body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+}
+
+.rule_card_body.full {
+    padding-left: 4px;
+}
+
+.rule_card_body strong.rule_action_description {
+    color: #1b5e20;
+}
+
+.rule_card_body strong.rule_action_category {
+    color: #4a148c;
+}
+
+.order_badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    width: fit-content;
+}
+
+.when_line {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.rules_count {
+    font-size: 11px;
+    color: #888;
+    text-align: right;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.empty_list {
+    text-align: center;
+    color: #777;
+    padding: 24px 8px;
+    font-size: 13px;
+}
+
+.rule_editor {
+    flex: 1;
+    min-width: 0;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 20px;
     box-sizing: border-box;
     overflow: auto;
 }
 
-.rule_row{
-    width: 100%;
-    border-bottom: 1px solid black;
-    background-color: white;
-    padding: 10px;
-    box-sizing: border-box;
-    position: relative;
-}
-.rule_row:hover{
-    background-color: var(--primary);
-    cursor: pointer;
-}
-
-.selected_rule_row{
-    background-color: var(--primary);
-}
-
-.add_btn{
-    position: absolute;
-    bottom: 13px;
-    right: 13px;
-    background-color: lightgreen;
-    color: white;
-}
-
-.rule_editor{
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-    margin-top: 10px;
-    border: 1px solid rgba(128, 128, 128, 0.432);
-    border-radius: 6px;
-}
-
-.rule_editor>div{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 7px;
-    box-sizing: border-box;
-    background-color: rgba(245, 245, 245, 0.788);
-}
-
-.status{
-    background-color: transparent !important;
+.empty_editor {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    font-size: 11px;
-    color: gray;
-    padding: 3px !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+    color: #666;
+    gap: 12px;
+    min-height: 320px;
 }
 
-select, input {
-    width: fit-content !important;
+.empty_editor mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #bbb;
 }
 
-li{
-    margin-top: 8px;
+.editor_header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    background: #fafafa;
+}
+
+.editor_header.rule_field_description {
+    border-left: 4px solid #2e7d32;
+    background: rgba(46, 125, 50, 0.08);
+}
+
+.editor_header.rule_field_category {
+    border-left: 4px solid #6a1b9a;
+    background: rgba(106, 27, 154, 0.08);
+}
+
+.editor_header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.status {
+    font-size: 12px;
+    color: #888;
+}
+
+.editor_block {
+    margin-bottom: 20px;
+}
+
+.block_label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
     margin-bottom: 8px;
+    color: #333;
 }
 
-.btn_container{
-    justify-content: center; display: flex; padding: 10px; box-sizing: border-box
+.block_hint {
+    font-size: 12px;
+    color: #666;
+    margin: 0 0 12px;
 }
 
-.btn_delete_conditional{
-    color: var(--danger);
+.row_fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
 }
 
-.drag_placeholder{
-    background-color: whitesmoke;
-    height: 50px;
-    width: 100%;
+.field_grow {
+    flex: 1 1 200px;
+    min-width: 160px;
+}
+
+.conditional_card {
+    position: relative;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+}
+
+.or_label {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: #fff;
+    padding: 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.conditional_fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.conditional_fields mat-form-field {
+    flex: 1 1 140px;
+    min-width: 120px;
+}
+
+.add_conditional_btn {
+    margin-top: 4px;
+}
+
+.btn_container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.drag_placeholder {
+    background: rgba(0, 174, 255, 0.12);
+    border: 1px dashed var(--primary);
+    border-radius: 6px;
+    min-height: 64px;
+}
+
+@media (max-width: 900px) {
+    .page_layout {
+        flex-direction: column;
+    }
+
+    .rules_panel {
+        flex: none;
+        max-width: none;
+        width: 100%;
+    }
+
+    .rules_list {
+        max-height: 240px;
+    }
 }
