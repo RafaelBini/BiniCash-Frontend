@@ -10,6 +10,21 @@
     justify-content: space-between;
 }
 
+.header_actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav_menu_btn {
+    color: white;
+}
+
+.nav_menu_btn:hover {
+    color: var(--primary);
+}
+
 .avatar{
     background-color: whitesmoke;
     border-radius: 50%;
@@ -18,11 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.avatar:hover{
-    background-color: var(--primary);
-    cursor: pointer;
-    color: white;
 }
 
 .bini-text{

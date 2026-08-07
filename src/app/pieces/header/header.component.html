@@ -2,18 +2,48 @@
     <div (click)="goMain()" style='cursor: pointer;'>
         <span class="bini-text">BINI</span><span class="cash-text">CASH</span>
     </div>
-    <div class="avatar" [matMenuTriggerFor]="menu" [matTooltip]="'HEADER.CHANGE_PROFILE_TOOLTIP' | translate">
-        <div *ngIf="me">{{me.name | initials}}</div>
+    <div class="header_actions">
+        <div class="avatar">
+            <div *ngIf="me">{{me.name | initials}}</div>
+        </div>
+        <button mat-icon-button class="nav_menu_btn" [matMenuTriggerFor]="navMenu"
+            [matTooltip]="'HEADER.MAIN_MENU_TOOLTIP' | translate">
+            <mat-icon>menu</mat-icon>
+        </button>
     </div>
 
-    <mat-menu #menu="matMenu">
+    <mat-menu #navMenu="matMenu">
         <button routerLink="/settings" mat-menu-item>
             <mat-icon>person</mat-icon>
             <span>{{ 'HEADER.MY_SETTINGS' | translate }}</span>
         </button>
+        <button routerLink="/migrate" mat-menu-item>
+            <mat-icon>cloud_upload</mat-icon>
+            <span>{{ 'USER_PAGE.MIGRATE' | translate }}</span>
+        </button>
+        <button routerLink="/migrate/undo" mat-menu-item>
+            <mat-icon>undo</mat-icon>
+            <span>{{ 'USER_PAGE.UNDO_MIGRATION' | translate }}</span>
+        </button>
+        <button routerLink="/my-transactions" mat-menu-item>
+            <mat-icon>receipt_long</mat-icon>
+            <span>{{ 'USER_PAGE.MY_TRANSACTIONS' | translate }}</span>
+        </button>
+        <button routerLink="/currencies" mat-menu-item>
+            <mat-icon>payments</mat-icon>
+            <span>{{ 'USER_PAGE.MY_CURRENCIES' | translate }}</span>
+        </button>
         <button routerLink="/categories" mat-menu-item>
             <mat-icon>label</mat-icon>
             <span>{{ 'USER_PAGE.MY_CATEGORIES' | translate }}</span>
+        </button>
+        <button routerLink="/sources" mat-menu-item>
+            <mat-icon>account_balance</mat-icon>
+            <span>{{ 'USER_PAGE.MY_SOURCES' | translate }}</span>
+        </button>
+        <button routerLink="/analytics" mat-menu-item>
+            <mat-icon>analytics</mat-icon>
+            <span>{{ 'USER_PAGE.ANALYTICS' | translate }}</span>
         </button>
     </mat-menu>
 </div>

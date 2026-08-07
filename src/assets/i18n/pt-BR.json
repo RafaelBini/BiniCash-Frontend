@@ -1,4 +1,15 @@
 {
+    "AI_CHAT": {
+        "CLOSE": "Fechar",
+        "EMPTY": "Pergunte sobre seus gastos, categorias ou transações. Ex.: «Quanto gastei com pizza neste mês?»",
+        "HINT": "Respostas numéricas usam consultas ao seu banco de dados; a IA não inventa valores.",
+        "LOADING": "Carregando conversa…",
+        "NEW_CONVERSATION": "Nova conversa",
+        "PLACEHOLDER": "Digite sua pergunta… (Enter para enviar)",
+        "SEND": "Enviar",
+        "THINKING": "Analisando…",
+        "TITLE": "BinAI Cash"
+    },
     "ANALYTICS": {
         "ACTIVE_INCOME": "Renda Ativa",
         "CEDITS": "Ver Meus Ganhos",
@@ -170,6 +181,7 @@
     },
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Editar meu perfil",
+        "MAIN_MENU_TOOLTIP": "Menu",
         "MY_SETTINGS": "Meu Perfil"
     },
     "LOGIN": {

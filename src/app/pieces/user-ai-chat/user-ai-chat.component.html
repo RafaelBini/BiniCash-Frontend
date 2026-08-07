@@ -1,0 +1,42 @@
+<div class="binai_fab_container">
+    <button *ngIf="!isOpen" type="button" mat-fab class="binai_fab" (click)="openChat()"
+        [matTooltip]="'AI_CHAT.TITLE' | translate" matTooltipPosition="left">
+        <mat-icon>auto_awesome</mat-icon>
+    </button>
+
+    <section *ngIf="isOpen" class="ai_chat_panel ai_chat_floating" role="dialog" aria-labelledby="binai-chat-title">
+        <div class="ai_chat_header content_title">
+            <span id="binai-chat-title">{{ 'AI_CHAT.TITLE' | translate }}</span>
+            <button mat-icon-button type="button" class="close_chat_btn" (click)="closeChat()"
+                [matTooltip]="'AI_CHAT.CLOSE' | translate">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+
+        <p class="ai_chat_hint">{{ 'AI_CHAT.HINT' | translate }}</p>
+
+        <div *ngIf="error" class="ai_chat_error">{{ error }}</div>
+        <div *ngIf="isLoading" class="ai_chat_loading">{{ 'AI_CHAT.LOADING' | translate }}</div>
+
+        <div class="ai_chat_messages" #scrollBox>
+            <p *ngIf="!isLoading && !messages.length" class="ai_chat_empty">{{ 'AI_CHAT.EMPTY' | translate }}</p>
+            <div *ngFor="let msg of messages" class="ai_chat_row" [class.user_row]="msg.role === 'user'"
+                [class.assistant_row]="msg.role === 'assistant'">
+                <span *ngIf="msg.role === 'user'" class="ai_chat_bubble">{{ msg.content }}</span>
+                <span *ngIf="msg.role === 'assistant'" class="ai_chat_bubble ai_chat_formatted"
+                    [innerHTML]="msg.content | aiChatFormat"></span>
+            </div>
+            <div *ngIf="isSending" class="ai_chat_row assistant_row">
+                <span class="ai_chat_bubble typing">{{ 'AI_CHAT.THINKING' | translate }}</span>
+            </div>
+        </div>
+
+        <div class="ai_chat_input_row">
+            <textarea [(ngModel)]="draft" (keydown)="onKeydown($event)" [disabled]="isSending" rows="2"
+                [placeholder]="'AI_CHAT.PLACEHOLDER' | translate"></textarea>
+            <button mat-button class="default_button send_btn" (click)="send()" [disabled]="isSending || !draft.trim()">
+                {{ 'AI_CHAT.SEND' | translate }}
+            </button>
+        </div>
+    </section>
+</div>

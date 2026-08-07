@@ -1,4 +1,5 @@
 import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { AiChatFormatPipe } from './pipes/ai-chat-format.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -93,6 +94,7 @@ import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-d
 import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 import { YieldEntryDialogComponent } from './dialogs/yield-entry-dialog/yield-entry-dialog.component';
 import { EditTransactionDialogComponent } from './dialogs/edit-transaction-dialog/edit-transaction-dialog.component';
+import { UserAiChatComponent } from './pieces/user-ai-chat/user-ai-chat.component';
 
 
 const MATERIAL_MODULES = [
@@ -128,6 +130,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UndoMigrationComponent,
     CreateTransactionChildrenDialogComponent,
     CustomDatePipe,
+    AiChatFormatPipe,
     SettingsPageComponent,
     CustomNumberPipe,
     CategoriesPageComponent,
@@ -152,7 +155,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExportInvestmentsDialogComponent,
     TithePageComponent,
     YieldEntryDialogComponent,
-    EditTransactionDialogComponent
+    EditTransactionDialogComponent,
+    UserAiChatComponent
   ],
   imports: [
     BrowserModule,

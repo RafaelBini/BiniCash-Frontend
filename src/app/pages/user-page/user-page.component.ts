@@ -22,7 +22,6 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     private translate: TranslateService
   ) { }
 
-  IS_SIDE_BAR_HIDDEN = false;
   chartYear = new Date().getFullYear();
   chartMonth = new Date().getMonth() - 1;
   balancesByCategories: any[] = [];
@@ -246,10 +245,6 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     this.loadAccumulatedChartData();
     this.loadBudgetChartData();
     this.loadSavings();
-  }
-
-  toggleSideBar() {
-    this.IS_SIDE_BAR_HIDDEN = !this.IS_SIDE_BAR_HIDDEN;
   }
 
 }
