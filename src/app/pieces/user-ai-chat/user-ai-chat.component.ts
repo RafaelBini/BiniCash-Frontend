@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { AiChatService } from 'src/app/services/ai-chat.service';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-ai-chat',
@@ -86,15 +87,22 @@ export class UserAiChatComponent implements OnInit, AfterViewChecked {
     this.markScrollToBottom();
 
     try {
-      const res = await this.aiChat.sendMessage(text, this.conversationId || undefined).toPromise();
-      this.conversationId = res.conversationId;
+      const res = await this.aiChat.sendMessage(text, this.conversationId ?? undefined)
+        .pipe(timeout(100000))
+        .toPromise();
+      this.conversationId = res.conversationId != null ? Number(res.conversationId) : null;
       this.messages = [...this.messages, {
         role: 'assistant',
         content: res.message.content,
         createdAt: res.message.createdAt,
       }];
     } catch (e) {
-      this.error = 'Falha ao enviar mensagem. Verifique se o backend e a GEMINI_API_KEY estão configurados.';
+      const err = e as { name?: string };
+      if (err && err.name === 'TimeoutError') {
+        this.error = 'A resposta demorou demais. Tente novamente em instantes.';
+      } else {
+        this.error = 'Falha ao enviar mensagem. Verifique se o backend e a GEMINI_API_KEY estão configurados.';
+      }
       this.messages = this.messages.slice(0, -1);
       this.draft = text;
     } finally {
