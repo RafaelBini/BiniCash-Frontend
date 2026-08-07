@@ -1,0 +1,30 @@
+.hint {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 12px;
+    word-break: break-word;
+}
+
+.loading {
+    padding: 16px 0;
+}
+
+.matches_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.matches_table td {
+    border-bottom: 1px solid #eee;
+    padding: 8px 6px;
+    vertical-align: top;
+}
+
+.match_row {
+    cursor: pointer;
+}
+
+.match_row:hover {
+    background-color: rgba(0, 174, 255, 0.12);
+}

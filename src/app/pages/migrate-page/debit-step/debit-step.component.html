@@ -39,7 +39,18 @@
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
                 <td mat-cell *matCellDef="let element">
-                    <input [(ngModel)]="element.description" (change)="updateDescription(element)" type="text" />
+                    <input [(ngModel)]="element.description" (change)="updateDescription(element)" type="text"
+                        (click)="$event.stopPropagation()" />
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="suggest">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button class="suggest_description_btn" matTooltip="Buscar descrições semelhantes"
+                        (click)="openSimilarDescriptions(element, $event)">
+                        <mat-icon>manage_search</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 

@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Descrições semelhantes</h2>
+<mat-dialog-content>
+    <p class="hint">Com base em: <em>{{ data.stagedDebit.sourceDescription }}</em></p>
+    <div *ngIf="isLoading" class="loading">Buscando no histórico...</div>
+    <p *ngIf="!isLoading && !matches.length">Nenhuma transação parecida encontrada.</p>
+    <table *ngIf="!isLoading && matches.length" class="matches_table">
+        <tr>
+            <td>Data</td>
+            <td>Descrição</td>
+            <td>Categoria</td>
+            <td>Extrato</td>
+        </tr>
+        <tr *ngFor="let match of matches" class="match_row" (click)="select(match)">
+            <td>{{ match.transactionDate | customDate:'shortDate' }}</td>
+            <td>{{ match.description }}</td>
+            <td>{{ match.categoryName || '—' }}</td>
+            <td>{{ match.sourceDescription }}</td>
+        </tr>
+    </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

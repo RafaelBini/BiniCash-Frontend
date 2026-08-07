@@ -84,6 +84,7 @@ import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/anal
 import { AnalyticsCreditsPageComponent } from './pages/analytics-credits-page/analytics-credits-page.component';
 import { PassiveIncomeKeywordsDialogComponent } from './dialogs/passive-income-keywords-dialog/passive-income-keywords-dialog.component';
 import { CreditDetailsDialogComponent } from './dialogs/credit-details-dialog/credit-details-dialog.component';
+import { SimilarDebitDescriptionsDialogComponent } from './dialogs/similar-debit-descriptions-dialog/similar-debit-descriptions-dialog.component';
 import { DebitDetailsDialogComponent } from './dialogs/debit-details-dialog/debit-details-dialog.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 import { ExportInvestmentsDialogComponent } from './dialogs/export-investments-dialog/export-investments-dialog.component';
@@ -142,6 +143,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AnalyticsCreditsPageComponent,
     PassiveIncomeKeywordsDialogComponent,
     CreditDetailsDialogComponent,
+    SimilarDebitDescriptionsDialogComponent,
     DebitDetailsDialogComponent,
     AllTransactionsPageComponent,
     ExportInvestmentsDialogComponent,

@@ -18,6 +18,14 @@ export class TransactionService {
     return this.http.get<any[]>(`${environment.apiHost}/transaction/debits`)
   }
 
+  getSimilarDebits(description: string, sourceDescription: string) {
+    const params = new URLSearchParams({
+      description: description || '',
+      sourceDescription: sourceDescription || '',
+    });
+    return this.http.get<any[]>(`${environment.apiHost}/transaction/similar-debits?${params.toString()}`);
+  }
+
   getAnalytics(months: number) {
     return this.http.get<any[]>(`${environment.apiHost}/transaction/analytics/${months}`)
   }

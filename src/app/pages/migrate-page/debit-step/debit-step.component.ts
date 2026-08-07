@@ -1,4 +1,5 @@
 import { Category } from './../../../models/category';
+import { SimilarDebitDescriptionsDialogComponent } from './../../../dialogs/similar-debit-descriptions-dialog/similar-debit-descriptions-dialog.component';
 import { CreateTransactionChildrenDialogComponent } from './../../../dialogs/create-transaction-children-dialog/create-transaction-children-dialog.component';
 import { ConfirmDialogComponent } from './../../../dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +33,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
   debits: MatTableDataSource<any>;
   categories: any[] = [];
   selectedCategory: any = undefined;
-  displayedColumns = ['category', 'description', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
+  displayedColumns = ['category', 'description', 'suggest', 'value', 'transactionDate', 'sourceDescription', 'sourceName'];
   showCompletedDebits = true;
   categoryIdFiltered: any = undefined;
 
@@ -125,6 +126,22 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
 
   updateDescription(debit: any) {
     this.stagedTransactionService.update({ id: debit.id, description: debit.description }).subscribe()
+  }
+
+  openSimilarDescriptions(debit: any, event: MouseEvent) {
+    event.stopPropagation();
+    const diagRef = this.dialog.open(SimilarDebitDescriptionsDialogComponent, {
+      width: '920px',
+      maxWidth: '95vw',
+      data: { stagedDebit: debit },
+    });
+    diagRef.afterClosed().subscribe((description: string) => {
+      if (!description) {
+        return;
+      }
+      debit.description = description;
+      this.stagedTransactionService.update({ id: debit.id, description }).subscribe();
+    });
   }
 
   splitValues(transaction: any) {
