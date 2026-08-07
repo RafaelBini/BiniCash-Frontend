@@ -1,14 +1,14 @@
-<h2 mat-dialog-title>Descrições semelhantes</h2>
+<h2 mat-dialog-title>{{ 'SIMILAR_DEBITS.TITLE' | translate }}</h2>
 <mat-dialog-content>
-    <p class="hint">Com base em: <em>{{ data.stagedDebit.sourceDescription }}</em></p>
-    <div *ngIf="isLoading" class="loading">Buscando no histórico...</div>
-    <p *ngIf="!isLoading && !matches.length">Nenhuma transação parecida encontrada.</p>
+    <p class="hint">{{ 'SIMILAR_DEBITS.BASED_ON' | translate }} <em>{{ data.stagedDebit.sourceDescription }}</em></p>
+    <div *ngIf="isLoading" class="loading">{{ 'SIMILAR_DEBITS.LOADING' | translate }}</div>
+    <p *ngIf="!isLoading && !matches.length">{{ 'SIMILAR_DEBITS.NO_MATCHES' | translate }}</p>
     <table *ngIf="!isLoading && matches.length" class="matches_table">
         <tr>
-            <td>Data</td>
-            <td>Descrição</td>
-            <td>Categoria</td>
-            <td>Extrato</td>
+            <td>{{ 'TRANSACTION.TRANSACTION_DATE' | translate }}</td>
+            <td>{{ 'TRANSACTION.DESCRIPTION' | translate }}</td>
+            <td>{{ 'TRANSACTION.CATEGORY' | translate }}</td>
+            <td>{{ 'SIMILAR_DEBITS.STATEMENT' | translate }}</td>
         </tr>
         <tr *ngFor="let match of matches" class="match_row" (click)="select(match)">
             <td>{{ match.transactionDate | customDate:'shortDate' }}</td>
@@ -19,5 +19,5 @@
     </table>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button mat-dialog-close>{{ 'SIMILAR_DEBITS.CANCEL' | translate }}</button>
 </mat-dialog-actions>

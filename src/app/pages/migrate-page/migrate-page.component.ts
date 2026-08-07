@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-migrate-page',
@@ -27,6 +28,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
     private router: Router,
     private transactionService: TransactionService,
     private ruleService: RuleService,
+    private translate: TranslateService,
   ) { }
 
   @ViewChild(DebitStepComponent) debitStep: any;
@@ -58,7 +60,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
         this.stepper.selectedIndex = this.userInfo.routineStep;
     }
     catch (error) {
-      this.snack.open('Failed when refreshing', undefined, { duration: 3500 })
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_REFRESH_FAILED'), undefined, { duration: 3500 })
       this.router.navigate(['main'])
     }
 
@@ -89,7 +91,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
         var pendingTransferenceCreditCategories = this.creditStep.categories.filter((c: any) => (c.isTransference == true && c.stagedBalance < 0));
         if (pendingTransferenceCreditCategories.length > 0) {
           var content =
-            `Do you wanna attribute credit to the transference accounts bellow?
+            `${this.translate.instant('MIGRATE.TRANSFERENCE_CREDIT_PROMPT')}
           <br />
           <ul>
           `;
@@ -100,7 +102,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
           content += `</ul>`;
           var diagRef = this.dialog.open(ConfirmDialogComponent, {
             data: {
-              title: 'Attribute credit automatically',
+              title: this.translate.instant('MIGRATE.ATTRIBUTE_CREDIT_AUTO'),
               content: content,
             }
           })
@@ -191,8 +193,8 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
   async cancel() {
     var diagRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Cancel this migration?',
-        content: 'All new inserted data will be deleted and can not be restored'
+        title: this.translate.instant('MIGRATE.CANCEL_MIGRATION_TITLE'),
+        content: this.translate.instant('MIGRATE.CANCEL_MIGRATION_CONFIRM')
       }
     })
     diagRef.afterClosed().subscribe(async result => {
@@ -203,7 +205,7 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
         this.router.navigate(['main'])
       }
       catch (error) {
-        this.snack.open('Failed when trying to cancel migration', undefined, { duration: 3500 });
+        this.snack.open(this.translate.instant('MIGRATE.SNACK_CANCEL_FAILED'), undefined, { duration: 3500 });
         return;
       }
 
@@ -216,10 +218,10 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
     try {
       await this.ruleService.runRules().toPromise();
       await this.loadData(undefined);
-      this.snack.open('Rules applied successfully!', undefined, { duration: 3500 })
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_RULES_SUCCESS'), undefined, { duration: 3500 })
     }
     catch (error) {
-      this.snack.open('Failed when running rules!', undefined, { duration: 3500 })
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_RULES_FAILED'), undefined, { duration: 3500 })
     }
 
   }

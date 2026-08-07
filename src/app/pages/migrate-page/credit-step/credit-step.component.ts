@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
 import { UserService } from 'src/app/services/user.service';
 import { ConfirmDialogComponent } from 'src/app/dialogs/confirm-dialog/confirm-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 export type CreditDistributionOption = 'zeroBalance' | 'currentDebit' | 'lastCredit';
 
@@ -23,6 +24,7 @@ export class CreditStepComponent {
     private snack: MatSnackBar,
     private dialog: MatDialog,
     private decimalPipe: DecimalPipe,
+    private translate: TranslateService,
   ) {
 
   }
@@ -207,7 +209,7 @@ export class CreditStepComponent {
         distributedBySymbol.set(symbol, (distributedBySymbol.get(symbol) ?? 0) + amount);
         await this.reloadDistributionState();
       } catch (error: any) {
-        this.snack.open(error.error?.msg ?? 'Falha na distribuição automática', undefined, { duration: 3500 });
+        this.snack.open(error.error?.msg ?? this.translate.instant('MIGRATE.SNACK_AUTO_DISTRIBUTE_FAILED'), undefined, { duration: 3500 });
         break;
       }
     }
@@ -217,7 +219,7 @@ export class CreditStepComponent {
         ([symbol, total]) => this.formatAmount(symbol, total)
       );
       this.snack.open(
-        `${messageParts.join(', ')} distribuidos automaticamente`,
+        `${messageParts.join(', ')} — ${this.translate.instant('MIGRATE.SNACK_AUTO_DISTRIBUTE')}`,
         undefined,
         { duration: 5000 }
       );
@@ -228,13 +230,13 @@ export class CreditStepComponent {
   async addCredit() {
     try {
       if (!this.newValue) {
-        this.snack.open('You need to provide a value', undefined, { duration: 3500 })
+        this.snack.open(this.translate.instant('MIGRATE.SNACK_CREDIT_VALUE_REQUIRED'), undefined, { duration: 3500 })
         return;
       }
       var creditToDistribute = this.creditsToDistribute.find(c => c.symbol == this.selectedCategory.Currency.symbol)?.credit || 0
 
       if (creditToDistribute < this.newValue) {
-        this.snack.open('You do not have credit enough for this distribution', undefined, { duration: 3500 })
+        this.snack.open(this.translate.instant('MIGRATE.SNACK_CREDIT_NOT_ENOUGH'), undefined, { duration: 3500 })
         return;
       }
 
@@ -277,8 +279,8 @@ export class CreditStepComponent {
     if (this.getTransferenceDifference() != 0) {
       var diagRef = this.dialog.open(ConfirmDialogComponent, {
         data: {
-          title: 'Inconsistent transactions',
-          content: 'There is a difference between distributed and declared credit transactions values.<br /><br />Are you sure you want to proceed?',
+          title: this.translate.instant('MIGRATE.INCONSISTENT_TRANSACTIONS_TITLE'),
+          content: this.translate.instant('MIGRATE.INCONSISTENT_TRANSACTIONS_CONTENT'),
         }
       })
 

@@ -1,27 +1,27 @@
 <app-header></app-header>
-<app-title routerLink="/migrate" text="Gerenciar regras"></app-title>
+<app-title routerLink="/migrate" [text]="'RULES.TITLE' | translate"></app-title>
 
 <div class="page_layout">
     <aside class="rules_panel">
         <div class="panel_toolbar">
             <mat-form-field appearance="fill" class="search_field">
-                <mat-label>Buscar regras</mat-label>
-                <input matInput [(ngModel)]="ruleSearchTerm" placeholder="Categoria, texto, fonte…" />
+                <mat-label>{{ 'RULES.SEARCH' | translate }}</mat-label>
+                <input matInput [(ngModel)]="ruleSearchTerm" [placeholder]="'RULES.SEARCH_PLACEHOLDER' | translate" />
                 <button *ngIf="ruleSearchTerm" matSuffix mat-icon-button (click)="ruleSearchTerm = ''">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
             <button mat-button class="default_button new_rule_btn" (click)="addRule()">
                 <mat-icon>add</mat-icon>
-                Nova regra
+                {{ 'RULES.NEW_RULE' | translate }}
             </button>
         </div>
 
         <p class="rules_hint" *ngIf="canReorder">
-            Arraste para alterar a ordem de execução (de cima para baixo).
+            {{ 'RULES.REORDER_HINT' | translate }}
         </p>
         <p class="rules_hint warn" *ngIf="!canReorder">
-            Limpe a busca para reordenar as regras.
+            {{ 'RULES.REORDER_SEARCH_WARN' | translate }}
         </p>
 
         <div *ngIf="canReorder" cdkDropList (cdkDropListDropped)="drop($event)" class="rules_list">
@@ -29,7 +29,7 @@
                 [class.selected_rule_row]="rule.id == selectedRule?.id"
                 [class.rule_field_category]="rule.field === 'category'"
                 [class.rule_field_description]="rule.field === 'description'">
-                <mat-icon cdkDragHandle class="drag_handle" matTooltip="Arrastar">drag_indicator</mat-icon>
+                <mat-icon cdkDragHandle class="drag_handle" [matTooltip]="'RULES.REORDER_HINT' | translate">drag_indicator</mat-icon>
                 <div class="rule_card_body">
                     <span class="order_badge">#{{ rule.orderNumber }}</span>
                     <strong [class.rule_action_category]="rule.field === 'category'"
@@ -38,7 +38,7 @@
                 </div>
                 <div class="drag_placeholder" *cdkDragPlaceholder></div>
             </div>
-            <p *ngIf="!rules.length" class="empty_list">Nenhuma regra cadastrada. Clique em "Nova regra".</p>
+            <p *ngIf="!rules.length" class="empty_list">{{ 'RULES.EMPTY' | translate }}</p>
         </div>
 
         <div *ngIf="!canReorder" class="rules_list">
@@ -53,37 +53,37 @@
                     <span class="when_line">{{ getRuleWhenSummary(rule) }}</span>
                 </div>
             </div>
-            <p *ngIf="!filteredRules.length" class="empty_list">Nenhuma regra corresponde à busca.</p>
+            <p *ngIf="!filteredRules.length" class="empty_list">{{ 'RULES.NO_SEARCH_MATCH' | translate }}</p>
         </div>
 
-        <div class="rules_count">{{ filteredRules.length }} de {{ rules.length }} regra(s)</div>
+        <div class="rules_count">{{ 'RULES.COUNT' | translate:{ filtered: filteredRules.length, total: rules.length } }}</div>
     </aside>
 
     <section class="rule_editor" *ngIf="selectedRule; else pickRule">
         <div class="editor_header" [class.rule_field_category]="selectedRule.field === 'category'"
             [class.rule_field_description]="selectedRule.field === 'description'">
-            <h2>Regra #{{ selectedRule.orderNumber }} — {{ getRuleActionLabel(selectedRule) }}</h2>
+            <h2>{{ 'RULES.RULE_HEADER' | translate:{ order: selectedRule.orderNumber, action: getRuleActionLabel(selectedRule) } }}</h2>
             <div class="status" [innerHTML]="statusMessage"></div>
         </div>
 
         <div class="editor_block">
-            <label class="block_label">Então (ação)</label>
+            <label class="block_label">{{ 'RULES.THEN_ACTION' | translate }}</label>
             <div class="row_fields">
                 <mat-form-field appearance="fill" class="field_grow">
-                    <mat-label>Alterar campo</mat-label>
+                    <mat-label>{{ 'RULES.CHANGE_FIELD' | translate }}</mat-label>
                     <mat-select [(ngModel)]="selectedRule.field" (ngModelChange)="saveRuleProperty('field')">
-                        <mat-option value="description">Descrição</mat-option>
-                        <mat-option value="category">Categoria</mat-option>
+                        <mat-option value="description">{{ 'RULES.FIELD_DESCRIPTION' | translate }}</mat-option>
+                        <mat-option value="category">{{ 'RULES.FIELD_CATEGORY' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="field_grow" *ngIf="selectedRule.field == 'description'">
-                    <mat-label>Texto da descrição</mat-label>
+                    <mat-label>{{ 'RULES.VALUE_LABEL_DESCRIPTION' | translate }}</mat-label>
                     <input matInput [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')" />
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="field_grow" *ngIf="selectedRule.field == 'category'">
-                    <mat-label>Categoria</mat-label>
+                    <mat-label>{{ 'RULES.FIELD_CATEGORY' | translate }}</mat-label>
                     <mat-select [(ngModel)]="selectedRule.value" (ngModelChange)="saveRuleProperty('value')"
                         [compareWith]="sameSelectValue">
                         <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
@@ -93,53 +93,53 @@
         </div>
 
         <div class="editor_block">
-            <label class="block_label">Quando (condições)</label>
-            <p class="block_hint">As condições abaixo são unidas por <strong>OU</strong> — basta uma ser verdadeira.</p>
+            <label class="block_label">{{ 'RULES.WHEN_CONDITIONS' | translate }}</label>
+            <p class="block_hint">{{ 'RULES.CONDITIONS_HINT' | translate }}</p>
 
             <div *ngFor="let conditional of selectedRule.Conditionals; index as conditionalIndex" class="conditional_card">
-                <span class="or_label" *ngIf="conditionalIndex > 0">OU</span>
+                <span class="or_label" *ngIf="conditionalIndex > 0">{{ 'RULES.OR' | translate }}</span>
                 <div class="conditional_fields">
                     <mat-form-field appearance="fill">
-                        <mat-label>Campo</mat-label>
+                        <mat-label>{{ 'RULES.FIELD' | translate }}</mat-label>
                         <mat-select [(ngModel)]="conditional.field"
                             (ngModelChange)="saveConditionalProperty(conditional, 'field')"
                             [compareWith]="sameSelectValue">
                             <mat-option value="">—</mat-option>
                             <mat-option *ngFor="let conditionalField of conditionalFields" [value]="conditionalField.id">
-                                {{ conditionalField.name }}
+                                {{ ('RULES.FIELDS.' + conditionalField.id) | translate }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
-                        <mat-label>Operador</mat-label>
+                        <mat-label>{{ 'RULES.OPERATOR' | translate }}</mat-label>
                         <mat-select [(ngModel)]="conditional.operator"
                             (ngModelChange)="saveConditionalProperty(conditional, 'operator')"
                             [compareWith]="sameSelectValue">
                             <mat-option value="">—</mat-option>
                             <mat-option *ngFor="let operator of getOperatorsFromConditionalFieldId(conditional.field)"
                                 [value]="operator.id">
-                                {{ operator.name }}
+                                {{ getOperatorLabel(operator) }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="field_grow"
                         *ngIf="getConditionalField(conditional.field)?.type == 'string'">
-                        <mat-label>Valor</mat-label>
+                        <mat-label>{{ 'RULES.VALUE' | translate }}</mat-label>
                         <input matInput [(ngModel)]="conditional.value"
                             (ngModelChange)="saveConditionalProperty(conditional, 'value')" />
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="field_grow"
                         *ngIf="getConditionalField(conditional.field)?.type == 'number'">
-                        <mat-label>Valor</mat-label>
+                        <mat-label>{{ 'RULES.VALUE' | translate }}</mat-label>
                         <input matInput type="number" [(ngModel)]="conditional.value"
                             (ngModelChange)="saveConditionalProperty(conditional, 'value')" />
                     </mat-form-field>
 
                     <button mat-icon-button color="warn" (click)="deleteConditional(conditional.id)"
-                        matTooltip="Remover condição">
+                        [matTooltip]="'RULES.REMOVE_CONDITION' | translate">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -147,14 +147,14 @@
 
             <button mat-stroked-button (click)="addConditional()" class="add_conditional_btn">
                 <mat-icon>add</mat-icon>
-                Adicionar condição
+                {{ 'RULES.ADD_CONDITION' | translate }}
             </button>
         </div>
 
         <div class="btn_container">
             <button mat-button (click)="deleteRule()" class="default_danger_button">
                 <mat-icon>delete</mat-icon>
-                Excluir regra
+                {{ 'RULES.DELETE_RULE' | translate }}
             </button>
         </div>
     </section>
@@ -162,9 +162,9 @@
     <ng-template #pickRule>
         <section class="rule_editor empty_editor">
             <mat-icon>rule</mat-icon>
-            <p *ngIf="rules.length">Selecione uma regra na lista ou crie uma nova.</p>
-            <p *ngIf="!rules.length">Nenhuma regra ainda. Use "Nova regra" para começar.</p>
-            <button *ngIf="!rules.length" mat-button class="default_button" (click)="addRule()">Nova regra</button>
+            <p *ngIf="rules.length">{{ 'RULES.EMPTY_PICK' | translate }}</p>
+            <p *ngIf="!rules.length">{{ 'RULES.EMPTY_START' | translate }}</p>
+            <button *ngIf="!rules.length" mat-button class="default_button" (click)="addRule()">{{ 'RULES.NEW_RULE' | translate }}</button>
         </section>
     </ng-template>
 </div>

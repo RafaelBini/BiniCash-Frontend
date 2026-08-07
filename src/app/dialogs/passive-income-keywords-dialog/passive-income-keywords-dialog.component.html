@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>Palavras-chave — Renda passiva</h2>
+<h2 mat-dialog-title>{{ 'PASSIVE_KEYWORDS.TITLE' | translate }}</h2>
 <mat-dialog-content>
-    <p class="hint">Créditos cujo texto (descrição ou extrato) contiver alguma palavra-chave são classificados como renda passiva.</p>
+    <p class="hint">{{ 'PASSIVE_KEYWORDS.HINT' | translate }}</p>
     <div class="add_row">
-        <input [(ngModel)]="newKeyword" (keyup.enter)="addKeyword()" class="default_input" placeholder="Nova palavra-chave" />
-        <button mat-button class="default_button" (click)="addKeyword()">Adicionar</button>
+        <input [(ngModel)]="newKeyword" (keyup.enter)="addKeyword()" class="default_input" [placeholder]="'PASSIVE_KEYWORDS.NEW_PLACEHOLDER' | translate" />
+        <button mat-button class="default_button" (click)="addKeyword()">{{ 'PASSIVE_KEYWORDS.ADD' | translate }}</button>
     </div>
-    <div *ngIf="isLoading">Carregando...</div>
+    <div *ngIf="isLoading">{{ 'PASSIVE_KEYWORDS.LOADING' | translate }}</div>
     <div *ngFor="let row of keywords" class="keyword_row">
         <input [(ngModel)]="row.keyword" (change)="saveKeyword(row)" class="default_input" />
         <button mat-icon-button (click)="deleteKeyword(row)">
@@ -14,5 +14,5 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button (click)="close()">Fechar</button>
+    <button mat-button (click)="close()">{{ 'PASSIVE_KEYWORDS.CLOSE' | translate }}</button>
 </mat-dialog-actions>

@@ -1,12 +1,12 @@
 <div class='container'>
     <div class="btns-container">
         <button mat-button (click)="goPrevious()">
-            Previous
+            {{ 'COMMON.PREVIOUS' | translate }}
         </button>
     </div>
     <div class="confirmation_container">
         <div>
-            <h2>Almost done!</h2>
+            <h2>{{ 'MIGRATE.ALMOST_DONE' | translate }}</h2>
             <div class="total_container">
                 <div class="total_card" *ngFor="let currency of currencies">
                     {{currency.symbol}} {{currency.value.total | customNumber}}
@@ -15,13 +15,13 @@
         </div>
 
         <div>
-            <mat-checkbox [(ngModel)]="canFinish">I confirm that all values are correct accordently to real ones
+            <mat-checkbox [(ngModel)]="canFinish">{{ 'MIGRATE.CONFIRM_FINISH' | translate }}
             </mat-checkbox>
         </div>
 
         <div>
             <button (click)="finish()" [disabled]='!canFinish' class="default_button" mat-button>
-                FINISH MIGRATION
+                {{ 'MIGRATE.FINISH_MIGRATION' | translate }}
             </button>
         </div>
     </div>
@@ -43,9 +43,9 @@
 
     <table class="big_table">
         <tr>
-            <td>Total</td>
-            <td>Sources</td>
-            <td>Categories</td>
+            <td>{{ 'MIGRATE.TOTAL' | translate }}</td>
+            <td>{{ 'USER_PAGE.MY_SOURCES' | translate }}</td>
+            <td>{{ 'USER_PAGE.MY_CATEGORIES' | translate }}</td>
         </tr>
         <tr *ngFor="let currency of currencies" class="total_rows">
             <td>{{currency.symbol}} {{currency.value.total | customNumber}}</td>

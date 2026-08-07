@@ -10,7 +10,7 @@
         <mat-menu #menu="matMenu">
             <button (click)="cancel()" class="delete_btn" mat-menu-item>
                 <mat-icon class="delete_btn">delete</mat-icon>
-                Cancel Migration
+                {{ 'MIGRATE.CANCEL_MIGRATION' | translate }}
             </button>
         </mat-menu>
     </div>
@@ -18,21 +18,21 @@
 
 <mat-horizontal-stepper #stepper migrate-stepper (selectionChange)="loadData($event)" class="migrate-stepper">
     <mat-step [editable]="true" [completed]="false">
-        <ng-template matStepLabel>Import</ng-template>
+        <ng-template matStepLabel>{{ 'MIGRATE.STEP_IMPORT' | translate }}</ng-template>
         <app-import-step (updateData)="loadData({selectedIndex: 0})"></app-import-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
-        <ng-template matStepLabel>Debits</ng-template>
+        <ng-template matStepLabel>{{ 'MIGRATE.STEP_DEBITS' | translate }}</ng-template>
         <app-debit-step (updateCategories)="updateCategories()" (refresh)="loadData({selectedIndex: 1})"
             (refreshStep)="refreshStep()" (runRules)="runRules()"></app-debit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
-        <ng-template matStepLabel>Credits</ng-template>
+        <ng-template matStepLabel>{{ 'MIGRATE.STEP_CREDITS' | translate }}</ng-template>
         <app-credit-step (refresh)="loadData({selectedIndex: 2})" (refreshStep)="refreshStep()">
         </app-credit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
-        <ng-template matStepLabel>Finish</ng-template>
+        <ng-template matStepLabel>{{ 'MIGRATE.STEP_FINISH' | translate }}</ng-template>
         <app-finish-step (refreshStep)="refreshStep()"></app-finish-step>
     </mat-step>
 </mat-horizontal-stepper>

@@ -3,19 +3,19 @@
 
 <div class="filters">
     <mat-checkbox [(ngModel)]="filterActiveIncome" (ngModelChange)="onFilterChange()">
-        Renda Ativa
+        {{ 'ANALYTICS.ACTIVE_INCOME' | translate }}
     </mat-checkbox>
     <mat-checkbox [(ngModel)]="filterPassiveIncome" (ngModelChange)="onFilterChange()">
-        Renda Passiva
+        {{ 'ANALYTICS.PASSIVE_INCOME' | translate }}
     </mat-checkbox>
     <button mat-button class="default_button" (click)="openKeywordsDialog()">
         <mat-icon>edit</mat-icon>
-        Palavras-chave (renda passiva)
+        {{ 'ANALYTICS.KEYWORDS_PASSIVE' | translate }}
     </button>
 </div>
 
 <div class="control">
-    Credits per month from
+    {{ 'ANALYTICS.CREDITS_PER_MONTH_FROM' | translate }}
     <button mat-icon-button (click)="goPreviousMonth('start')">
         <mat-icon>arrow_left</mat-icon>
     </button>
@@ -23,7 +23,7 @@
     <button mat-icon-button (click)="goNextMonth('start')">
         <mat-icon>arrow_right</mat-icon>
     </button>
-    to
+    {{ 'ANALYTICS.RANGE_TO' | translate }}
     <button mat-icon-button (click)="goPreviousMonth('end')">
         <mat-icon>arrow_left</mat-icon>
     </button>

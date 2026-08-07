@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TransactionService } from './../../../services/transaction.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-finish-step',
@@ -19,6 +20,7 @@ export class FinishStepComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private userService: UserService,
+    private translate: TranslateService,
   ) { }
   canFinish = false;
   currencies: any[] = [];
@@ -29,13 +31,13 @@ export class FinishStepComponent implements OnInit {
 
   async finish() {
     if (!this.canFinish) {
-      this.snack.open('Please indicate that its fine to finish', undefined, { duration: 3400 })
+      this.snack.open(this.translate.instant('MIGRATE.PLEASE_CONFIRM_FINISH'), undefined, { duration: 3400 })
       return;
     }
     var diagRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: `Are you sure you wanna finish?`,
-        content: `You will save all changes as real transactions`
+        title: this.translate.instant('MIGRATE.FINISH_CONFIRM_TITLE'),
+        content: this.translate.instant('MIGRATE.FINISH_CONFIRM_CONTENT')
       }
     })
 

@@ -1,30 +1,32 @@
 <div class="btns-container">
     <button mat-button matStepperPrevious (click)="goPrevious()">
-        Previous </button>
+        {{ 'COMMON.PREVIOUS' | translate }}
+    </button>
 
     <div class="debit_step_center">
-        <div *ngIf="selectedCategory">Select transactions for {{selectedCategory.name}}</div>
+        <div *ngIf="selectedCategory">{{ 'MIGRATE.SELECT_TRANSACTIONS_FOR' | translate:{ name: selectedCategory.name } }}</div>
         <div class="debit_filters_row">
-            <mat-checkbox [(ngModel)]="showCompletedDebits">Show completed debits</mat-checkbox>
-            <button mat-icon-button routerLink="/rules" matTooltip="Manage rules" type="button">
+            <mat-checkbox [(ngModel)]="showCompletedDebits">{{ 'MIGRATE.SHOW_COMPLETED_DEBITS' | translate }}</mat-checkbox>
+            <button mat-icon-button routerLink="/rules" [matTooltip]="'MIGRATE.MANAGE_RULES' | translate" type="button">
                 <mat-icon>settings</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="Run rules" type="button" (click)="runRules.emit()">
+            <button mat-icon-button [matTooltip]="'MIGRATE.RUN_RULES' | translate" type="button" (click)="runRules.emit()">
                 <mat-icon>rule</mat-icon>
             </button>
         </div>
     </div>
 
     <button [disabled]="!isReadyToGo()" mat-button (click)="goNext()">
-        Next</button>
+        {{ 'COMMON.NEXT' | translate }}
+    </button>
 </div>
 <div class="container">
     <div class="left-container">
         <table class="categories">
             <tr class="category-header">
-                <td>Category</td>
-                <td>Debit</td>
-                <td>Balance</td>
+                <td>{{ 'TRANSACTION.CATEGORY' | translate }}</td>
+                <td>{{ 'COMMON.DEBIT' | translate }}</td>
+                <td>{{ 'COMMON.BALANCE' | translate }}</td>
             </tr>
             <tr *ngFor="let category of categories" [class.selected_category]="selectedCategory?.id == category.id"
                 [class.filtered_category]="categoryIdFiltered == category.id" (click)="selectCategory(category)"
@@ -41,12 +43,12 @@
         <table mat-table [dataSource]="debits" matSort [class.with_category_selected]="selectedCategory">
 
             <ng-container matColumnDef="category">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.CATEGORY' | translate }}</th>
                 <td mat-cell *matCellDef="let element"> {{element.Category ? element.Category.name : '---'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.DESCRIPTION' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <input [(ngModel)]="element.description" (change)="updateDescription(element)" type="text"
                         (click)="$event.stopPropagation()" />
@@ -54,24 +56,24 @@
             </ng-container>
 
             <ng-container matColumnDef="value">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
-                <td mat-cell *matCellDef="let element" matTooltip="Split transaction" matTooltipShowDelay="500"
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.VALUE' | translate }}</th>
+                <td mat-cell *matCellDef="let element" [matTooltip]="'MIGRATE.SPLIT_TRANSACTION' | translate" matTooltipShowDelay="500"
                     class="split_button" (click)="splitValues(element)">
                     {{element.Source.Currency.symbol}} {{element.value | customNumber}}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="transactionDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.TRANSACTION_DATE' | translate }}</th>
                 <td mat-cell *matCellDef="let element"> {{element.transactionDate | customDate:'fullDate'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="sourceDescription">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source Description </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.SOURCE_DESCRIPTION' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <div class="source_description_cell">
                         <span class="source_description_text">{{ element.sourceDescription }}</span>
-                        <button mat-icon-button class="suggest_description_btn" matTooltip="Buscar descrições semelhantes"
+                        <button mat-icon-button class="suggest_description_btn" [matTooltip]="'MIGRATE.SIMILAR_DESCRIPTIONS' | translate"
                             (click)="openSimilarDescriptions(element, $event)">
                             <mat-icon>manage_search</mat-icon>
                         </button>
@@ -83,7 +85,7 @@
             </ng-container>
 
             <ng-container matColumnDef="sourceName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'TRANSACTION.SOURCE' | translate }}</th>
                 <td mat-cell *matCellDef="let element"> {{element.Source.name}} </td>
             </ng-container>
 

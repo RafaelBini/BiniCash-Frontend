@@ -1,7 +1,7 @@
 <app-header></app-header>
 <app-title routerLink="/analytics" [text]="'ANALYTICS.DEBITS' | translate"></app-title>
 <div class="control">
-    Debits per month from
+    {{ 'ANALYTICS.DEBITS_PER_MONTH_FROM' | translate }}
     <button mat-icon-button (click)="goPreviousMonth('start')">
         <mat-icon>arrow_left</mat-icon>
     </button>
@@ -9,7 +9,7 @@
     <button mat-icon-button (click)="goNextMonth('start')">
         <mat-icon>arrow_right</mat-icon>
     </button>
-    to
+    {{ 'ANALYTICS.RANGE_TO' | translate }}
     <button mat-icon-button (click)="goPreviousMonth('end')">
         <mat-icon>arrow_left</mat-icon>
     </button>

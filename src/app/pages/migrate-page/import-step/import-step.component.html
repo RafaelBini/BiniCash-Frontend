@@ -14,16 +14,15 @@
                 <input type="file" #fileInput (input)="uploadFile($event, source, fileInput)" style="display: none;" />
             </button>
             <button mat-button (click)="openManualExportInvest(source); $event.stopPropagation();" class="options">
-                <mat-icon>sync_alt</mat-icon> Invest
+                <mat-icon>sync_alt</mat-icon> {{ 'COMMON.INVEST' | translate }}
             </button>
         </div>
     </div>
     <div class="block">
-        <mat-checkbox [(ngModel)]="canGoCheckbox">All sources have a real balance
-            value</mat-checkbox>
+        <mat-checkbox [(ngModel)]="canGoCheckbox">{{ 'MIGRATE.ALL_SOURCES_REAL_BALANCE' | translate }}</mat-checkbox>
     </div>
     <div class="block">
         <button matStepperNext [disabled]="!canGoCheckbox" mat-button (click)="goNextStep()"
-            class="default_button">Next</button>
+            class="default_button">{{ 'COMMON.NEXT' | translate }}</button>
     </div>
 </div>

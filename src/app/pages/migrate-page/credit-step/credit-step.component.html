@@ -1,22 +1,24 @@
 <div class="btns-container">
     <button mat-button matStepperPrevious (click)="goPrevious()">
-        Previous </button>
+        {{ 'COMMON.PREVIOUS' | translate }}
+    </button>
     <div *ngFor="let creditToDistribute of creditsToDistribute" (click)="setNewValue(creditToDistribute.credit)"
         class="total-to-distribute"
         [class.total-to-distribute-active]="!selectedCategory || selectedCategory?.Currency.symbol == creditToDistribute.symbol">
         {{creditToDistribute.symbol}} {{creditToDistribute.credit | customNumber}}
     </div>
     <button mat-button [disabled]="!canGo()" (click)="goNext()">
-        Next</button>
+        {{ 'COMMON.NEXT' | translate }}
+    </button>
 </div>
 
 <div class="container">
     <div class="left-container">
         <table class="categories">
             <tr class="category-header">
-                <td>Category</td>
-                <td>Credit</td>
-                <td>Balance</td>
+                <td>{{ 'TRANSACTION.CATEGORY' | translate }}</td>
+                <td>{{ 'COMMON.CREDIT' | translate }}</td>
+                <td>{{ 'COMMON.BALANCE' | translate }}</td>
             </tr>
             <tr *ngFor="let category of categories" [class.negative_category]="category.stagedBalance < 0"
                 [class.selected_category]="selectedCategory?.id == category.id" (click)="selectCategory(category)">
@@ -36,7 +38,7 @@
         <div class="right-item">
             <h1>{{selectedCategory?.name}}</h1>
             <span>
-                Balance:
+                {{ 'MIGRATE.BALANCE' | translate }}
                 {{selectedCategory.Currency.symbol}}
                 {{(selectedCategory.stagedBalance + newValue) | customNumber}}
             </span>
@@ -59,10 +61,9 @@
 
         <div class="credit-options-container">
 
-            <!-- ZERO BALANCE OPTION -->
             <div class="option-item" (click)="applyCreditOption('zeroBalance', getNeededToZero())">
                 <div class="option-header">
-                    Zero balance
+                    {{ 'MIGRATE.ZERO_BALANCE' | translate }}
                 </div>
 
                 <div>
@@ -72,10 +73,9 @@
                 {{getNeededToZero() | customNumber }})
             </div>
 
-            <!-- CURRENT DEBITS SUM OPTION -->
             <div class="option-item" (click)="applyCreditOption('currentDebit', getNeededToCurrentDebit())">
                 <div class="option-header">
-                    Current Debit
+                    {{ 'MIGRATE.CURRENT_DEBIT' | translate }}
                 </div>
 
                 <div>
@@ -86,10 +86,9 @@
                 {{getNeededToCurrentDebit() | customNumber }})
             </div>
 
-            <!-- LAST CREDIT DISTRIBUTION OPTION -->
             <div class="option-item" (click)="applyCreditOption('lastCredit', getLastCreditDistrib())">
                 <div class="option-header">
-                    Last Credit
+                    {{ 'MIGRATE.LAST_CREDIT' | translate }}
                 </div>
 
                 <div>
@@ -105,19 +104,19 @@
 
     <div *ngIf="!selectedCategory" class="right-container">
         <div class="right-item">
-            <h2 *ngIf="!canGo()">Select a category to distribute</h2>
-            <h2 *ngIf="canGo()" (click)="goNext()" style="cursor: pointer;">Alright! No credits to distribute</h2>
+            <h2 *ngIf="!canGo()">{{ 'MIGRATE.SELECT_CATEGORY_DISTRIBUTE' | translate }}</h2>
+            <h2 *ngIf="canGo()" (click)="goNext()" style="cursor: pointer;">{{ 'MIGRATE.NO_CREDITS_TO_DISTRIBUTE' | translate }}</h2>
 
-            <h3>Describe your credits below</h3>
+            <h3>{{ 'MIGRATE.DECLARE_CREDITS_BELOW' | translate }}</h3>
 
             <table *ngIf="getTransferenceDifference() > 0" class="credits_to_describe" style="background-color: red;">
                 <tr>
-                    <td colspan="3">INCONSISTENT TRANSFERENCES</td>
+                    <td colspan="3">{{ 'MIGRATE.INCONSISTENT_TRANSFERENCES' | translate }}</td>
                 </tr>
                 <tr>
-                    <td>Distributed: {{getDistributedCreditTransferencesTotal()}}</td>
-                    <td>Declared: {{getDeclaredCreditTransferencesTotal()}} </td>
-                    <td>Difference: {{getTransferenceDifference()}}
+                    <td>{{ 'MIGRATE.DISTRIBUTED' | translate }}: {{getDistributedCreditTransferencesTotal()}}</td>
+                    <td>{{ 'MIGRATE.DECLARED' | translate }}: {{getDeclaredCreditTransferencesTotal()}} </td>
+                    <td>{{ 'MIGRATE.DIFFERENCE' | translate }}: {{getTransferenceDifference()}}
                     </td>
                 </tr>
             </table>
@@ -125,12 +124,12 @@
             <br />
             <table class="credits_to_describe">
                 <tr>
-                    <td>Source</td>
-                    <td>Is Transference</td>
-                    <td>Description</td>
-                    <td>Value</td>
-                    <td>Date</td>
-                    <td>Source Description</td>
+                    <td>{{ 'TRANSACTION.SOURCE' | translate }}</td>
+                    <td>{{ 'MIGRATE.IS_TRANSFERENCE' | translate }}</td>
+                    <td>{{ 'TRANSACTION.DESCRIPTION' | translate }}</td>
+                    <td>{{ 'TRANSACTION.VALUE' | translate }}</td>
+                    <td>{{ 'TRANSACTION.TRANSACTION_DATE' | translate }}</td>
+                    <td>{{ 'TRANSACTION.SOURCE_DESCRIPTION' | translate }}</td>
                 </tr>
                 <tr *ngFor="let credit of credits">
                     <td>{{credit.Source.name}}</td>

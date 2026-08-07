@@ -9,6 +9,7 @@ import { StagedTransactionService } from './../../../services/staged-transaction
 import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
     private stagedTransactionService: StagedTransactionService,
     private snack: MatSnackBar,
     private dialog: MatDialog,
+    private translate: TranslateService,
   ) {
     this.debits = new MatTableDataSource<any>([]);
   }
@@ -67,7 +69,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
       row.Category = this.selectedCategory;
       this.updateCategories.emit()
     }).catch(() => {
-      this.snack.open('Error when saving changes', undefined, { duration: 4500 })
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_SAVE_ERROR'), undefined, { duration: 4500 })
     })
   }
 
@@ -95,7 +97,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
     var mandatoryCategoriesPending = this.categories.filter(c => c.isDebitRequired && c.stagedDebit >= 0)
     if (mandatoryCategoriesPending.length > 0) {
       var content =
-        `There are some mandatory debits pending:
+        `${this.translate.instant('MIGRATE.MANDATORY_DEBITS_INTRO')}
       <br />
       <ul>`
       for (let mandatoryCategoryPending of mandatoryCategoriesPending) {
@@ -103,7 +105,7 @@ export class DebitStepComponent implements OnInit, AfterViewInit {
       }
       var diagRef = this.dialog.open(ConfirmDialogComponent, {
         data: {
-          title: 'Are you sure your wanna proceed?',
+          title: this.translate.instant('MIGRATE.MANDATORY_DEBITS_TITLE'),
           content: content
         }
       })

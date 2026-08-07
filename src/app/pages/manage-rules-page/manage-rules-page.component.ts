@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { RuleService } from 'src/app/services/rule.service';
 import { ConfirmDialogComponent } from 'src/app/dialogs/confirm-dialog/confirm-dialog.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-manage-rules-page',
@@ -18,7 +19,8 @@ export class ManageRulesPageComponent implements OnInit {
     private ruleService: RuleService,
     private categoryService: CategoryService,
     private dialog: MatDialog,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private translate: TranslateService,
   ) { }
 
   selectedRule: any;
@@ -28,19 +30,19 @@ export class ManageRulesPageComponent implements OnInit {
   ruleSearchTerm = '';
 
   conditionalFields = [
-    { id: 'sourceDescription', name: 'Descrição no extrato', type: 'string' },
-    { id: 'sourceName', name: 'Nome da fonte', type: 'string' },
-    { id: 'value', name: 'Valor', type: 'number' },
+    { id: 'sourceDescription', type: 'string' },
+    { id: 'sourceName', type: 'string' },
+    { id: 'value', type: 'number' },
   ]
   operators = [
-    { id: '==', name: 'é igual a', type: 'string' },
-    { id: 'like', name: 'contém', type: 'string' },
-    { id: 'not like', name: 'não contém', type: 'string' },
-    { id: '!=', name: 'é diferente de', type: 'string' },
-    { id: '>', name: 'é maior que', type: 'number' },
-    { id: '<', name: 'é menor que', type: 'number' },
-    { id: '==', name: 'é igual a', type: 'number' },
-    { id: '!=', name: 'é diferente de', type: 'number' },
+    { id: '==', type: 'string' },
+    { id: 'like', type: 'string' },
+    { id: 'not like', type: 'string' },
+    { id: '!=', type: 'string' },
+    { id: '>', type: 'number' },
+    { id: '<', type: 'number' },
+    { id: '==', type: 'number' },
+    { id: '!=', type: 'number' },
   ]
 
   async ngOnInit() {
@@ -78,13 +80,34 @@ export class ManageRulesPageComponent implements OnInit {
     return this.categories.find(c => c.id == categoryId);
   }
 
+  getOperatorLabel(operator: { id: string, type: string }): string {
+    const key = this.operatorLabelKey(operator.id);
+    return this.translate.instant(`RULES.OPERATORS.${key}`);
+  }
+
+  operatorLabelKey(operatorId: string): string {
+    switch (operatorId) {
+      case '==': return 'EQ';
+      case '!=': return 'NEQ';
+      case 'like': return 'INCLUDES';
+      case 'not like': return 'NOT_INCLUDES';
+      case '>': return 'GT';
+      case '<': return 'LT';
+      default: return operatorId;
+    }
+  }
+
   getRuleActionLabel(rule: any): string {
     if (rule.field === 'category') {
       const name = this.getCategory(+rule.value)?.name;
-      return name ? `Categoria = ${name}` : 'Categoria = …';
+      return name
+        ? this.translate.instant('RULES.ACTION_CATEGORY', { name })
+        : this.translate.instant('RULES.ACTION_CATEGORY_EMPTY');
     }
     const desc = (rule.value ?? '').toString().trim();
-    return desc ? `Descrição = ${desc}` : 'Descrição = …';
+    return desc
+      ? this.translate.instant('RULES.ACTION_DESCRIPTION', { value: desc })
+      : this.translate.instant('RULES.ACTION_DESCRIPTION_EMPTY');
   }
 
   formatConditional(conditional: any): string {
@@ -92,12 +115,14 @@ export class ManageRulesPageComponent implements OnInit {
     const hasOperator = !!conditional.operator;
     const valueStr = conditional.value != null ? String(conditional.value).trim() : '';
     if (!hasField && !hasOperator && !valueStr) {
-      return '(condição incompleta)';
+      return this.translate.instant('RULES.CONDITION_INCOMPLETE');
     }
-    const field = this.getConditionalField(conditional.field)?.name || conditional.field || '…';
+    const field = conditional.field
+      ? this.translate.instant(`RULES.FIELDS.${conditional.field}`)
+      : '…';
     const fieldType = this.getConditionalField(conditional.field)?.type;
-    const operator = this.operators.find(o => o.id === conditional.operator && o.type === fieldType)?.name
-      || conditional.operator || '…';
+    const op = this.operators.find(o => o.id === conditional.operator && o.type === fieldType);
+    const operator = op ? this.getOperatorLabel(op) : (conditional.operator || '…');
     const quotedValue = valueStr ? `"${valueStr}"` : '""';
     return `${field} ${operator} ${quotedValue}`;
   }
@@ -105,9 +130,10 @@ export class ManageRulesPageComponent implements OnInit {
   getRuleWhenSummary(rule: any): string {
     const conditionals = rule.Conditionals || [];
     if (!conditionals.length) {
-      return 'Sem condições';
+      return this.translate.instant('RULES.NO_CONDITIONS');
     }
-    return conditionals.map((c: any) => this.formatConditional(c)).join(' OU ');
+    const or = this.translate.instant('RULES.OR');
+    return conditionals.map((c: any) => this.formatConditional(c)).join(` ${or} `);
   }
 
   getRuleSearchText(rule: any): string {
@@ -150,8 +176,8 @@ export class ManageRulesPageComponent implements OnInit {
   async deleteRule() {
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Excluir regra?',
-        content: 'Esta regra não poderá ser recuperada após a exclusão.',
+        title: this.translate.instant('RULES.DELETE_RULE_TITLE'),
+        content: this.translate.instant('RULES.DELETE_RULE_CONFIRM'),
         isDanger: true
       }
     })
@@ -173,12 +199,12 @@ export class ManageRulesPageComponent implements OnInit {
 
   async saveRuleProperty(property: string) {
     try {
-      this.statusMessage = 'Salvando…';
+      this.statusMessage = this.translate.instant('RULES.SAVING');
       await this.ruleService.updateRule({ [property]: this.selectedRule[property] }, this.selectedRule.id).toPromise()
-      this.statusMessage = 'Alterações salvas.';
+      this.statusMessage = this.translate.instant('RULES.SAVED');
     }
     catch (reason) {
-      this.statusMessage = '<span style="color: var(--danger);">Erro ao salvar.</span>';
+      this.statusMessage = `<span style="color: var(--danger);">${this.translate.instant('RULES.SAVE_ERROR')}</span>`;
     }
 
   }
@@ -191,7 +217,7 @@ export class ManageRulesPageComponent implements OnInit {
       this.selectRule(this.rules.find(r => r.id == ruleId));
     }
     catch (reason) {
-      this.snack.open('Erro ao adicionar condição', undefined, { duration: 2500 })
+      this.snack.open(this.translate.instant('RULES.SNACK_ADD_CONDITION_ERROR'), undefined, { duration: 2500 })
     }
   }
 
@@ -203,24 +229,24 @@ export class ManageRulesPageComponent implements OnInit {
       this.selectRule(this.rules.find(r => r.id == ruleId));
     }
     catch (reason) {
-      this.snack.open('Erro ao remover condição', undefined, { duration: 2500 })
+      this.snack.open(this.translate.instant('RULES.SNACK_REMOVE_CONDITION_ERROR'), undefined, { duration: 2500 })
     }
   }
 
   async saveConditionalProperty(conditional: any, property: string) {
     try {
-      this.statusMessage = 'Salvando…';
+      this.statusMessage = this.translate.instant('RULES.SAVING');
       await this.ruleService.updateConditional({ [property]: conditional[property] }, conditional.id).toPromise()
-      this.statusMessage = 'Alterações salvas.';
+      this.statusMessage = this.translate.instant('RULES.SAVED');
     }
     catch (reason) {
-      this.statusMessage = '<span style="color: var(--danger);">Erro ao salvar.</span>';
+      this.statusMessage = `<span style="color: var(--danger);">${this.translate.instant('RULES.SAVE_ERROR')}</span>`;
     }
   }
 
   async drop(event: CdkDragDrop<any[]>) {
     try {
-      this.statusMessage = 'Salvando ordem…';
+      this.statusMessage = this.translate.instant('RULES.SAVING_ORDER');
       moveItemInArray(this.rules, event.previousIndex, event.currentIndex);
       const orderedRules = this.rules.map((rule, ruleIndex) => {
         return {
@@ -232,11 +258,11 @@ export class ManageRulesPageComponent implements OnInit {
       const ruleId = this.selectedRule.id;
       await this.loadRules();
       this.selectRule(this.rules.find(r => r.id == ruleId));
-      this.statusMessage = 'Ordem atualizada.';
+      this.statusMessage = this.translate.instant('RULES.ORDER_UPDATED');
     }
     catch (reason) {
       moveItemInArray(this.rules, event.currentIndex, event.previousIndex);
-      this.statusMessage = '<span style="color: var(--danger);">Erro ao reordenar.</span>';
+      this.statusMessage = `<span style="color: var(--danger);">${this.translate.instant('RULES.REORDER_ERROR')}</span>`;
     }
 
 
