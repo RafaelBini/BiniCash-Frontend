@@ -206,6 +206,7 @@
             <td>{{ 'TRANSACTION.SOURCE' | translate }} </td>
             <td>{{ 'TRANSACTION.SOURCE_REFERENCE' | translate }} </td>
             <td>{{ 'TRANSACTION.INPUT_METHOD' | translate }} </td>
+            <td></td>
         </tr>
         <tr *ngFor="let transaction of transactions" (dblclick)="editTransaction(transaction)">
             <td>
@@ -234,6 +235,12 @@
             </td>
             <td>
                 {{transaction.input_method}}
+            </td>
+            <td class="edit_cell" (dblclick)="$event.stopPropagation()">
+                <button mat-icon-button type="button" (click)="editTransaction(transaction); $event.stopPropagation()"
+                    [matTooltip]="'COMMON.EDIT' | translate">
+                    <mat-icon>edit</mat-icon>
+                </button>
             </td>
         </tr>
     </table>
