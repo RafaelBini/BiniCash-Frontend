@@ -49,8 +49,12 @@ export class CreditService {
     return this.http.delete(`${environment.apiHost}/credit/passive-income-keywords/${id}`);
   }
 
+  updateCredit(id: number, data: { description?: string; isTransference?: boolean }) {
+    return this.http.put(`${environment.apiHost}/credit/${id}`, data);
+  }
+
   markCreditAsTransference(id: number) {
-    return this.http.put(`${environment.apiHost}/credit/${id}`, { isTransference: true });
+    return this.updateCredit(id, { isTransference: true });
   }
 
   getCreditsFrom(startDate: Date, endDate: Date) {
