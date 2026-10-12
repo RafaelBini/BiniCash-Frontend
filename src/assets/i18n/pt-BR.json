@@ -182,6 +182,7 @@
     },
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Editar meu perfil",
+        "LOGOUT": "Sair da conta",
         "MAIN_MENU_TOOLTIP": "Menu",
         "MY_SETTINGS": "Meu Perfil"
     },

@@ -180,6 +180,7 @@
     },
     "HEADER": {
         "CHANGE_PROFILE_TOOLTIP": "Edit my profile",
+        "LOGOUT": "Log out",
         "MAIN_MENU_TOOLTIP": "Menu",
         "MY_SETTINGS": "My Settings"
     },

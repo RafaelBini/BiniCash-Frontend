@@ -24,4 +24,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['main'])
   }
 
+  logout() {
+    localStorage.removeItem('api_token');
+    this.userService.me = null;
+    this.router.navigate(['/login']);
+  }
+
 }
