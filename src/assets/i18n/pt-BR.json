@@ -186,8 +186,22 @@
         "MY_SETTINGS": "Meu Perfil"
     },
     "LOGIN": {
+        "CREATE_ACCOUNT": "Criar minha conta",
         "PASSWORD": "Senha",
         "TITLE": "Fazer Login",
+        "USERNAME": "Usuário"
+    },
+    "REGISTER": {
+        "BACK_TO_LOGIN": "Já tenho uma conta — voltar ao login",
+        "CREATING": "Criando conta…",
+        "EMAIL": "E-mail",
+        "ERROR": "Não foi possível criar a conta. Tente novamente.",
+        "NAME": "Nome completo",
+        "PASSWORD": "Senha",
+        "REQUIRED": "Preencha todos os campos.",
+        "SUBMIT": "Criar conta",
+        "SUCCESS": "Conta criada. Entre com seu usuário e senha.",
+        "TITLE": "Criar sua conta",
         "USERNAME": "Usuário"
     },
     "MY_TRANSACTIONS": {

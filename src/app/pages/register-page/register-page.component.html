@@ -1,0 +1,17 @@
+<div class="container">
+    <h1>{{ 'REGISTER.TITLE' | translate }}</h1>
+    <form class="register-form" (ngSubmit)="register()">
+        <input [(ngModel)]="account.name" name="name" class="register-field" type="text" autocomplete="name"
+            [placeholder]="'REGISTER.NAME' | translate" required />
+        <input [(ngModel)]="account.username" name="username" class="register-field" type="text" autocomplete="username"
+            [placeholder]="'REGISTER.USERNAME' | translate" required />
+        <input [(ngModel)]="account.email" name="email" class="register-field" type="email" autocomplete="email"
+            [placeholder]="'REGISTER.EMAIL' | translate" required />
+        <input [(ngModel)]="account.password" name="password" class="register-field" type="password" autocomplete="new-password"
+            [placeholder]="'REGISTER.PASSWORD' | translate" required />
+        <button mat-button type="submit" [disabled]="submitting">
+            {{ (submitting ? 'REGISTER.CREATING' : 'REGISTER.SUBMIT') | translate }}
+        </button>
+    </form>
+    <a routerLink="/login">{{ 'REGISTER.BACK_TO_LOGIN' | translate }}</a>
+</div>

@@ -1,0 +1,25 @@
+:host { display: block; }
+button { background-color: black; color: white; }
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background-color: whitesmoke;
+    width: min(90%, 440px);
+    padding: 24px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: 30px auto;
+    gap: 16px;
+}
+.register-form { width: 100%; display: flex; align-items: center; flex-direction: column; gap: 14px; }
+.register-field {
+    padding: 10px;
+    border-radius: 3px;
+    width: 90%;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+.container > a { color: #222; }

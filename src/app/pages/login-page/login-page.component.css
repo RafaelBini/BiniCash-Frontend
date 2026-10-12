@@ -2,6 +2,8 @@ button{
     background-color: black;
     color: white;
 }
+.login-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.login-actions a{color:#222}
 .login-field{
     padding: 5px;
     border-radius: 3px;

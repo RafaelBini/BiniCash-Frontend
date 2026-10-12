@@ -8,5 +8,8 @@
         <input [(ngModel)]="user.password" class="login-field" type='password'
             [placeholder]="'LOGIN.PASSWORD' | translate" (keyup)="onKeyUp($event)" />
     </div>
-    <div><button mat-button (click)="login()">{{'COMMON.ENTER' | translate}}</button></div>
+    <div class="login-actions">
+        <button mat-button (click)="login()">{{'COMMON.ENTER' | translate}}</button>
+        <a routerLink="/register">{{'LOGIN.CREATE_ACCOUNT' | translate}}</a>
+    </div>
 </div>

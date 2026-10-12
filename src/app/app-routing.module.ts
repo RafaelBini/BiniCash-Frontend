@@ -10,6 +10,7 @@ import { AlreadyLoggedGuard } from './guards/already-logged.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/analytics-debits-page.component';
@@ -20,6 +21,7 @@ import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
 const routes: Routes = [
   { path: '', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'login', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
+  { path: 'register', component: RegisterPageComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'main', component: UserPageComponent, canActivate: [AuthGuard] },
   { path: 'my-transactions', component: AllTransactionsPageComponent, canActivate: [AuthGuard] },
   { path: 'all-transactions', component: AllTransactionsPageComponent, canActivate: [AuthGuard] },

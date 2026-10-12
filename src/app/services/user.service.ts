@@ -23,6 +23,10 @@ export class UserService {
     })
   }
 
+  createAccount(account: { username: string; name: string; email: string; password: string }) {
+    return this.http.post<any>(`${environment.apiHost}/user/create`, account);
+  }
+
   getMyUserInfo() {
     return this.http.get<any>(`${environment.apiHost}/user`)
   }

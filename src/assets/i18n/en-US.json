@@ -184,8 +184,22 @@
         "MY_SETTINGS": "My Settings"
     },
     "LOGIN": {
+        "CREATE_ACCOUNT": "Create an account",
         "PASSWORD": "Password",
         "TITLE": "Login",
+        "USERNAME": "Username"
+    },
+    "REGISTER": {
+        "BACK_TO_LOGIN": "Already have an account? Back to login",
+        "CREATING": "Creating account…",
+        "EMAIL": "Email",
+        "ERROR": "Could not create the account. Please try again.",
+        "NAME": "Full name",
+        "PASSWORD": "Password",
+        "REQUIRED": "Please fill in all fields.",
+        "SUBMIT": "Create account",
+        "SUCCESS": "Account created. Sign in with your username and password.",
+        "TITLE": "Create your account",
         "USERNAME": "Username"
     },
     "MY_TRANSACTIONS": {

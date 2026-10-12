@@ -54,6 +54,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './pages/user-page/user-page.component';
@@ -117,6 +118,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     LoginPageComponent,
+    RegisterPageComponent,
     UserPageComponent,
     HeaderComponent,
     InitialsPipe,
