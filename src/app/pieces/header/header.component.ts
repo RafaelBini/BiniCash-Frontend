@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     public userService: UserService,
     private router: Router,
+    public translate: TranslateService,
   ) { }
 
   me: any;
@@ -28,6 +30,11 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('api_token');
     this.userService.me = null;
     this.router.navigate(['/login']);
+  }
+
+  get logoutLabel(): string {
+    const language = this.translate.currentLang || this.translate.defaultLang;
+    return language === 'pt-BR' ? 'Sair da conta' : 'Log out';
   }
 
 }
