@@ -23,6 +23,7 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
   }
 
   children: any[] = []
+  loadingApi = false
 
   ngOnInit(): void {
   }
@@ -97,5 +98,25 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
       this.children = [...this.children, ...transactions]
     }
     input.value = "";
+  }
+
+  async loadApi() {
+    if (this.loadingApi) return;
+    this.loadingApi = true;
+    try {
+      const response: any = await this.stagedTransactionService.getCreditCardSplits(this.transaction.id).toPromise();
+      const transactions = response?.payload || [];
+      if (!transactions.length) {
+        this.snack.open('Credit card bill not found', undefined, { duration: 3500 });
+        return;
+      }
+      this.children = [...this.children, ...transactions];
+    }
+    catch (error: any) {
+      this.snack.open(error?.error?.msg || 'Unable to load credit card purchases', undefined, { duration: 3500 });
+    }
+    finally {
+      this.loadingApi = false;
+    }
   }
 }

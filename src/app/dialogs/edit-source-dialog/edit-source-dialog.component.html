@@ -16,6 +16,9 @@
         Code <input type="text" [(ngModel)]="source.secondId" (ngModelChange)="save()" class="default_input" />
     </div>
     <div>
+        Credit Card ID <input type="text" [(ngModel)]="source.creditCardId" (ngModelChange)="save()" class="default_input" />
+    </div>
+    <div>
         Currency <select [(ngModel)]="source.currencyId" [disabled]="sourceId != undefined" class="default_input">
             <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
         </select>

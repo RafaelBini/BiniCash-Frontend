@@ -4,6 +4,7 @@ import { User } from "./user";
 export interface Source {
     id: number,
     secondId: string,
+    creditCardId?: string,
     name: string,
     type: string,
     imageUrl: string,

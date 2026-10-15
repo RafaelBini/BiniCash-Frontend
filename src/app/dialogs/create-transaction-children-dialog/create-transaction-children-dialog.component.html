@@ -8,6 +8,9 @@
         Load CSV
         <input type="file" #fileInput (input)="uploadFile($event, fileInput)" style="display: none;" />
     </button>
+    <button mat-button (click)="loadApi()" [disabled]="loadingApi">
+        {{loadingApi ? 'Loading...' : 'Load API'}}
+    </button>
 
 </div>
 

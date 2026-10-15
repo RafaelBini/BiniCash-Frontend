@@ -48,6 +48,10 @@ export class StagedTransactionService {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/insert-children-array`, { childrenArray, parentTransactionId })
   }
 
+  getCreditCardSplits(parentTransactionId: number) {
+    return this.http.post<any>(`${environment.apiHost}/staged-transaction/load-credit-card-splits`, { parentTransactionId })
+  }
+
 
   distributeCreditToCategory(value: number, categoryId: any) {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/distribute-credits-to-category`, { value, categoryId })
