@@ -99,3 +99,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
 .mat-form-field-wrapper{
     padding-bottom: 0px !important;
 }
+.success-snackbar {
+    background-color: #2e7d32;
+    color: #fff;
+}

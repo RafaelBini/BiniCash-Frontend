@@ -5,6 +5,7 @@ export interface Source {
     id: number,
     secondId: string,
     creditCardId?: string,
+    pluggyAccountId?: string,
     name: string,
     type: string,
     imageUrl: string,

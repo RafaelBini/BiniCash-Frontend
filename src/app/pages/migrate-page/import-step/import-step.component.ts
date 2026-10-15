@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SourceService } from './../../../services/source.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
+import { BalanceComparisonDialogComponent } from 'src/app/dialogs/balance-comparison-dialog/balance-comparison-dialog.component';
 
 @Component({
   selector: 'app-import-step',
@@ -23,6 +24,7 @@ export class ImportStepComponent implements OnInit {
   ) { }
 
   sources: any[] = [];
+  loadingApiSources: { [sourceId: number]: boolean } = {};
   canGoCheckbox: boolean = false;
   @Output() updateData = new EventEmitter();
 
@@ -74,6 +76,41 @@ export class ImportStepComponent implements OnInit {
       }
     }
 
+  }
+
+  async loadApi(source: any, event: Event) {
+    event.stopPropagation();
+    if (this.loadingApiSources[source.id]) return;
+
+    this.loadingApiSources[source.id] = true;
+    try {
+      const response: any = await this.stagedTransactionService.importPluggyTransactions(source.id).toPromise();
+      const result = response.payload;
+      await this.updateSources();
+
+      if (Math.abs(Number(result.difference)) <= 0.01) {
+        this.snack.open('Dados importados com sucesso e os saldos estão batendo.', undefined, {
+          duration: 5000,
+          panelClass: ['success-snackbar']
+        });
+      } else {
+        this.dialog.open(BalanceComparisonDialogComponent, {
+          data: {
+            sourceName: source.name,
+            symbol: source.symbol,
+            systemBalance: result.systemBalance,
+            apiBalance: result.apiBalance,
+            difference: result.difference,
+            importedCount: result.importedCount
+          },
+          width: '440px'
+        });
+      }
+    } catch (error: any) {
+      this.snack.open(error?.error?.msg || 'Falha ao importar transações da Pluggy.', undefined, { duration: 4000 });
+    } finally {
+      this.loadingApiSources[source.id] = false;
+    }
   }
 
 

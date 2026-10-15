@@ -1,0 +1,17 @@
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.difference {
+    color: #b3261e;
+    font-weight: 600;
+}
+
+.imported-count {
+    margin-top: 18px;
+    color: #666;
+}

@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Diferença de saldo — {{data.sourceName}}</h2>
+
+<mat-dialog-content>
+    <p>As transações foram importadas, mas os saldos estão diferentes.</p>
+    <div class="balance-row">
+        <span>Saldo do sistema</span>
+        <strong>{{data.symbol}} {{data.systemBalance | number:'1.2-2'}}</strong>
+    </div>
+    <div class="balance-row">
+        <span>Saldo da Pluggy</span>
+        <strong>{{data.symbol}} {{data.apiBalance | number:'1.2-2'}}</strong>
+    </div>
+    <div class="balance-row difference">
+        <span>Diferença (sistema − Pluggy)</span>
+        <strong>{{data.symbol}} {{data.difference | number:'1.2-2'}}</strong>
+    </div>
+    <p class="imported-count">Transações novas importadas: {{data.importedCount}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

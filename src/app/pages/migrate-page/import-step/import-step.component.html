@@ -13,6 +13,12 @@
                 <mat-icon>upload</mat-icon> {{source.type}}
                 <input type="file" #fileInput (input)="uploadFile($event, source, fileInput)" style="display: none;" />
             </button>
+            <button *ngIf="source.pluggyAccountId" mat-button class="options"
+                [disabled]="loadingApiSources[source.id]"
+                (click)="loadApi(source, $event)"
+                matTooltip="Importar transações via Pluggy">
+                <mat-icon>{{loadingApiSources[source.id] ? 'hourglass_empty' : 'upload'}}</mat-icon> API
+            </button>
             <button mat-button (click)="openManualExportInvest(source); $event.stopPropagation();" class="options">
                 <mat-icon>sync_alt</mat-icon> {{ 'COMMON.INVEST' | translate }}
             </button>
