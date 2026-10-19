@@ -17,6 +17,7 @@ import { AnalyticsDebitsPageComponent } from './pages/analytics-debits-page/anal
 import { AnalyticsCreditsPageComponent } from './pages/analytics-credits-page/analytics-credits-page.component';
 import { AllTransactionsPageComponent } from './pages/all-transactions-page/all-transactions-page.component';
 import { TithePageComponent } from './pages/tithe-page/tithe-page.component';
+import { InstallAppPageComponent } from './pages/install-app-page/install-app-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent, canActivate: [AlreadyLoggedGuard] },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'analytics/credits', component: AnalyticsCreditsPageComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesPageComponent, canActivate: [AuthGuard] },
   { path: 'categories/:categoryId', component: CategoriesPageComponent, canActivate: [AuthGuard] },
+  { path: 'instala-o-app', component: InstallAppPageComponent },
 ];
 
 @NgModule({

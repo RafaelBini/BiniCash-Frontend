@@ -97,6 +97,7 @@ import { YieldEntryDialogComponent } from './dialogs/yield-entry-dialog/yield-en
 import { EditTransactionDialogComponent } from './dialogs/edit-transaction-dialog/edit-transaction-dialog.component';
 import { UserAiChatComponent } from './pieces/user-ai-chat/user-ai-chat.component';
 import { BalanceComparisonDialogComponent } from './dialogs/balance-comparison-dialog/balance-comparison-dialog.component';
+import { InstallAppPageComponent } from './pages/install-app-page/install-app-page.component';
 
 
 const MATERIAL_MODULES = [
@@ -160,7 +161,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     YieldEntryDialogComponent,
     EditTransactionDialogComponent,
     UserAiChatComponent,
-    BalanceComparisonDialogComponent
+    BalanceComparisonDialogComponent,
+    InstallAppPageComponent
   ],
   imports: [
     BrowserModule,
