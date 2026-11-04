@@ -48,8 +48,11 @@ export class StagedTransactionService {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/insert-children-array`, { childrenArray, parentTransactionId })
   }
 
-  getCreditCardSplits(parentTransactionId: number) {
-    return this.http.post<any>(`${environment.apiHost}/staged-transaction/load-credit-card-splits`, { parentTransactionId })
+  getCreditCardSplits(parentTransactionId: number, billId?: string) {
+    return this.http.post<any>(`${environment.apiHost}/staged-transaction/load-credit-card-splits`, {
+      parentTransactionId,
+      ...(billId ? { billId } : {})
+    })
   }
 
   importPluggyTransactions(sourceId: number) {

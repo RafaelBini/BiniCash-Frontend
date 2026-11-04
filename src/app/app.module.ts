@@ -98,6 +98,7 @@ import { EditTransactionDialogComponent } from './dialogs/edit-transaction-dialo
 import { UserAiChatComponent } from './pieces/user-ai-chat/user-ai-chat.component';
 import { BalanceComparisonDialogComponent } from './dialogs/balance-comparison-dialog/balance-comparison-dialog.component';
 import { InstallAppPageComponent } from './pages/install-app-page/install-app-page.component';
+import { SelectPluggyBillDialogComponent } from './dialogs/select-pluggy-bill-dialog/select-pluggy-bill-dialog.component';
 
 
 const MATERIAL_MODULES = [
@@ -162,7 +163,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditTransactionDialogComponent,
     UserAiChatComponent,
     BalanceComparisonDialogComponent,
-    InstallAppPageComponent
+    InstallAppPageComponent,
+    SelectPluggyBillDialogComponent
   ],
   imports: [
     BrowserModule,

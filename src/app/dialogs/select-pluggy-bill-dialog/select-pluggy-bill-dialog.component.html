@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ 'MIGRATE.PLUGGY_BILLS_TITLE' | translate }}</h2>
+<div mat-dialog-content>
+    <p>{{ 'MIGRATE.PLUGGY_BILLS_DESCRIPTION' | translate }}</p>
+    <div class="bill-list">
+        <button type="button" class="bill-option" *ngFor="let bill of data.bills" (click)="select(bill)">
+            <span class="bill-date">
+                {{ billDate(bill) ? (billDate(bill) | customDate:'fullDate') : ('MIGRATE.PLUGGY_BILL_DATE_UNKNOWN' | translate) }}
+            </span>
+            <strong>{{ data.currencySymbol }} {{ bill.totalAmount | customNumber }}</strong>
+        </button>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>{{ 'COMMON.CANCEL' | translate }}</button>
+</div>

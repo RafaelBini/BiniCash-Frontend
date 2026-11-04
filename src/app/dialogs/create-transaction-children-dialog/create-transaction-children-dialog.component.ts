@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StagedTransactionService } from 'src/app/services/staged-transaction.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SelectPluggyBillDialogComponent } from '../select-pluggy-bill-dialog/select-pluggy-bill-dialog.component';
 
 @Component({
   selector: 'app-create-transaction-children-dialog',
@@ -14,7 +16,8 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateTransactionChildrenDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public transaction: any,
     private snack: MatSnackBar,
-    private stagedTransactionService: StagedTransactionService
+    private stagedTransactionService: StagedTransactionService,
+    private dialog: MatDialog,
   ) { }
 
   newChildTransaction = {
@@ -105,6 +108,22 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
     this.loadingApi = true;
     try {
       const response: any = await this.stagedTransactionService.getCreditCardSplits(this.transaction.id).toPromise();
+      if (response?.requiresBillSelection) {
+        const selectedBill = await this.dialog.open(SelectPluggyBillDialogComponent, {
+          width: '440px',
+          maxWidth: '95vw',
+          data: {
+            bills: response.bills || [],
+            currencySymbol: this.transaction.Source.Currency.symbol,
+          },
+        }).afterClosed().toPromise();
+        if (!selectedBill) return;
+        const selectedResponse: any = await this.stagedTransactionService
+          .getCreditCardSplits(this.transaction.id, selectedBill.id)
+          .toPromise();
+        this.appendPluggyChildren(selectedResponse);
+        return;
+      }
       const transactions = response?.payload || [];
       if (!transactions.length) {
         this.snack.open('Credit card bill not found', undefined, { duration: 3500 });
@@ -118,5 +137,14 @@ export class CreateTransactionChildrenDialogComponent implements OnInit {
     finally {
       this.loadingApi = false;
     }
+  }
+
+  private appendPluggyChildren(response: any) {
+    const transactions = response?.payload || [];
+    if (!transactions.length) {
+      this.snack.open('No purchases found for the selected bill', undefined, { duration: 3500 });
+      return;
+    }
+    this.children = [...this.children, ...transactions];
   }
 }

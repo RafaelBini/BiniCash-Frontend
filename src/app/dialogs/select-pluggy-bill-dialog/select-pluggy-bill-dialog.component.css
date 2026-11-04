@@ -1,0 +1,32 @@
+.bill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.bill-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d8dce2;
+    border-radius: 8px;
+    background: #fff;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.bill-option:hover,
+.bill-option:focus-visible {
+    border-color: var(--primary);
+    background: rgba(78, 153, 75, 0.075);
+    outline: none;
+}
+
+.bill-date {
+    color: #555;
+}
