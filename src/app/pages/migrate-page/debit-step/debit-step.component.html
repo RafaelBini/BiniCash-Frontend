@@ -13,6 +13,10 @@
             <button mat-icon-button [matTooltip]="'MIGRATE.RUN_RULES' | translate" type="button" (click)="runRules.emit()">
                 <mat-icon>rule</mat-icon>
             </button>
+            <button mat-icon-button [matTooltip]="'MIGRATE.UPDATE_DESCRIBED_TRANSACTIONS' | translate" type="button"
+                (click)="applyDescribedTransactions.emit()">
+                <mat-icon>sync</mat-icon>
+            </button>
         </div>
     </div>
 

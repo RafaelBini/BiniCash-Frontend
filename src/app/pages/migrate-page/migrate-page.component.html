@@ -24,7 +24,8 @@
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>{{ 'MIGRATE.STEP_DEBITS' | translate }}</ng-template>
         <app-debit-step (updateCategories)="updateCategories()" (refresh)="loadData({selectedIndex: 1})"
-            (refreshStep)="refreshStep()" (runRules)="runRules()"></app-debit-step>
+            (refreshStep)="refreshStep()" (runRules)="runRules()"
+            (applyDescribedTransactions)="applyDescribedTransactions()"></app-debit-step>
     </mat-step>
     <mat-step [editable]="true" [completed]="false">
         <ng-template matStepLabel>{{ 'MIGRATE.STEP_CREDITS' | translate }}</ng-template>

@@ -226,4 +226,15 @@ export class MigratePageComponent implements OnInit, AfterViewInit {
 
   }
 
+  async applyDescribedTransactions() {
+    try {
+      await this.stagedTransactionService.applyDescribedTransactions().toPromise();
+      await this.loadData(undefined);
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_DESCRIBED_TRANSACTIONS_SUCCESS'), undefined, { duration: 3500 })
+    }
+    catch (error) {
+      this.snack.open(this.translate.instant('MIGRATE.SNACK_DESCRIBED_TRANSACTIONS_FAILED'), undefined, { duration: 3500 })
+    }
+  }
+
 }

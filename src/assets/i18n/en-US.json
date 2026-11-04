@@ -94,6 +94,8 @@
         "SNACK_CANCEL_FAILED": "Failed when trying to cancel migration",
         "SNACK_CREDIT_NOT_ENOUGH": "You do not have credit enough for this distribution",
         "SNACK_CREDIT_VALUE_REQUIRED": "You need to provide a value",
+        "SNACK_DESCRIBED_TRANSACTIONS_FAILED": "Failed to update descriptions and categories",
+        "SNACK_DESCRIBED_TRANSACTIONS_SUCCESS": "Descriptions and categories updated successfully",
         "SNACK_REFRESH_FAILED": "Failed when refreshing",
         "SNACK_RULES_FAILED": "Failed when running rules",
         "SNACK_RULES_SUCCESS": "Rules applied successfully!",
@@ -106,6 +108,7 @@
         "STEP_IMPORT": "Import",
         "TOTAL": "Total",
         "TRANSFERENCE_CREDIT_PROMPT": "Do you want to attribute credit to the transference accounts below?",
+        "UPDATE_DESCRIBED_TRANSACTIONS": "Update saved descriptions and categories",
         "ZERO_BALANCE": "Zero balance"
     },
     "PASSIVE_KEYWORDS": {

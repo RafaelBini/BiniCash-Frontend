@@ -97,6 +97,8 @@
         "SNACK_CANCEL_FAILED": "Falha ao cancelar a migração",
         "SNACK_CREDIT_NOT_ENOUGH": "Crédito insuficiente para esta distribuição",
         "SNACK_CREDIT_VALUE_REQUIRED": "Informe um valor",
+        "SNACK_DESCRIBED_TRANSACTIONS_FAILED": "Falha ao atualizar descrições e categorias",
+        "SNACK_DESCRIBED_TRANSACTIONS_SUCCESS": "Descrições e categorias atualizadas com sucesso",
         "SNACK_REFRESH_FAILED": "Falha ao atualizar a tela",
         "SNACK_RULES_FAILED": "Falha ao executar as regras",
         "SNACK_RULES_SUCCESS": "Regras aplicadas com sucesso",
@@ -108,6 +110,7 @@
         "STEP_IMPORT": "Importar",
         "TOTAL": "Total",
         "TRANSFERENCE_CREDIT_PROMPT": "Deseja atribuir crédito às contas de transferência abaixo?",
+        "UPDATE_DESCRIBED_TRANSACTIONS": "Atualizar descrições e categorias salvas",
         "ZERO_BALANCE": "Zerar saldo"
     },
     "PASSIVE_KEYWORDS": {

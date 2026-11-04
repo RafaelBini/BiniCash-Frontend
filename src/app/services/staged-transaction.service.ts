@@ -59,6 +59,9 @@ export class StagedTransactionService {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/import-pluggy`, { sourceId })
   }
 
+  applyDescribedTransactions() {
+    return this.http.post<any>(`${environment.apiHost}/staged-transaction/apply-described-transactions`, {})
+  }
 
   distributeCreditToCategory(value: number, categoryId: any) {
     return this.http.post<any>(`${environment.apiHost}/staged-transaction/distribute-credits-to-category`, { value, categoryId })
